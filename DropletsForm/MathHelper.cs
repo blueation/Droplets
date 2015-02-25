@@ -16,5 +16,10 @@ namespace Droplets
         {
             return distance(t.Item1, t.Item2, u, v);
         }
+
+        public static double distance(Tuple<int, int> t, Tuple<int, int> r)
+        {
+            return distance(t.Item1, t.Item2, r.Item1, r.Item2);
+        }
     }
 }

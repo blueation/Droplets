@@ -19,6 +19,20 @@ namespace Droplets
         }
 
         /// <summary>
+        /// returns the maximum allowed distance between anchors for certain sizes
+        /// </summary>
+        /// <returns></returns>
+        virtual public float getMaxStretch
+        {
+            get { return 0; } //should never get this.
+        }
+
+        virtual public float getRadius
+        {
+            get { return 0; } //should never get this.
+        }
+
+        /// <summary>
         /// allows the conversion back to the abstract sizing
         /// </summary>
         /// <param name="size"></param>
@@ -41,6 +55,16 @@ namespace Droplets
         {
             get { return 1; }
         }
+
+        public override float getMaxStretch
+        {
+            get { return 100; }
+        }
+
+        public override float getRadius
+        {
+            get { return 25; }
+        }
     }
 
     public class MediumSize : BlobSize
@@ -49,6 +73,16 @@ namespace Droplets
         {
             get { return 2; }
         }
+
+        public override float getMaxStretch
+        {
+            get { return 125; }
+        }
+
+        public override float getRadius
+        {
+            get { return 30; }
+        }
     }
 
     public class LargeSize : BlobSize
@@ -56,6 +90,16 @@ namespace Droplets
         public override int toInt
         {
             get { return 3; }
+        }
+
+        public override float getMaxStretch
+        {
+            get { return 150; }
+        }
+
+        public override float getRadius
+        {
+            get { return 35; }
         }
     }
 }
