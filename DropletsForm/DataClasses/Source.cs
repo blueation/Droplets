@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Droplets
 {
@@ -24,14 +25,19 @@ namespace Droplets
         //checks whether or not a point is on/in a droplet
         public bool isIn(int x, int y)
         {
-            //if (MathHelper.distance(SourceAnchor, ExtensionAnchor) < 5) TODO: correctly draw and collide ellipsoids!
-            {
-                return (MathHelper.distance(SourceAnchor, x, y) < 
-            }
-
-            return false;
+            return MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y) <= MathHelper.calculateEllipseCollisionRadius2(this);
         }
 
+        public void Draw(Graphics g)
+        {
+            Tuple<int,int> mid = MathHelper.midpoint(SourceAnchor, ExtensionAnchor);
 
+            double a, b, c;
+            MathHelper.calculateAxis(this, out c, out a, out b);
+
+            g.DrawEllipse(new Pen(SourceColour.screenColor), (int)(mid.Item1 - a), (int)(mid.Item2 - b), (int)a * 2, (int)b * 2);
+
+            Console.Write("a:{0}, b:{1}, c:{2}", a, b, c);
+        }
     }
 }
