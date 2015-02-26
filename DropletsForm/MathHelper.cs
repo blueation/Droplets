@@ -13,20 +13,21 @@ namespace Droplets
             
             double e = 1 - (1 / (c + 1)); //eccentricity, e = 0 at c = 0; e = 1 at c = inf
                                           //TODO: other way of calculating an e; in practice this gives a = c+1...
+            double e2 = Math.Pow(e, 2);
 
             if (c != 0)
             {
-                a = c / e;
-                b = Math.Sqrt(Math.Pow(a, 2) - Math.Pow(c, 2));
+                //a = c / e;
+                //b = Math.Sqrt(Math.Pow(a, 2) - Math.Pow(c, 2));
+
+                a = s.SourceSize.getRadius / Math.Pow(1 - e2, 0.25);
+                b = Math.Pow(s.SourceSize.getRadius, 2) / a;
             }
             else
             {
-                a = 1;
+                a = s.SourceSize.getRadius;
                 b = a;
             }
-
-            a *= s.SourceSize.getRadius;
-            b *= s.SourceSize.getRadius;
         }
 
         /// <summary>

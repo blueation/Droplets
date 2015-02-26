@@ -35,9 +35,9 @@ namespace Droplets
             double a, b, c;
             MathHelper.calculateAxis(this, out c, out a, out b);
 
-            g.DrawEllipse(new Pen(SourceColour.screenColor), (int)(mid.Item1 - a), (int)(mid.Item2 - b), (int)a * 2, (int)b * 2);
+            g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.Item1 - a), (int)(mid.Item2 - b), (int)a * 2, (int)b * 2);
 
-            Console.Write("a:{0}, b:{1}, c:{2}", a, b, c);
+            //Console.Write("a:{0}, b:{1}, c:{2}", a, b, c);
         }
     }
 }
