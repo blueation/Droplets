@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Droplets
 {
@@ -30,14 +31,18 @@ namespace Droplets
 
         public void Draw(Graphics g)
         {
-            Tuple<int,int> mid = MathHelper.midpoint(SourceAnchor, ExtensionAnchor);
+            Point mid = MathHelper.midpoint(SourceAnchor, ExtensionAnchor);
 
             double a, b, c;
             MathHelper.calculateAxis(this, out c, out a, out b);
 
-            g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.Item1 - a), (int)(mid.Item2 - b), (int)a * 2, (int)b * 2);
+            float angle = MathHelper.angleCalculate(SourceAnchor, ExtensionAnchor);
+            Matrix m = new Matrix();
+            m.RotateAt(angle, new PointF(mid.X, mid.Y));
+            g.Transform = m;
+            g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.X - a), (int)(mid.Y - b), (int)a * 2, (int)b * 2);
+            g.ResetTransform();
 
-            //Console.Write("a:{0}, b:{1}, c:{2}", a, b, c);
         }
     }
 }

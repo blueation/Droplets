@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Droplets
 {
@@ -67,19 +68,40 @@ namespace Droplets
         /// </summary>
         /// <returns>the midpoint between two points</returns>
         #region midpoint overloads
-        public static Tuple<int,int> midpoint(int x, int y, int u, int v)
+        public static Point midpoint(int x, int y, int u, int v)
         {
-            return new Tuple<int,int>(x + (u - x)/2, y + (v - y)/2);
+            return new Point(x + (u - x)/2, y + (v - y)/2);
         }
 
-        public static Tuple<int, int> midpoint(Tuple<int, int> t, int u, int v)
+        public static Point midpoint(Tuple<int, int> t, int u, int v)
         {
             return midpoint(t.Item1, t.Item2, u, v);
         }
 
-        public static Tuple<int, int> midpoint(Tuple<int, int> t, Tuple<int, int> r)
+        public static Point midpoint(Tuple<int, int> t, Tuple<int, int> r)
         {
             return midpoint(t.Item1, t.Item2, r.Item1, r.Item2);
+        }
+        #endregion
+
+        /// <summary>
+        /// calculates the angle between two points
+        /// </summary>
+        /// <returns>the angle between two points</returns>
+        #region midpoint overloads
+        public static float angleCalculate(int x, int y, int u, int v)
+        {
+            return Convert.ToSingle(Math.Atan2(v - y, u - x) * (180 / Math.PI));
+        }
+
+        public static float angleCalculate(Tuple<int, int> t, int u, int v)
+        {
+            return angleCalculate(t.Item1, t.Item2, u, v);
+        }
+
+        public static float angleCalculate(Tuple<int, int> t, Tuple<int, int> r)
+        {
+            return angleCalculate(t.Item1, t.Item2, r.Item1, r.Item2);
         }
         #endregion
     }

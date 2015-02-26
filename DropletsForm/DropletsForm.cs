@@ -53,6 +53,8 @@ namespace Droplets
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
             Console.WriteLine("MouseUp" + mea.X + ", " + mea.Y);
+            if (DragSource != null)
+                 Console.WriteLine("angle:{0}", MathHelper.angleCalculate(DragSource.SourceAnchor, DragSource.ExtensionAnchor));
             DragSource = null;
             this.Invalidate();
         }
