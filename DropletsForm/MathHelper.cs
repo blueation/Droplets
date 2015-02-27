@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using Microsoft.Xna.Framework;
 
 namespace Droplets
 {
@@ -10,17 +11,15 @@ namespace Droplets
     {
         public static void calculateAxis(Source s, out double c, out double a, out double b)
         {
+            float r = s.SourceSize.getArbitraryEccentricityValue;
+
             c = distance(s.SourceAnchor, s.ExtensionAnchor) / 2;
             
-            double e = 1 - (1 / (c + 1)); //eccentricity, e = 0 at c = 0; e = 1 at c = inf
-                                          //TODO: other way of calculating an e; in practice this gives a = c+1...
+            double e = 1 - (r / (c + r)); //eccentricity, e = 0 at c = 0; e = 1 at c = inf
             double e2 = Math.Pow(e, 2);
 
             if (c != 0)
             {
-                //a = c / e;
-                //b = Math.Sqrt(Math.Pow(a, 2) - Math.Pow(c, 2));
-
                 a = s.SourceSize.getRadius / Math.Pow(1 - e2, 0.25);
                 b = Math.Pow(s.SourceSize.getRadius, 2) / a;
             }
@@ -33,6 +32,7 @@ namespace Droplets
 
         /// <summary>
         /// calculates the summed distance a point must not be greater than, to still be inside of the ellips
+        /// Doesn't actually work as intended, a lot of space outside of the ellips seems to fall under this... (false positives)
         /// </summary>
         /// <returns></returns>
         public static double calculateEllipseCollisionRadius2(Source s)
@@ -47,19 +47,19 @@ namespace Droplets
         /// </summary>
         /// <returns>the distance between two points</returns>
 #region distance overloads
-        public static double distance(int x, int y, int u, int v)
+        public static double distance(float x, float y, float u, float v)
         {
             return Math.Sqrt(Math.Pow(x - u, 2) + Math.Pow(y - v, 2));
         }
 
-        public static double distance(Tuple<int,int> t, int u, int v)
+        public static double distance(Vector2 v1, float x, float y)
         {
-            return distance(t.Item1, t.Item2, u, v);
+            return distance(v1.X, v1.Y, x, y);
         }
 
-        public static double distance(Tuple<int, int> t, Tuple<int, int> r)
+        public static double distance(Vector2 v1, Vector2 v2)
         {
-            return distance(t.Item1, t.Item2, r.Item1, r.Item2);
+            return distance(v1.X, v1.Y, v2.X, v2.Y);
         }
 #endregion
 
@@ -68,40 +68,40 @@ namespace Droplets
         /// </summary>
         /// <returns>the midpoint between two points</returns>
         #region midpoint overloads
-        public static Point midpoint(int x, int y, int u, int v)
+        public static Vector2 midpoint(float x, float y, float u, float v)
         {
-            return new Point(x + (u - x)/2, y + (v - y)/2);
+            return new Vector2(x + (u - x)/2, y + (v - y)/2);
         }
 
-        public static Point midpoint(Tuple<int, int> t, int u, int v)
+        public static Vector2 midpoint(Vector2 v1, float x, float y)
         {
-            return midpoint(t.Item1, t.Item2, u, v);
+            return midpoint(v1.X, v1.X, x, y);
         }
 
-        public static Point midpoint(Tuple<int, int> t, Tuple<int, int> r)
+        public static Vector2 midpoint(Vector2 v1, Vector2 v2)
         {
-            return midpoint(t.Item1, t.Item2, r.Item1, r.Item2);
+            return midpoint(v1.X, v1.Y, v2.X, v2.Y);
         }
         #endregion
 
         /// <summary>
-        /// calculates the angle between two points
+        /// calculates the angle between a line defined by two points and a horizontal through the first point
         /// </summary>
-        /// <returns>the angle between two points</returns>
-        #region midpoint overloads
-        public static float angleCalculate(int x, int y, int u, int v)
+        /// <returns></returns>
+        #region angleCalculate overloads
+        public static float angleCalculate(float x, float y, float u, float v)
         {
             return Convert.ToSingle(Math.Atan2(v - y, u - x) * (180 / Math.PI));
         }
 
-        public static float angleCalculate(Tuple<int, int> t, int u, int v)
+        public static float angleCalculate(Vector2 v1, float x, float y)
         {
-            return angleCalculate(t.Item1, t.Item2, u, v);
+            return angleCalculate(v1.X, v1.Y, x, y);
         }
 
-        public static float angleCalculate(Tuple<int, int> t, Tuple<int, int> r)
+        public static float angleCalculate(Vector2 v1, Vector2 v2)
         {
-            return angleCalculate(t.Item1, t.Item2, r.Item1, r.Item2);
+            return angleCalculate(v1.X, v1.Y, v2.X, v2.Y);
         }
         #endregion
     }

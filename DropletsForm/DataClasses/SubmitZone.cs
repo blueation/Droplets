@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Droplets
 {
@@ -11,6 +12,7 @@ namespace Droplets
     class SubmitZone
     {
         private List<SubSubmitZone> subzones;
+        public bool Filled = false;
 
         public void AddZone(SubSubmitZone z)
         {
@@ -44,7 +46,6 @@ namespace Droplets
     abstract class SubSubmitZone
     {
         abstract public void Draw();
-        abstract public Tuple<int,int> Collide(Source source);
         abstract public bool isCollision(Source source);
     }
 
@@ -63,7 +64,7 @@ namespace Droplets
             this.colour = colour;
         }
 
-        public override Tuple<int,int> Collide(Source source)
+        public override bool isCollision(Source source)
         {
             //do we even need to check this collision (do the colours match)?
             if (source.SourceColour == colour)
@@ -72,26 +73,19 @@ namespace Droplets
                 //                                  We probably need a more interesting function to handle this.
 
                 //is the source anchored inside of the region
-                if (   (source.SourceAnchor.Item1 >= x) 
-                    && (source.SourceAnchor.Item2 >= y)
-                    && (source.SourceAnchor.Item1 <= x + width) 
-                    && (source.SourceAnchor.Item2 <= y + height) )
-                    return source.SourceAnchor;
+                if ((source.SourceAnchor.X >= x)
+                    && (source.SourceAnchor.Y >= y)
+                    && (source.SourceAnchor.X <= x + width)
+                    && (source.SourceAnchor.Y <= y + height))
+                    return true;
                 //was the source dragged out to inside of the region
-                if (   (source.ExtensionAnchor.Item1 >= x)
-                    && (source.ExtensionAnchor.Item2 >= y)
-                    && (source.ExtensionAnchor.Item1 <= x + width)
-                    && (source.ExtensionAnchor.Item2 <= y + height))
-                    return source.ExtensionAnchor;
+                if ((source.ExtensionAnchor.X >= x)
+                    && (source.ExtensionAnchor.Y >= y)
+                    && (source.ExtensionAnchor.X <= x + width)
+                    && (source.ExtensionAnchor.Y <= y + height))
+                    return true;
             }
-            return null;
-        }
-
-        public override bool isCollision(Source source)
-        {
-            if (Collide(source) == null)
-                return false;
-            return true;
+            return false;
         }
 
         public override void Draw()

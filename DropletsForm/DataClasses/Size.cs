@@ -8,7 +8,7 @@ namespace Droplets
     /// <summary>
     /// BlobSize is a class used to abstract to size properties
     /// </summary>
-    public abstract class BlobSize
+    public class BlobSize
     {
         /// <summary>
         /// allows an indirect comparison between sizes
@@ -32,6 +32,16 @@ namespace Droplets
             get { return 0; } //should never get this.
         }
 
+        virtual public float getRetractionPerUpdate
+        {
+            get { return 0; } //should never get this.
+        }
+
+        virtual public float getArbitraryEccentricityValue
+        {
+            get { return 0; } //should never get this.
+        }
+
         /// <summary>
         /// allows the conversion back to the abstract sizing
         /// </summary>
@@ -45,7 +55,7 @@ namespace Droplets
                 return new MediumSize();
             if (size == 3)
                 return new LargeSize();
-            return null;
+            return new BlobSize();
         }
     }
 
@@ -65,6 +75,16 @@ namespace Droplets
         {
             get { return 25; }
         }
+
+        public override float getRetractionPerUpdate
+        {
+            get { return 2; }
+        }
+
+        public override float getArbitraryEccentricityValue
+        {
+            get { return 1.5f; }
+        }
     }
 
     public class MediumSize : BlobSize
@@ -76,12 +96,22 @@ namespace Droplets
 
         public override float getMaxStretch
         {
-            get { return 125; }
+            get { return 140; }
         }
 
         public override float getRadius
         {
-            get { return 30; }
+            get { return 35; }
+        }
+
+        public override float getRetractionPerUpdate
+        {
+            get { return 2; }
+        }
+
+        public override float getArbitraryEccentricityValue
+        {
+            get { return 2.1f; }
         }
     }
 
@@ -94,12 +124,22 @@ namespace Droplets
 
         public override float getMaxStretch
         {
-            get { return 150; }
+            get { return 180; }
         }
 
         public override float getRadius
         {
-            get { return 35; }
+            get { return 45; }
+        }
+
+        public override float getRetractionPerUpdate
+        {
+            get { return 2; }
+        }
+
+        public override float getArbitraryEccentricityValue
+        {
+            get { return 2.4f; }
         }
     }
 }

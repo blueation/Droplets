@@ -9,7 +9,7 @@ namespace Droplets
     /// <summary>
     /// BlobColour is a class used to prevent directly reverencing colors, so the actual color names are hidden behind the simple ones.
     /// </summary>
-    public abstract class BlobColour
+    public class BlobColour
     {
         /// <summary>
         /// Returns what color should be used to draw this BlobColour
@@ -49,6 +49,11 @@ namespace Droplets
         {
             get { return Color.White; }
         }
+
+        public override string ToString()
+        {
+            return "White";
+        }
     }
 
     public class BrownColour : BlobColour
@@ -56,6 +61,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Brown; }
+        }
+
+        public override string ToString()
+        {
+            return "Brown";
         }
     }
 
@@ -65,6 +75,11 @@ namespace Droplets
         {
             get { return Color.Black; }
         }
+
+        public override string ToString()
+        {
+            return "Black";
+        }
     }
 
     public class BlueColour : BlobColour
@@ -72,6 +87,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Blue; }
+        }
+
+        public override string ToString()
+        {
+            return "Blue";
         }
     }
 
@@ -81,6 +101,11 @@ namespace Droplets
         {
             get { return Color.Red; }
         }
+
+        public override string ToString()
+        {
+            return "Red";
+        }
     }
 
     public class YellowColour : BlobColour
@@ -88,6 +113,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Yellow; }
+        }
+
+        public override string ToString()
+        {
+            return "Yellow";
         }
     }
 
@@ -97,6 +127,11 @@ namespace Droplets
         {
             get { return Color.Purple; }
         }
+
+        public override string ToString()
+        {
+            return "Purple";
+        }
     }
 
     public class OrangeColour : BlobColour
@@ -105,6 +140,11 @@ namespace Droplets
         {
             get { return Color.Orange; }
         }
+
+        public override string ToString()
+        {
+            return "Orange";
+        }
     }
 
     public class GreenColour : BlobColour
@@ -112,6 +152,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Green; }
+        }
+
+        public override string ToString()
+        {
+            return "Green";
         }
     }
 }
