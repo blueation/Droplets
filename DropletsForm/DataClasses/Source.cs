@@ -38,25 +38,44 @@ namespace Droplets
         {
             return isIn(v.X, v.Y);
         }
+        public Tuple<float,float> returnIn(Vector2 v)
+        {
+            if (isIn(v.X, v.Y))
+                return new Tuple<float,float>(v.X, v.Y);
+            return null;
+        }
 
         public bool isCollision(Source Other)
         {
             return isIn(Other.SourceAnchor) || isIn(Other.ExtensionAnchor);
         }
+        public Tuple<float,float> returnCollision(Source Other)
+        {
+            Tuple<float,float> point = returnIn(Other.SourceAnchor);
+            if (point != null)
+                return point;
+            return returnIn(Other.ExtensionAnchor);
+        }
 
         public void Draw(Graphics g)
         {
+            if (!Active)
+                return;
             Vector2 mid = MathHelper.midpoint(SourceAnchor, ExtensionAnchor);
 
             double a, b, c;
             MathHelper.calculateAxis(this, out c, out a, out b);
 
-            float angle = MathHelper.angleCalculate(SourceAnchor, ExtensionAnchor);
+            float angle = 0;
+            if (c > 0)
+                angle = MathHelper.angleCalculate(SourceAnchor, ExtensionAnchor);
             d2D.Matrix m = new d2D.Matrix();
             m.RotateAt(angle, new PointF(mid.X, mid.Y));
             g.Transform = m;
             g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.X - a), (int)(mid.Y - b), (int)a * 2, (int)b * 2);
             g.ResetTransform();
+
+            //Console.WriteLine("c: {0}\na: {1}\nb: {2}\nx: {3}\nangle: {4}", c, a, b, mid.X, angle);
         }
 
         public void Retract()
@@ -71,6 +90,11 @@ namespace Droplets
                 ExtensionAnchor.Normalize();
                 ExtensionAnchor = SourceAnchor + stretch * ExtensionAnchor;
             }
+        }
+
+        public void FullRetract()
+        {
+            ExtensionAnchor = SourceAnchor;
         }
 
         public void Deactivate()

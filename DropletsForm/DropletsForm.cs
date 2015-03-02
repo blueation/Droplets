@@ -16,18 +16,22 @@ namespace Droplets
 
         //GUIState
         public static List<Control> Buttons;
+        public static TTASLock DrawLock = new TTASLock();
         //LevelState
         public static List<Source> Sources;
+        public static List<Source> NewSources;
         public static List<SubmitZone> SubmitZones;
         //InputState
         public static Source DragSource;
         public static bool Dragging = false;
+        public static TTASLock DragLock = new TTASLock();
 
         private static System.Timers.Timer update;
 
         public DropletsGame()
         {
             Sources = new List<Source>();
+            NewSources = new List<Source>();
             SubmitZones = new List<SubmitZone>();
             LoadLevel(1);
 
@@ -45,51 +49,59 @@ namespace Droplets
 
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
-            Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
+            //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
 
             foreach (Source s in Sources)
             {
                 if (s.Active && s.isIn(mea.X, mea.Y))
                 {
-                    Dragging = true;
-                    DragSource = s;
-                    this.Invalidate();
+                    DragLock.LockIt();
+                        Dragging = true;
+                        DragSource = s;
+                    DragLock.UnlockIt();
                 }
             }
+            this.Invalidate();
         }
 
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
-            Console.WriteLine("MouseUp" + mea.X + ", " + mea.Y);
-            if (DragSource != null)
-                 Console.WriteLine("angle:{0}", MathHelper.angleCalculate(DragSource.SourceAnchor, DragSource.ExtensionAnchor));
-            DragSource = null;
-            Dragging = false;
+            DragLock.LockIt();
+                //Console.WriteLine("MouseUp" + mea.X + ", " + mea.Y);
+                //if (DragSource != null)
+                //     Console.WriteLine("angle:{0}", MathHelper.angleCalculate(DragSource.SourceAnchor, DragSource.ExtensionAnchor));
+                DragSource = null;
+                Dragging = false;
+            DragLock.UnlockIt();
             this.Invalidate();
         }
 
         public void MouseMoveHandler(object o, MouseEventArgs mea)
         {
-            if (DragSource != null)
-            {
-                if (MathHelper.distance(DragSource.SourceAnchor, mea.X, mea.Y) <= DragSource.SourceSize.getMaxStretch)
-                    DragSource.ExtensionAnchor = new Vector2(mea.X, mea.Y);
-                else
+            DragLock.LockIt();
+                if (DragSource != null)
                 {
-                    Vector2 mouse = new Vector2(mea.X, mea.Y);
-                    Vector2 extension = mouse - DragSource.SourceAnchor;
-                    extension.Normalize();
-                    extension *= DragSource.SourceSize.getMaxStretch;
-                    extension += DragSource.SourceAnchor;
-                    DragSource.ExtensionAnchor = new Vector2(extension.X, extension.Y);
+                    if (MathHelper.distance(DragSource.SourceAnchor, mea.X, mea.Y) <= DragSource.SourceSize.getMaxStretch)
+                        DragSource.ExtensionAnchor = new Vector2(mea.X, mea.Y);
+                    else
+                    {
+                        Vector2 mouse = new Vector2(mea.X, mea.Y);
+                        Vector2 extension = mouse - DragSource.SourceAnchor;
+                        extension.Normalize();
+                        extension *= DragSource.SourceSize.getMaxStretch;
+                        extension += DragSource.SourceAnchor;
+                        DragSource.ExtensionAnchor = new Vector2(extension.X, extension.Y);
+                    }
                 }
-            }
+            DragLock.UnlockIt();
             this.Invalidate();
         }
 
         public void Update(object o, ElapsedEventArgs e)
         {
             int AllFilled = 0;
+            DrawLock.LockIt();
+            //Console.WriteLine("Lock of Draw: Update");
             foreach (Source s in Sources)
             {
                 if (s.Active)
@@ -106,25 +118,36 @@ namespace Droplets
 
                     foreach (Source s2 in Sources)
                     {
-                        if (s != s2 && s2.Active && s.isCollision(s2))
+                        if (s != s2 && s2.Active)
                         {
-                            if (s.DefaultBehaviour && s2.DefaultBehaviour)
+                            Tuple<float, float> newloc = s.returnCollision(s2);
+
+                            if (newloc != null && s.DefaultBehaviour && s2.DefaultBehaviour)
                             #region DEFAULTBEHAVIOUR
                             {
                                 int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
-                                //int newloc = 
 
                                 s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
                                 s.ExtensionAnchor = s.SourceAnchor;
                                 if (s.SourceSize.toInt == 0)
                                     s.Deactivate();
+                                s.FullRetract();
 
                                 s2.SourceSize = new BlobSize().fromInt(s2.SourceSize.toInt - newsize);
                                 s2.ExtensionAnchor = s2.SourceAnchor;
                                 if (s2.SourceSize.toInt == 0)
                                     s2.Deactivate();
+                                s2.FullRetract();
 
+                                DragSource = null;
+                                Dragging = false;
+                                this.Invalidate();
 
+                                //Console.WriteLine("made new source! size:{0}", newsize);
+                                BlobSize bSize = new BlobSize().fromInt(newsize);
+                                BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
+                                Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                NewSources.Add(new Source(bColour, bSize, bLoc));
                             }
                             #endregion
                         }
@@ -132,8 +155,15 @@ namespace Droplets
                 }
             }
 
+            foreach (Source s in NewSources)
+                Sources.Add(s);
+            NewSources.Clear();
+
             if (SubmitZones.Count == AllFilled)
                 LevelCompleted();
+
+            DrawLock.UnlockIt();
+            //Console.WriteLine("Unlock of Draw: Update");
 
             if (!Dragging)
             {
@@ -146,8 +176,9 @@ namespace Droplets
         public void LoadLevel(int n)
         {
             Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(20, 100)));
-            Sources.Add(new Source(new RedColour(), new MediumSize(), new Vector2(100, 100)));
             Sources.Add(new Source(new GreenColour(), new LargeSize(), new Vector2(180, 100)));
+            Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(180, 180)));
+            Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(20, 180)));
         }
 
         public void LevelCompleted()
@@ -157,9 +188,15 @@ namespace Droplets
 
         public void Draw(object o, PaintEventArgs pea)
         {
-            foreach (Source s in Sources)
+            if (DrawLock.TryLock())
             {
-                s.Draw(pea.Graphics);
+                //Console.WriteLine("Lock of Draw: Draw");
+                    foreach (Source s in Sources)
+                    {
+                        s.Draw(pea.Graphics);
+                    }
+                DrawLock.UnlockIt();
+                //Console.WriteLine("Unlock of Draw: Draw");
             }
         }
     }
