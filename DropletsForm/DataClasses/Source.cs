@@ -74,6 +74,7 @@ namespace Droplets
             g.Transform = m;
             g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.X - a), (int)(mid.Y - b), (int)a * 2, (int)b * 2);
             g.ResetTransform();
+            g.FillEllipse(new SolidBrush(ColourMixer.complement(SourceColour).screenColor), (int)SourceAnchor.X - 3, (int)SourceAnchor.Y - 3, 6, 6);
 
             //Console.WriteLine("c: {0}\na: {1}\nb: {2}\nx: {3}\nangle: {4}", c, a, b, mid.X, angle);
         }
