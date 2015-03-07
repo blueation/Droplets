@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataClasses\LevelLoader.cs" />
     <Compile Include="DropletsForm.cs">
       <SubType>Form</SubType>
     </Compile>

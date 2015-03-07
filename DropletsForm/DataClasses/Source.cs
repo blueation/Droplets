@@ -16,6 +16,7 @@ namespace Droplets
         public Vector2 ExtensionAnchor;
 
         public bool Active = true;
+        public bool dragged = false;
         public bool DefaultBehaviour;
 
         public Source(BlobColour c, BlobSize s, Vector2 loc)
@@ -74,6 +75,12 @@ namespace Droplets
             g.Transform = m;
             g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.X - a), (int)(mid.Y - b), (int)a * 2, (int)b * 2);
             g.ResetTransform();
+
+            //g.FillEllipse(new SolidBrush(SourceColour.screenColor), (int)(mid.X - a), (int)(mid.Y - b), (int)a * 2, (int)b * 2);
+            if (dragged)
+                g.DrawEllipse(new Pen(SourceColour.screenColor), (int)SourceAnchor.X - SourceSize.getMaxStretch, (int)SourceAnchor.Y - SourceSize.getMaxStretch, SourceSize.getMaxStretch * 2, SourceSize.getMaxStretch * 2);
+            g.FillRectangle(new SolidBrush(ColourMixer.complement(SourceColour).screenColor), (int)SourceAnchor.X - 3, (int)SourceAnchor.Y - 3, 6, 6);
+            g.FillRectangle(new SolidBrush(ColourMixer.complement(SourceColour).screenColor), (int)ExtensionAnchor.X - 3, (int)ExtensionAnchor.Y - 3, 6, 6);
 
             //Console.WriteLine("c: {0}\na: {1}\nb: {2}\nx: {3}\nangle: {4}", c, a, b, mid.X, angle);
         }

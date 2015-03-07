@@ -139,7 +139,7 @@ namespace Droplets
 
         public override float getArbitraryEccentricityValue
         {
-            get { return 2.4f; }
+            get { return 2.8f; }
         }
     }
 }

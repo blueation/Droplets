@@ -320,5 +320,31 @@ namespace Droplets
             }
             return new BlobColour();
         }
+
+        public static BlobColour complement(BlobColour c)
+        {
+            switch(c.mixerHelper)
+            {
+                case 1:
+                    return new BlackColour();
+                case 10:
+                    return new BrownColour();
+                case 100:
+                    return new WhiteColour();
+                case 1000:
+                    return new OrangeColour();
+                case 10000:
+                    return new GreenColour();
+                case 100000:
+                    return new PurpleColour();
+                case 1000000:
+                    return new YellowColour();
+                case 10000000:
+                    return new BlueColour();
+                case 100000000:
+                    return new RedColour();
+            }
+            return new BlobColour();
+        }
     }
 }
