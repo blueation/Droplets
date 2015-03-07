@@ -9,18 +9,15 @@ namespace Droplets
 {
     class Level
     {
-        string name;
-        private List<SubmitZone> submitzone;
+        public int nr;
+        public string name;
+        public List<SubmitZone> submitzones;
+        public List<Source> sources;
 
-        public void fromFile(string filepath)
+        public Level()
         {
-            TextReader sr = new StreamReader(filepath);
-
-            string file = sr.ReadToEnd();
-            string[] fileLines = file.Split('\n');
-
-            
-
+            submitzones = new List<SubmitZone>();
+            sources = new List<Source>();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Drawing;
 using Microsoft.Xna.Framework;
 
 namespace Droplets
-{
+{ 
     class MathHelper
     {
         public static void calculateAxis(Source s, out double c, out double a, out double b)
@@ -14,7 +14,7 @@ namespace Droplets
             float r = s.SourceSize.getArbitraryEccentricityValue;
 
             c = distance(s.SourceAnchor, s.ExtensionAnchor) / 2;
-            
+                        
             double e = 1 - (r / (c + r)); //eccentricity, e = 0 at c = 0; e = 1 at c = inf
             double e2 = Math.Pow(e, 2);
 
