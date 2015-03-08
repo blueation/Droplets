@@ -47,6 +47,7 @@ namespace Droplets
 
         //InputState
         public static Source DragSource;
+        public static Source LastDragged;
         public static bool Dragging = false;
         public static TTASLock DragLock = new TTASLock();
         public static bool OnlyForcedUpdate = false;
@@ -99,6 +100,7 @@ namespace Droplets
                         DragLock.LockIt();
                         Dragging = true;
                         DragSource = s;
+                        LastDragged = s;
                         s.dragged = true;
                         DragLock.UnlockIt();
                     }
@@ -205,7 +207,8 @@ namespace Droplets
                                             s2.Deactivate();
                                         s2.FullRetract();
 
-                                        DragSource.dragged = false;
+                                        if (DragSource != null)
+                                            DragSource.dragged = false;
                                         DragSource = null;
                                         Dragging = false;
                                         this.Invalidate();
@@ -319,7 +322,7 @@ namespace Droplets
 
         public void LevelCompleted()
         {
-
+            Console.WriteLine("Hurray! All zones filled!");
         }
 
         public void Draw(object o, PaintEventArgs pea)

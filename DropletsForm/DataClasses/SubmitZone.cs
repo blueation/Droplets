@@ -117,7 +117,7 @@ namespace Droplets
         public override bool isCollision(Source source)
         {
             //do we even need to check this collision (do the colours match)?
-            if (source.SourceColour == parent.colour)
+            if (source.SourceColour.ToString() == parent.colour.ToString())
             {
                 //is the source anchored inside of the region
                 if (MathHelper.distance(source.SourceAnchor, mid) <= radius)
