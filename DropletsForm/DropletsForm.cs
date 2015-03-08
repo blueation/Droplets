@@ -49,6 +49,7 @@ namespace Droplets
         public static Source DragSource;
         public static bool Dragging = false;
         public static TTASLock DragLock = new TTASLock();
+        public static bool OnlyForcedUpdate = false;
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
@@ -60,10 +61,10 @@ namespace Droplets
             Sources = new List<Source>();
             NewSources = new List<Source>();
             SubmitZones = new List<SubmitZone>();
-            //LoadBenchmarkLevel();
+            LoadBenchmarkLevel();
 
-            Level test = LevelLoader.LoadLevel("Levels/level0.txt");
-            LoadLevel(test);
+            //Level test = LevelLoader.LoadLevel("Levels/level0.txt");
+            //LoadLevel(test);
 
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -74,13 +75,18 @@ namespace Droplets
             this.MouseDown += this.MouseDownHandler;
             this.MouseUp += this.MouseUpHandler;
             this.MouseMove += this.MouseMoveHandler;
-            update = new System.Timers.Timer(10);
-            update.Elapsed += new ElapsedEventHandler(Update);
-            update.Enabled = true;
+            if (!OnlyForcedUpdate)
+            {
+                update = new System.Timers.Timer(10);
+                update.Elapsed += new ElapsedEventHandler(Update);
+                update.Enabled = true;
+            }
+            this.KeyDown += this.KeyDownHandler;
 
             this.Paint += this.Draw;
         }
 
+#region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
             //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
@@ -140,8 +146,21 @@ namespace Droplets
             }
             this.Invalidate();
         }
+#endregion
+#region KeyEvents
+        public void KeyDownHandler(object o, KeyEventArgs kea)
+        {
+            if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
+                Update();
+        }
+#endregion
 
         public void Update(object o, ElapsedEventArgs e)
+        {
+            Update();
+        }
+
+        public void Update()
         {
             if (levelnr >= 0)
             {
@@ -169,20 +188,19 @@ namespace Droplets
                                 Tuple<float, float> newloc = s.returnCollision(s2);
 
                                 if (newloc != null && s.DefaultBehaviour && s2.DefaultBehaviour)
-                                #region DEFAULTBEHAVIOUR
+#region DEFAULT BEHAVIOUR
                                 {
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
+#region NOT SAME COLOUR BEHAVIOUR
                                     {
                                         int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
 
                                         s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
-                                        s.ExtensionAnchor = s.SourceAnchor;
                                         if (s.SourceSize.toInt == 0)
                                             s.Deactivate();
                                         s.FullRetract();
 
                                         s2.SourceSize = new BlobSize().fromInt(s2.SourceSize.toInt - newsize);
-                                        s2.ExtensionAnchor = s2.SourceAnchor;
                                         if (s2.SourceSize.toInt == 0)
                                             s2.Deactivate();
                                         s2.FullRetract();
@@ -198,7 +216,9 @@ namespace Droplets
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
+#endregion
                                     else
+#region SAME COLOUR BEHAVIOUR
                                     {
                                         int newsize = s.SourceSize.toInt + s2.SourceSize.toInt;
                                         if (newsize > 3)
@@ -226,8 +246,35 @@ namespace Droplets
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
+#endregion
                                 }
-                                #endregion
+#endregion
+                                else if (newloc != null && s.SourceColour.ToString() == "White")
+#region WHITEBEHAVIOUR 1
+                                {
+                                    s.Deactivate();
+                                    s.FullRetract();
+
+                                    s2.FullRetract();
+
+                                    BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
+                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                    NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
+                                }
+#endregion
+                                else if (newloc != null && s2.SourceColour.ToString() == "White")
+#region WHITEBEHAVIOUR 2
+                                {
+                                    s.FullRetract();
+
+                                    s2.Deactivate();
+                                    s2.FullRetract();
+
+                                    BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
+                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                    NewSources.Add(new Source(bColour, s2.SourceSize, bLoc));
+                                }
+#endregion
                             }
                         }
                     }
@@ -262,10 +309,12 @@ namespace Droplets
 
         public void LoadBenchmarkLevel()
         {
+            levelnr = 0;
             Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(240, 240)));
             Sources.Add(new Source(new GreenColour(), new LargeSize(), new Vector2(400, 240)));
             Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(180, 180)));
             Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(20, 180)));
+            Sources.Add(new Source(new WhiteColour(), new MediumSize(), new Vector2(500, 240)));
         }
 
         public void LevelCompleted()
