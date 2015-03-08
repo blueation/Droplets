@@ -12,7 +12,7 @@ namespace Droplets
     {
         public static Level LoadLevel(string filepath)
         {
-            Level result = new Level();
+            Level result = new Level(filepath);
             using (TextReader sr = new StreamReader(filepath))
             {
                 string line = sr.ReadLine();

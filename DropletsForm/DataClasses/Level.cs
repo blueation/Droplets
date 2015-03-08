@@ -10,12 +10,14 @@ namespace Droplets
     class Level
     {
         public int nr;
+        public string refname;
         public string name;
         public List<SubmitZone> submitzones;
         public List<Source> sources;
 
-        public Level()
+        public Level(string refname)
         {
+            this.refname = refname;
             submitzones = new List<SubmitZone>();
             sources = new List<Source>();
         }

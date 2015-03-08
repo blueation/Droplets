@@ -108,5 +108,10 @@ namespace Droplets
         {
             Active = false;
         }
+
+        public Source Copy()
+        {
+            return new Source(new BlobColour().fromString(SourceColour.ToString()), new BlobSize().fromInt(SourceSize.toInt), new Vector2(SourceAnchor.X, SourceAnchor.Y));
+        }
     }
 }

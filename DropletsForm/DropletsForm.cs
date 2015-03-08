@@ -33,6 +33,7 @@ namespace Droplets
         public static Control Next;
 
         //LevelGUIState
+        public static string loadedstring;
         public static string levelname;
         public static Label ChapterLevel;
         public static int zonesnumber;
@@ -45,6 +46,7 @@ namespace Droplets
         public static List<Source> Sources = new List<Source>();
         public static List<Source> NewSources = new List<Source>();
         public static List<SubmitZone> SubmitZones = new List<SubmitZone>();
+        public static History GameHistory;
 
         //InputState
         public static Source DragSource = null;
@@ -62,6 +64,7 @@ namespace Droplets
         {
             //LoadBenchmarkLevel();
             RetrieveLevels();
+            GameHistory = new History(5, Sources);
 
             this.Text = "Droplets";
             this.ClientSize = new Size(800, 480);
@@ -78,6 +81,10 @@ namespace Droplets
             ResetButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
             this.Controls.Add(ResetButton);
 
+
+            BackButton.Click += this.BackHandler;
+            UndoButton.Click += this.UndoHandler;
+            ResetButton.Click += this.ResetHandler;
 
             this.MouseDown += this.MouseDownHandler;
             this.MouseUp += this.MouseUpHandler;
@@ -155,10 +162,31 @@ namespace Droplets
             this.Invalidate();
         }
 #endregion
+#region ButtonEvents
+        public void BackHandler(object o, EventArgs ea)
+        {
+            
+        }
+
+        public void UndoHandler(object o, EventArgs ea)
+        {
+            Sources.Clear();
+            List<Source> retrieved = GameHistory.Retrieve();
+            foreach (Source s in retrieved)
+                Sources.Add(s.Copy());
+            this.Invalidate();
+        }
+
+        public void ResetHandler(object o, EventArgs ea)
+        {
+            SetupLevel(LevelDictionary[loadedstring]);
+            this.Invalidate();
+        }
+#endregion
 #region KeyEvents
         public void KeyDownHandler(object o, KeyEventArgs kea)
         {
-            if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
+            if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter) //TODO: find out how to fix that the buttons of the game catch the enter...
                 Update();
         }
 #endregion
@@ -319,7 +347,10 @@ namespace Droplets
 
         public void SetupLevel(Level level)
         {
-            Sources = level.sources;
+            loadedstring = level.refname;
+            Sources.Clear();
+            foreach (Source s in level.sources)
+                Sources.Add(s.Copy());
             SubmitZones = level.submitzones;
             levelnr = level.nr;
             levelname = level.name;

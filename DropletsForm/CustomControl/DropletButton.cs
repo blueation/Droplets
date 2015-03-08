@@ -18,7 +18,7 @@ namespace Droplets
         {
             image = new Bitmap("../../Assets/" + type + ".png");
             this.Size = new Size(60, 60);
-            
+            this.TabStop = false;
         }
 
         protected override void OnPaint(PaintEventArgs pea)
