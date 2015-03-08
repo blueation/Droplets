@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControl\DropletButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\DropletButton.Designer.cs">
+      <DependentUpon>DropletButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataClasses\LevelLoader.cs" />
     <Compile Include="DropletsForm.cs">
       <SubType>Form</SubType>

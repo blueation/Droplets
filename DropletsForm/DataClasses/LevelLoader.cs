@@ -70,5 +70,10 @@ namespace Droplets
             }
             return result;
         }
+
+        public static string[] AllPathsOfDirectory(string folderpath)
+        {
+            return Directory.GetFiles(folderpath);
+        }
     }
 }

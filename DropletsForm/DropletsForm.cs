@@ -21,13 +21,14 @@ namespace Droplets
         public static bool playSound = true;
 
         //MenuGUIState
-        public static Control PlayButton;
+        public static Control PlayButton = new DropletButton("Play");
         public static Control SoundButton;
-        public static Control QuitButton;
+        public static Control QuitButton = new DropletButton("Quit");
 
         //SelectState
         public static Label ChapterNrName;
         public static List<Control> LevelList;  //12 or so
+        public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static Control Previous;
         public static Control Next;
 
@@ -36,18 +37,18 @@ namespace Droplets
         public static Label ChapterLevel;
         public static int zonesnumber;
         public static Label CompletePercentage;
-        public static Control BackButton;
-        public static Control UndoButton;
-        public static Control RestartButton;
+        public static Control BackButton = new DropletButton("Level Select Alt");
+        public static Control UndoButton = new DropletButton("Undo");
+        public static Control ResetButton = new DropletButton("Reset");
         
         //LevelState
-        public static List<Source> Sources;
-        public static List<Source> NewSources;
-        public static List<SubmitZone> SubmitZones;
+        public static List<Source> Sources = new List<Source>();
+        public static List<Source> NewSources = new List<Source>();
+        public static List<SubmitZone> SubmitZones = new List<SubmitZone>();
 
         //InputState
-        public static Source DragSource;
-        public static Source LastDragged;
+        public static Source DragSource = null;
+        public static Source LastDragged = null;
         public static bool Dragging = false;
         public static TTASLock DragLock = new TTASLock();
         public static bool OnlyForcedUpdate = false;
@@ -59,19 +60,24 @@ namespace Droplets
 
         public DropletsGame()
         {
-            Sources = new List<Source>();
-            NewSources = new List<Source>();
-            SubmitZones = new List<SubmitZone>();
             //LoadBenchmarkLevel();
+            RetrieveLevels();
 
-            Level test = LevelLoader.LoadLevel("Levels/level0.txt");
-            LoadLevel(test);
-
+            this.Text = "Droplets";
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.CenterToScreen();
             this.DoubleBuffered = true;
             this.BackColor = System.Drawing.Color.GhostWhite;
+
+
+            BackButton.Location = new System.Drawing.Point(10, 10);
+            this.Controls.Add(BackButton);
+            UndoButton.Location = new System.Drawing.Point(this.ClientSize.Width - 140, this.ClientSize.Height - 70);
+            this.Controls.Add(UndoButton);
+            ResetButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
+            this.Controls.Add(ResetButton);
+
 
             this.MouseDown += this.MouseDownHandler;
             this.MouseUp += this.MouseUpHandler;
@@ -302,7 +308,16 @@ namespace Droplets
             }
         }
 
-        public void LoadLevel(Level level)
+        public void RetrieveLevels()
+        {
+            string[] levelpaths = LevelLoader.AllPathsOfDirectory("Levels/");
+            
+            foreach(string filepath in levelpaths)
+                LevelDictionary.Add(filepath, LevelLoader.LoadLevel(filepath));
+            SetupLevel(LevelDictionary["Levels/Level0.txt"]);
+        }
+
+        public void SetupLevel(Level level)
         {
             Sources = level.sources;
             SubmitZones = level.submitzones;
