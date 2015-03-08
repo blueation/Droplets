@@ -69,7 +69,7 @@ namespace Droplets
         public override bool isCollision(Source source)
         {
             //do we even need to check this collision (do the colours match)?
-            if (source.SourceColour == parent.colour)
+            if (source.SourceColour.ToString() == parent.colour.ToString())
             { 
                 //TODO: VERY SIMPLE implementation, it only checks whether or not the anchor points are inside of the regions.
                 //                                  We probably need a more interesting function to handle this.
