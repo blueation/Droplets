@@ -61,10 +61,10 @@ namespace Droplets
             Sources = new List<Source>();
             NewSources = new List<Source>();
             SubmitZones = new List<SubmitZone>();
-            LoadBenchmarkLevel();
+            //LoadBenchmarkLevel();
 
-            //Level test = LevelLoader.LoadLevel("Levels/level0.txt");
-            //LoadLevel(test);
+            Level test = LevelLoader.LoadLevel("Levels/level0.txt");
+            LoadLevel(test);
 
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
