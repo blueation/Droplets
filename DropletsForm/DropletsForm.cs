@@ -70,6 +70,7 @@ namespace Droplets
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.CenterToScreen();
+            this.KeyPreview = true;
             this.DoubleBuffered = true;
             this.BackColor = System.Drawing.Color.GhostWhite;
 
@@ -170,10 +171,7 @@ namespace Droplets
 
         public void UndoHandler(object o, EventArgs ea)
         {
-            Sources.Clear();
-            List<Source> retrieved = GameHistory.Retrieve();
-            foreach (Source s in retrieved)
-                Sources.Add(s.Copy());
+            PopHistory();
             this.Invalidate();
         }
 
@@ -229,6 +227,8 @@ namespace Droplets
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
 #region NOT SAME COLOUR BEHAVIOUR
                                     {
+                                        PushHistory();
+
                                         int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
 
                                         s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
@@ -257,6 +257,8 @@ namespace Droplets
                                     else
 #region SAME COLOUR BEHAVIOUR
                                     {
+                                        PushHistory();
+
                                         int newsize = s.SourceSize.toInt + s2.SourceSize.toInt;
                                         if (newsize > 3)
                                             newsize = 3;
@@ -289,6 +291,8 @@ namespace Droplets
                                 else if (newloc != null && s.SourceColour.ToString() == "White")
 #region WHITEBEHAVIOUR 1
                                 {
+                                    PushHistory();
+
                                     s.Deactivate();
                                     s.FullRetract();
 
@@ -302,6 +306,8 @@ namespace Droplets
                                 else if (newloc != null && s2.SourceColour.ToString() == "White")
 #region WHITEBEHAVIOUR 2
                                 {
+                                    PushHistory();
+
                                     s.FullRetract();
 
                                     s2.Deactivate();
@@ -334,6 +340,19 @@ namespace Droplets
                     this.Invalidate();
                 }
             }
+        }
+
+        public void PushHistory()
+        {
+            GameHistory.Add(Sources);
+        }
+
+        public void PopHistory()
+        {
+            Sources.Clear();
+            List<Source> retrieved = GameHistory.Retrieve();
+            foreach (Source s in retrieved)
+                Sources.Add(s.Copy());
         }
 
         public void RetrieveLevels()

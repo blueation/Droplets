@@ -27,5 +27,11 @@ namespace Droplets
 
             pea.Graphics.DrawImage(image, new Rectangle(0, 0, 60, 60));
         }
+
+        protected override bool IsInputKey(Keys keyData)
+        {
+            return true;
+            //return base.IsInputKey(keyData);
+        }
     }
 }

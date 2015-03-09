@@ -28,6 +28,17 @@ namespace Droplets
             DefaultBehaviour = (SourceColour.ToString() != "White");
         }
 
+        public Source(BlobColour c, BlobSize s, Vector2 loc, bool active, bool dragged, bool DefaultBehaviour)
+        {
+            SourceColour = c;
+            SourceSize = s;
+            SourceAnchor = loc;
+            ExtensionAnchor = loc;
+            Active = active;
+            this.dragged = dragged;
+            this.DefaultBehaviour = DefaultBehaviour;
+        }
+
         //checks whether or not a point is on/in a droplet
         public bool isIn(float x, float y)
         {
@@ -111,7 +122,12 @@ namespace Droplets
 
         public Source Copy()
         {
-            return new Source(new BlobColour().fromString(SourceColour.ToString()), new BlobSize().fromInt(SourceSize.toInt), new Vector2(SourceAnchor.X, SourceAnchor.Y));
+            return new Source(new BlobColour().fromString(SourceColour.ToString()), 
+                              new BlobSize().fromInt(SourceSize.toInt), 
+                              new Vector2(SourceAnchor.X, SourceAnchor.Y),
+                              Active,
+                              false,
+                              DefaultBehaviour);
         }
     }
 }
