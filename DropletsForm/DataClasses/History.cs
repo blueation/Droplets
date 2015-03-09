@@ -11,11 +11,13 @@ namespace Droplets
         private int head = 0;
         private int tail = 0;
         private int entries = 0;
+        private List<Source> start;
 
         private List<Source>[] sourceHistory;
 
         public History(int entries, List<Source> start)
         {
+            this.start = start;
             this.entries = entries;
             sourceHistory = new List<Source>[entries];
             List<Source> result = new List<Source>();
@@ -26,9 +28,13 @@ namespace Droplets
 
         public void Clear()
         {
-            sourceHistory = new List<Source>[entries];
             head = 0;
             tail = 0;
+            sourceHistory = new List<Source>[entries];
+            List<Source> result = new List<Source>();
+            foreach (Source s in start)
+                result.Add(s.Copy());
+            sourceHistory[head] = result;
         }
 
         public void Add(List<Source> entry)

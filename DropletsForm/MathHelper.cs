@@ -21,7 +21,21 @@ namespace Droplets
             if (c != 0)
             {
                 a = s.SourceSize.getRadius / Math.Pow(1 - e2, 0.25);
-                b = Math.Pow(s.SourceSize.getRadius, 2) / a;
+                //b = Math.Pow(s.SourceSize.getRadius, 2) / a; //keep area constant
+                b = Math.Pow(a * a - c * c, 0.5);            //get correct hitbox
+
+                double areaCompensation = Math.Pow(s.SourceSize.getRadius * s.SourceSize.getRadius / (a * b), 0.5);
+                a *= areaCompensation;
+                b *= areaCompensation;
+
+                if (a < c) //prevent floaty droplets, instead this gives jumpy droplets
+                {
+                    double lengthCompensation = c / a;
+                    b *= lengthCompensation;
+
+                    a = Math.Pow(b * b + c * c, 0.5); //prevent incorrect hitboxes
+                }
+
             }
             else
             {

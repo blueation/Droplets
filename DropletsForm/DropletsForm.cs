@@ -171,13 +171,18 @@ namespace Droplets
 
         public void UndoHandler(object o, EventArgs ea)
         {
-            PopHistory();
+            DrawLock.LockIt();
+                PopHistory();
+            DrawLock.UnlockIt();
             this.Invalidate();
         }
 
         public void ResetHandler(object o, EventArgs ea)
         {
-            SetupLevel(LevelDictionary[loadedstring]);
+            DrawLock.LockIt();
+                GameHistory.Clear();
+                SetupLevel(LevelDictionary[loadedstring]);
+            DrawLock.UnlockIt();
             this.Invalidate();
         }
 #endregion
@@ -330,15 +335,20 @@ namespace Droplets
                 if (SubmitZones.Count == AllFilled)
                     LevelCompleted();
 
-                DrawLock.UnlockIt();
-                //Console.WriteLine("Unlock of Draw: Update");
+                bool invalidatedForm = false;
 
                 if (!Dragging)
                 {
                     foreach (Source s in Sources)
                         s.Retract();
-                    this.Invalidate();
+                    invalidatedForm = true;
                 }
+
+                DrawLock.UnlockIt();
+                //Console.WriteLine("Unlock of Draw: Update");
+
+                if (invalidatedForm)
+                    this.Invalidate(); ;
             }
         }
 
