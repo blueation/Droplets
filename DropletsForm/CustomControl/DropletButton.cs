@@ -10,22 +10,19 @@ using System.Windows.Forms;
 
 namespace Droplets
 {
-    public partial class DropletButton : Button
+    public partial class DropletButton : UserControl
     {
-        Bitmap image;
-
         public DropletButton(string type)
         {
-            image = new Bitmap("../../Assets/" + type + ".png");
+            this.BackgroundImage = new Bitmap("../../Assets/" + type + ".png");
             this.Size = new Size(60, 60);
             this.TabStop = false;
+            this.Visible = false;
         }
 
         protected override void OnPaint(PaintEventArgs pea)
         {
             base.OnPaint(pea);
-
-            pea.Graphics.DrawImage(image, new Rectangle(0, 0, 60, 60));
         }
 
         protected override bool IsInputKey(Keys keyData)

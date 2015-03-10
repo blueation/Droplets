@@ -19,6 +19,11 @@ namespace Droplets
             get { return Color.Transparent; }
         }
 
+        virtual public Color secondColor
+        {
+            get { return Color.Transparent; }
+        }
+
         virtual public int mixerHelper
         {
             get { return 0; }
@@ -55,6 +60,11 @@ namespace Droplets
             get { return Color.White; }
         }
 
+        public override Color secondColor
+        {
+            get { return Color.Cornsilk; }
+        }
+
         public override string ToString()
         {
             return "White";
@@ -71,6 +81,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Brown; }
+        }
+
+        public override Color secondColor
+        {
+            get { return Color.SandyBrown; }
         }
 
         public override string ToString()
@@ -91,6 +106,11 @@ namespace Droplets
             get { return Color.Black; }
         }
 
+        public override Color secondColor
+        {
+            get { return Color.FromArgb(255,60,60,60); }
+        }
+
         public override string ToString()
         {
             return "Black";
@@ -107,6 +127,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Blue; }
+        }
+
+        public override Color secondColor
+        {
+            get { return Color.CadetBlue; }
         }
 
         public override string ToString()
@@ -127,6 +152,11 @@ namespace Droplets
             get { return Color.Red; }
         }
 
+        public override Color secondColor
+        {
+            get { return Color.Crimson; }
+        }
+
         public override string ToString()
         {
             return "Red";
@@ -143,6 +173,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Yellow; }
+        }
+
+        public override Color secondColor
+        {
+            get { return Color.Beige; }
         }
 
         public override string ToString()
@@ -163,6 +198,11 @@ namespace Droplets
             get { return Color.Purple; }
         }
 
+        public override Color secondColor
+        {
+            get { return Color.Violet; }
+        }
+
         public override string ToString()
         {
             return "Purple";
@@ -181,6 +221,11 @@ namespace Droplets
             get { return Color.Orange; }
         }
 
+        public override Color secondColor
+        {
+            get { return Color.LightGoldenrodYellow; }
+        }
+
         public override string ToString()
         {
             return "Orange";
@@ -197,6 +242,11 @@ namespace Droplets
         public override Color screenColor
         {
             get { return Color.Green; }
+        }
+
+        public override Color secondColor
+        {
+            get { return Color.LawnGreen; }
         }
 
         public override string ToString()

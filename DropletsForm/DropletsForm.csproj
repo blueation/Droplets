@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomControl\DropletButton.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomControl\DropletButton.Designer.cs">
       <DependentUpon>DropletButton.cs</DependentUpon>

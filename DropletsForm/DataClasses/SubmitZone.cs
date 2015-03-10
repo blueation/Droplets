@@ -131,7 +131,7 @@ namespace Droplets
 
         public override void Draw(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(parent.colour.screenColor), x, y, diameter, diameter);
+            g.FillEllipse(new SolidBrush(parent.colour.secondColor), x, y, diameter, diameter);
         }
     }
 }
