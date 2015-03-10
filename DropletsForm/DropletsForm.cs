@@ -62,7 +62,7 @@ namespace Droplets
         public static Source LastDragged = null;
         public static bool Dragging = false;
         public static TTASLock DragLock = new TTASLock();
-        public static bool OnlyForcedUpdate = true;
+        public static bool OnlyForcedUpdate = false;
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
@@ -499,6 +499,8 @@ namespace Droplets
             BackButton.Visible = true;
             UndoButton.Visible = true;
             ResetButton.Visible = true;
+
+            GameHistory = new History(5, Sources);
         }
 
         public void SetupLevelSelection()
