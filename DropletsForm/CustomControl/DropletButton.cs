@@ -14,7 +14,7 @@ namespace Droplets
     {
         public DropletButton(string type)
         {
-            this.BackgroundImage = new Bitmap("../../Assets/" + type + ".png");
+            this.BackgroundImage = new Bitmap("Assets/" + type + ".png");
             this.Size = new Size(60, 60);
             this.TabStop = false;
             this.Visible = false;

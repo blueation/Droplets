@@ -23,10 +23,10 @@ namespace Droplets
         //MenuGUIState
         public static Control PlayButton = new DropletButton("Play");
         public static Control SoundButton = new DropletButton("Music");
-        public static Image musicimage = new Bitmap("../../assets/Music.png");
-        public static Image soundimage = new Bitmap("../../assets/Sound.png");
-        public static Image muteimage = new Bitmap("../../assets/Mute.png");
-        public static Image onlymusicimage = new Bitmap("../../assets/OnlyMusic.png");
+        public static Image musicimage = new Bitmap("assets/Music.png");
+        public static Image soundimage = new Bitmap("assets/Sound.png");
+        public static Image muteimage = new Bitmap("assets/Mute.png");
+        public static Image onlymusicimage = new Bitmap("assets/OnlyMusic.png");
         public static Control QuitButton = new DropletButton("Quit");
 
         //SelectState
@@ -34,11 +34,11 @@ namespace Droplets
         public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
         public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static Control PreviousButton = new DropletButton("Back");
-        public static Image prevposs = new Bitmap("../../assets/Back.png");
-        public static Image previmpo = new Bitmap("../../assets/BackImpossible.png");
+        public static Image prevposs = new Bitmap("assets/Back.png");
+        public static Image previmpo = new Bitmap("assets/BackImpossible.png");
         public static Control NextButton = new DropletButton("Next");
-        public static Image nextposs = new Bitmap("../../assets/Next.png");
-        public static Image nextimpo = new Bitmap("../../assets/NextImpossible.png");
+        public static Image nextposs = new Bitmap("assets/Next.png");
+        public static Image nextimpo = new Bitmap("assets/NextImpossible.png");
         public static int selectionIndex;
 
         //LevelGUIState
@@ -66,11 +66,20 @@ namespace Droplets
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
+        static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
+        static WMPLib.WindowsMediaPlayer soundplayer = new WMPLib.WindowsMediaPlayer();
+        public WMPLib.IWMPMedia bgsong;
+        public WMPLib.IWMPMedia positive1;
 
         private static System.Timers.Timer update;
 
         public DropletsGame()
         {
+
+            bgplayer.URL = "assets/whistle.wav";
+            bgsong = bgplayer.controls.currentItem;
+            bgplayer.PlayStateChange += bgplayer_PlayStateChange;
+
             this.Text = "Droplets";
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -211,6 +220,8 @@ namespace Droplets
             {
                 playMusic = false;
                 SoundButton.BackgroundImage = soundimage;
+
+                bgplayer.controls.stop();
             }
             else if (!playMusic && playSound)
             {
@@ -221,6 +232,8 @@ namespace Droplets
             {
                 playMusic = true;
                 SoundButton.BackgroundImage = onlymusicimage;
+
+                bgplayer.controls.playItem(bgsong);
             }
             else
             {
@@ -288,7 +301,17 @@ namespace Droplets
 #region KeyEvents
         public void KeyDownHandler(object o, KeyEventArgs kea)
         {
-            if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter) //TODO: find out how to fix that the buttons of the game catch the enter...
+            if (kea.KeyCode == Keys.Enter)
+            {
+                if (positive1 == null)
+                {
+                    soundplayer.URL = "assets/Positive.wav";
+                    positive1 = soundplayer.controls.currentItem;
+                }
+                else
+                    soundplayer.controls.playItem(positive1);
+            }
+            if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
                 Update();
         }
 #endregion
@@ -575,6 +598,17 @@ namespace Droplets
             ResetButton.Visible = false;
         }
 #endregion
+
+        public void bgplayer_PlayStateChange(int state)
+        {
+            Console.WriteLine("mediaplayer state = {0}", state);
+
+            if (state == 9)
+            {
+                bgplayer.controls.playItem(bgsong);
+            }
+        }
+
         public void LoadBenchmarkLevel()
         {
             levelnr = 0;
