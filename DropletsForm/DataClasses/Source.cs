@@ -18,6 +18,7 @@ namespace Droplets
         public bool Active = true;
         public bool dragged = false;
         public bool DefaultBehaviour;
+        public bool retractThisUpdate = true;
 
         public Source(BlobColour c, BlobSize s, Vector2 loc)
         {

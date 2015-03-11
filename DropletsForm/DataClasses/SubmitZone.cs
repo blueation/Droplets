@@ -92,7 +92,7 @@ namespace Droplets
 
         public override void Draw(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(parent.colour.screenColor), x, y, width, height);
+            g.FillRectangle(new SolidBrush(parent.colour.secondColor), x, y, width, height);
         }
     }
 

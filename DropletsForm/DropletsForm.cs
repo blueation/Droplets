@@ -316,6 +316,7 @@ namespace Droplets
                             if (testZone)
                             {
                                 AllFilled++;
+                                s.retractThisUpdate = false;
                             }
                         }
 
@@ -439,7 +440,11 @@ namespace Droplets
                 if (!Dragging)
                 {
                     foreach (Source s in Sources)
-                        s.Retract();
+                    {
+                        if (s.retractThisUpdate)
+                            s.Retract();
+                        s.retractThisUpdate = true;
+                    }
                     invalidatedForm = true;
                 }
 
