@@ -10,14 +10,35 @@ using System.Windows.Forms;
 
 namespace Droplets
 {
-    public partial class DropletButton : UserControl
+    partial class DropletButton : UserControl
     {
-        public DropletButton(string type)
+        public Label text = new Label();
+        DropletsGame parent;
+
+        public DropletButton(string type, DropletsGame parent)
         {
+            this.parent = parent;
             this.BackgroundImage = new Bitmap("Assets/" + type + ".png");
-            this.Size = new Size(60, 60);
+            this.Size = new Size(60, 58);
             this.TabStop = false;
             this.Visible = false;
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.BackColor = Color.Transparent;
+
+            text.TextAlign = ContentAlignment.MiddleCenter;
+            text.Font = new Font(text.Font, FontStyle.Bold);
+            text.Location = new Point(1, 0);
+            text.Size = new Size(60, 60);
+            text.TabStop = false;
+            text.BackColor = Color.Transparent;
+            
+            this.Controls.Add(text);
+        }
+
+        public override string Text
+        {
+            get { return text.Text; }
+            set { text.Text = value; }
         }
 
         protected override void OnPaint(PaintEventArgs pea)

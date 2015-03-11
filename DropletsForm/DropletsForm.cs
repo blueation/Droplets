@@ -21,22 +21,22 @@ namespace Droplets
         public static bool playSound = true;
 
         //MenuGUIState
-        public static Control PlayButton = new DropletButton("Play");
-        public static Control SoundButton = new DropletButton("Music");
+        public static DropletButton PlayButton;
+        public static DropletButton SoundButton;
         public static Image musicimage = new Bitmap("assets/Music.png");
         public static Image soundimage = new Bitmap("assets/Sound.png");
         public static Image muteimage = new Bitmap("assets/Mute.png");
         public static Image onlymusicimage = new Bitmap("assets/OnlyMusic.png");
-        public static Control QuitButton = new DropletButton("Quit");
+        public static DropletButton QuitButton;
 
         //SelectState
         public static Label ChapterNrName;
         public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
         public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
-        public static Control PreviousButton = new DropletButton("Back");
+        public static DropletButton PreviousButton;
         public static Image prevposs = new Bitmap("assets/Back.png");
         public static Image previmpo = new Bitmap("assets/BackImpossible.png");
-        public static Control NextButton = new DropletButton("Next");
+        public static DropletButton NextButton;
         public static Image nextposs = new Bitmap("assets/Next.png");
         public static Image nextimpo = new Bitmap("assets/NextImpossible.png");
         public static int selectionIndex;
@@ -48,9 +48,9 @@ namespace Droplets
         public static int zonesnumber;
         public static Label CompletePercentage;
         public static bool completed = false;
-        public static Control BackButton = new DropletButton("Level Select Alt");
-        public static Control UndoButton = new DropletButton("Undo");
-        public static Control ResetButton = new DropletButton("Reset");
+        public static DropletButton BackButton;
+        public static DropletButton UndoButton;
+        public static DropletButton ResetButton;
         
         //LevelState
         public static List<Source> Sources = new List<Source>();
@@ -76,6 +76,15 @@ namespace Droplets
 
         public DropletsGame()
         {
+            PlayButton = new DropletButton("Play", this);
+            SoundButton = new DropletButton("Music", this);
+            QuitButton = new DropletButton("Quit", this);
+            QuitButton = new DropletButton("Quit", this);
+            BackButton = new DropletButton("Level Select Alt", this);
+            UndoButton = new DropletButton("Undo", this);
+            ResetButton = new DropletButton("Reset", this);
+            NextButton = new DropletButton("Next", this);
+            PreviousButton = new DropletButton("Back", this);
 
             bgplayer.URL = "assets/whistle.wav";
             bgsong = bgplayer.controls.currentItem;
@@ -98,7 +107,7 @@ namespace Droplets
 
             for (int i = 0; i < 12; i++ )
             {
-                LevelArray[i] = new DropletButton("Generic");
+                LevelArray[i] = new DropletButton("Generic", this);
                 LevelArray[i].Location = new System.Drawing.Point(this.ClientSize.Width / 7 * (i % 4 + 2) - LevelArray[i].Width / 2, this.ClientSize.Height / 4 * (i / 4 + 1) - LevelArray[i].Height / 2);
                 this.Controls.Add(LevelArray[i]);
             }
@@ -114,19 +123,20 @@ namespace Droplets
             ResetButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
             this.Controls.Add(ResetButton);
 
-            PlayButton.Click += this.PlayHandler;
-            BackButton.Click += this.BackHandler;
-            UndoButton.Click += this.UndoHandler;
-            ResetButton.Click += this.ResetHandler;
-            NextButton.Click += this.NextHandler;
-            PreviousButton.Click += this.PreviousHandler;
-            QuitButton.Click += this.QuitHandler;
-            SoundButton.Click += this.SoundButtonHandler;
+            PlayButton.Click += this.PlayHandler; PlayButton.text.Click += this.PlayHandler;
+            BackButton.Click += this.BackHandler; BackButton.text.Click += this.BackHandler;
+            UndoButton.Click += this.UndoHandler; UndoButton.text.Click += this.UndoHandler;
+            ResetButton.Click += this.ResetHandler; ResetButton.text.Click += this.ResetHandler;
+            NextButton.Click += this.NextHandler; NextButton.text.Click += this.NextHandler;
+            PreviousButton.Click += this.PreviousHandler; PreviousButton.text.Click += this.PreviousHandler;
+            QuitButton.Click += this.QuitHandler; QuitButton.text.Click += this.QuitHandler;
+            SoundButton.Click += this.SoundButtonHandler; SoundButton.text.Click += this.SoundButtonHandler;
 
             for (int i = 0; i < 12; i++ )
             {
                 int j = i; //handles a bug in csharp, ask me for details if you want to know more. -Blueation
                 LevelArray[i].Click += (sender, e) => LevelArrayHandler(sender, e, j); //passing a variable to the handler as well.
+                LevelArray[i].text.Click += (sender, e) => LevelArrayHandler(sender, e, j);
             }
 
             this.MouseDown += this.MouseDownHandler;
@@ -556,6 +566,7 @@ namespace Droplets
             while (i < 12 && i + selectionIndex * 12 < LevelDictionary.Count)
             {
                 LevelArray[i].Visible = true;
+                LevelArray[i].text.Text = LevelDictionary.ToArray()[i + selectionIndex * 12].Value.nr.ToString();
                 i++;
             }
 
