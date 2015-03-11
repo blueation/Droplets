@@ -47,6 +47,7 @@ namespace Droplets
         public static Label ChapterLevel;
         public static int zonesnumber;
         public static Label CompletePercentage;
+        public static bool completed = false;
         public static Control BackButton = new DropletButton("Level Select Alt");
         public static Control UndoButton = new DropletButton("Undo");
         public static Control ResetButton = new DropletButton("Reset");
@@ -301,16 +302,6 @@ namespace Droplets
 #region KeyEvents
         public void KeyDownHandler(object o, KeyEventArgs kea)
         {
-            if (kea.KeyCode == Keys.Enter)
-            {
-                if (positive1 == null)
-                {
-                    soundplayer.URL = "assets/Positive.wav";
-                    positive1 = soundplayer.controls.currentItem;
-                }
-                else
-                    soundplayer.controls.playItem(positive1);
-            }
             if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
                 Update();
         }
@@ -323,7 +314,7 @@ namespace Droplets
 
         public void Update()
         {
-            if (levelnr >= 0)
+            if (levelnr >= 0 && !completed)
             {
                 int AllFilled = 0;
                 DrawLock.LockIt();
@@ -456,7 +447,10 @@ namespace Droplets
                 NewSources.Clear();
 
                 if (SubmitZones.Count == AllFilled)
+                {
+                    completed = true;
                     LevelCompleted();
+                }
 
                 bool invalidatedForm = false;
 
@@ -505,6 +499,7 @@ namespace Droplets
         {
             inMenu = false;
             inLevelSelect = false;
+            completed = false;
 
             loadedstring = level.refname;
             Sources.Clear();
@@ -598,17 +593,27 @@ namespace Droplets
             ResetButton.Visible = false;
         }
 #endregion
-
+#region Output Logic
         public void bgplayer_PlayStateChange(int state)
         {
-            Console.WriteLine("mediaplayer state = {0}", state);
-
             if (state == 9)
-            {
                 bgplayer.controls.playItem(bgsong);
-            }
         }
 
+        public void PlayPositive()
+        {
+            if (playSound)
+            {
+                if (positive1 == null)
+                {
+                    soundplayer.URL = "assets/Positive.wav";
+                    positive1 = soundplayer.controls.currentItem;
+                }
+                else
+                    soundplayer.controls.playItem(positive1);
+            }
+        }
+#endregion
         public void LoadBenchmarkLevel()
         {
             levelnr = 0;
@@ -622,6 +627,7 @@ namespace Droplets
         public void LevelCompleted()
         {
             Console.WriteLine("Hurray! All zones filled!");
+            PlayPositive();
         }
 
         public void Draw(object o, PaintEventArgs pea)
