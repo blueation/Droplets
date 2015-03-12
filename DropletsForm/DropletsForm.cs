@@ -627,6 +627,7 @@ namespace Droplets
             inMenu = false;
             inLevelSelect = true;
             levelnr = -1;
+            completed = false;
 
             PlayButton.Visible = false;
             SoundButton.Visible = false;
@@ -673,6 +674,7 @@ namespace Droplets
             inMenu = true;
             inLevelSelect = false;
             levelnr = -1;
+            completed = false;
 
             PlayButton.Visible = true;
             QuitButton.Visible = true;
