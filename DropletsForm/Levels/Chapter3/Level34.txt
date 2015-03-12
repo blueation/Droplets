@@ -1,5 +1,5 @@
 DropletsGame
-0 Test
+34 Test34
 SubmitZones 1
 Black 1
 Circle 400 240 50

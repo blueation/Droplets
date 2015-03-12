@@ -158,9 +158,6 @@
     <Content Include="Assets\whistle.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Levels\Chapter1\Level0.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Levels\Chapter1\Level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
