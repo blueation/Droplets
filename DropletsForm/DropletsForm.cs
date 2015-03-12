@@ -57,6 +57,7 @@ namespace Droplets
         public static DropletButton BackButton;
         public static DropletButton UndoButton;
         public static DropletButton ResetButton;
+        public static DropletButton ProgressButton;
         
         //LevelState
         public static List<Source> Sources = new List<Source>();
@@ -90,6 +91,7 @@ namespace Droplets
             ResetButton = new DropletButton("Reset", this);
             NextButton = new DropletButton("Next", this);
             PreviousButton = new DropletButton("Back", this);
+            ProgressButton = new DropletButton("Progress", this);
 
             bgplayer.URL = "assets/whistle.wav";
             bgsong = bgplayer.controls.currentItem;
@@ -136,6 +138,8 @@ namespace Droplets
                 this.Controls.Add(ResetButton);
             }
             this.Controls.Add(UndoButton);
+            ProgressButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2, this.ClientSize.Height / 2 - PlayButton.Height / 2);
+            this.Controls.Add(ProgressButton);
 
             PlayButton.Click += this.PlayHandler; PlayButton.text.Click += this.PlayHandler;
             BackButton.Click += this.BackHandler; BackButton.text.Click += this.BackHandler;
@@ -145,6 +149,7 @@ namespace Droplets
             PreviousButton.Click += this.PreviousHandler; PreviousButton.text.Click += this.PreviousHandler;
             QuitButton.Click += this.QuitHandler; QuitButton.text.Click += this.QuitHandler;
             SoundButton.Click += this.SoundButtonHandler; SoundButton.text.Click += this.SoundButtonHandler;
+            ProgressButton.Click += this.ProgressButtonHandler; ProgressButton.text.Click += this.ProgressButtonHandler;
 
             for (int i = 0; i < 12; i++ )
             {
@@ -195,6 +200,10 @@ namespace Droplets
 
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
+            if (completed)
+                ProgressButton.Visible = true;
+                //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
+
             if (levelnr >= 0)
             {
                 DragLock.LockIt();
@@ -211,6 +220,10 @@ namespace Droplets
 
         public void MouseMoveHandler(object o, MouseEventArgs mea)
         {
+            if (completed)
+                ProgressButton.Visible = true; 
+                //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
+            
             if (levelnr >= 0)
             {
                 DragLock.LockIt();
@@ -327,6 +340,24 @@ namespace Droplets
                 SetupLevel(LevelDictionary[loadedstring]);
             DrawLock.UnlockIt();
             this.Invalidate();
+        }
+
+        public void ProgressButtonHandler(object o, EventArgs ea)
+        {
+            int current = chapters[selectedChapter].levels.IndexOf(LevelDictionary[loadedstring]);
+
+            if (current < chapters[selectedChapter].levels.Count - 1)
+            {
+                current++;
+                SetupLevel(chapters[selectedChapter].levels[current]);
+            }
+            else if (selectedChapter < chapters.Count - 1)
+            {
+                selectedChapter++;
+                current = 0;
+                selectionIndex = 0;
+                SetupLevel(chapters[selectedChapter].levels[selectionIndex]);
+            }
         }
 #endregion
 #region KeyEvents
@@ -586,6 +617,7 @@ namespace Droplets
             BackButton.Visible = true;
             UndoButton.Visible = true;
             ResetButton.Visible = true;
+            ProgressButton.Visible = false;
 
             GameHistory = new History(5, Sources);
         }
@@ -607,6 +639,7 @@ namespace Droplets
             BackButton.Visible = false;
             UndoButton.Visible = false;
             ResetButton.Visible = false;
+            ProgressButton.Visible = false;
 
             RefreshLevelSet();
         }
@@ -654,8 +687,7 @@ namespace Droplets
             selectionIndex = 0;
 
             BackButton.Visible = false;
-            UndoButton.Visible = false;
-            ResetButton.Visible = false;
+            ProgressButton.Visible = false;
         }
 #endregion
 #region Output Logic
