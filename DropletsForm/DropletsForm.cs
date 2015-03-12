@@ -30,15 +30,17 @@ namespace Droplets
         public static DropletButton QuitButton;
 
         //SelectState
+        public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
+        public static List<Chapter> chapters = new List<Chapter>();
         public static Label ChapterNrName;
         public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
-        public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static DropletButton PreviousButton;
         public static Image prevposs = new Bitmap("assets/Back.png");
         public static Image previmpo = new Bitmap("assets/BackImpossible.png");
         public static DropletButton NextButton;
         public static Image nextposs = new Bitmap("assets/Next.png");
         public static Image nextimpo = new Bitmap("assets/NextImpossible.png");
+        public static int selectedChapter;
         public static int selectionIndex;
 
         //LevelGUIState
@@ -505,9 +507,38 @@ namespace Droplets
         public void RetrieveLevels()
         {
             string[] levelpaths = LevelLoader.AllPathsOfDirectory("Levels/");
-            
-            foreach(string filepath in levelpaths)
-                LevelDictionary.Add(filepath, LevelLoader.LoadLevel(filepath));
+
+            List<List<Level>> onlysortedbychapter = new List<List<Level>>();
+            List<string> chapterpaths = new List<string>();
+
+            List<List<Level>> sorted = new List<List<Level>>();
+
+            foreach (string filepath in levelpaths)
+            {
+                Level tempstored = LevelLoader.LoadLevel(filepath);
+                LevelDictionary.Add(filepath, tempstored);
+
+                string chapterpath;
+                int lvlnameindex = filepath.LastIndexOf('/');
+                if (lvlnameindex > 0)
+                    chapterpath = filepath.Substring(0, lvlnameindex);
+                else chapterpath = "undefined";
+
+                if (!chapterpaths.Contains(chapterpath))
+                {
+                    chapterpaths.Add(chapterpath);
+                    onlysortedbychapter.Add(new List<Level>());
+                }
+
+                onlysortedbychapter[chapterpaths.IndexOf(chapterpath)].Add(tempstored);
+            }
+
+            for (int i = 0; i < chapterpaths.Count; i++)
+            {
+                Chapter newchapter = new Chapter(chapterpaths[i], i);
+                newchapter.levels = onlysortedbychapter[i].OrderBy(lvl => (lvl.nr + 1000).ToString()).ToList<Level>();
+                chapters.Add(newchapter);
+            }
         }
 
         public void SetupLevel(Level level)
