@@ -257,7 +257,7 @@ namespace Droplets
 
         public void LevelArrayHandler(object o, EventArgs ea, int i)
         {
-            Level temp = LevelDictionary.ToArray()[i + selectionIndex * 12].Value;
+            Level temp = chapters[selectedChapter].levels[i + selectionIndex * 12];
             SetupLevel(temp);
         }
 
@@ -273,20 +273,26 @@ namespace Droplets
 
         public void NextHandler(object o, EventArgs ea)
         {
-            selectionIndex--;
-            if (selectionIndex < 0)
+            if (selectionIndex < (chapters[selectedChapter].levels.Count - 1) / 12)
+                selectionIndex++;
+            else if (selectedChapter < chapters.Count - 1)
+            {
+                selectedChapter++;
                 selectionIndex = 0;
-            else
-                RefreshLevelSet();
+            }
+            RefreshLevelSet();
         }
 
         public void PreviousHandler(object o, EventArgs ea)
         {
-            selectionIndex++;
-            if (selectionIndex * 12 > LevelDictionary.Count)
+            if (selectionIndex > 0)
                 selectionIndex--;
-            else
-                RefreshLevelSet();
+            else if (selectedChapter > 0)
+            {
+                selectedChapter--;
+                selectionIndex = (chapters[selectedChapter].levels.Count - 1) / 12;
+            }
+            RefreshLevelSet();
         }
 
         public void BackHandler(object o, EventArgs ea)
@@ -599,19 +605,19 @@ namespace Droplets
                 c.Visible = false;
 
             int i = 0;
-            while (i < 12 && i + selectionIndex * 12 < LevelDictionary.Count)
+            while (i < 12 && i + selectionIndex * 12 < chapters[selectedChapter].levels.Count)
             {
                 LevelArray[i].Visible = true;
-                LevelArray[i].text.Text = LevelDictionary.ToArray()[i + selectionIndex * 12].Value.nr.ToString();
+                LevelArray[i].text.Text = chapters[selectedChapter].levels[i + selectionIndex * 12].nr.ToString();
                 i++;
             }
 
-            if (selectionIndex <= 0)
+            if (selectionIndex <= 0 && selectedChapter <= 0)
                 PreviousButton.BackgroundImage = previmpo;
             else
                 PreviousButton.BackgroundImage = prevposs;
 
-            if (i + selectionIndex * 12 >= LevelDictionary.Count)
+            if (i + selectionIndex * 12 >= chapters[selectedChapter].levels.Count && selectedChapter >= chapters.Count - 1)
                 NextButton.BackgroundImage = nextimpo;
             else
                 NextButton.BackgroundImage = nextposs;

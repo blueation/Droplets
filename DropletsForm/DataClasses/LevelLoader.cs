@@ -73,7 +73,12 @@ namespace Droplets
 
         public static string[] AllPathsOfDirectory(string folderpath)
         {
-            return Directory.GetFiles(folderpath);
+            string[] result = Directory.GetFiles(folderpath, "*.txt" , SearchOption.AllDirectories);
+
+            for (int i = 0; i < result.Length; i++)
+                result[i] = result[i].Replace("\\", "/");
+
+            return result;
         }
     }
 }
