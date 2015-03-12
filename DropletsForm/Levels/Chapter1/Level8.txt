@@ -1,0 +1,11 @@
+DropletsGame
+8 Level8
+SubmitZones 2
+Orange 1
+Circle 450 100 450
+Red 1
+Circle 120 30 300
+Sources 3
+Red 2 390 360
+Yellow 2 460 120
+Red 2 60 290

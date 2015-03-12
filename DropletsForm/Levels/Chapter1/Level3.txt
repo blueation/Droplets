@@ -1,0 +1,7 @@
+DropletsGame
+3 Level3
+SubmitZones 1
+Purple 1
+Rectangle 0 0 200 480
+Sources 1
+Purple 2 300 320

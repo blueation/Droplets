@@ -1,0 +1,10 @@
+DropletsGame
+9 Level9
+SubmitZones 1
+Purple 2
+Rectangle 0 0 500 200
+Rectangle 300 200 200 280
+Sources 3
+Purple 2 130 350
+Blue 2 670 120
+Red 2 690 290

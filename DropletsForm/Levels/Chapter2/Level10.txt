@@ -1,0 +1,12 @@
+DropletsGame
+10 Test10
+SubmitZones 1
+Black 1
+Circle 400 240 50
+Sources 6
+Blue 2 400 240
+Orange 1 500 340
+Blue 1 100 100
+Blue 1 150 100
+Blue 1 100 150
+Blue 1 150 150

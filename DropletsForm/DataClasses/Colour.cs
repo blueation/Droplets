@@ -241,12 +241,12 @@ namespace Droplets
     {
         public override Color screenColor
         {
-            get { return Color.FromArgb(255, 0, 255, 0) }
+            get { return Color.FromArgb(255, 0, 255, 0); }
         }
 
         public override Color secondColor
         {
-            get { return Color.FromArgb(255, 51, 255, 51);; }
+            get { return Color.FromArgb(255, 51, 255, 51); }
         }
 
         public override string ToString()
