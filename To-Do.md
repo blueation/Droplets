@@ -8,7 +8,7 @@
     - [ ] Add Icon to left-bottom corner
 - [ ] Add Chapter + Number to level selection screen (i.e: Chapter 2)
 - [ ] Add Completed inlevervakken to right corner of screen to indicate the amount of inlevervakken the user has completed
-- [ ] Add titlescreen and icon
+- [ ] Add titlescreen
 - [ ] Disable Undo when finishing a level
 
 # To do: Content
