@@ -327,6 +327,8 @@ namespace Droplets
             if (levelnr >= 0 && !completed)
             {
                 int AllFilled = 0;
+                foreach (SubmitZone zone in SubmitZones)
+                    zone.Filled = false;
                 DrawLock.LockIt();
                 //Console.WriteLine("Lock of Draw: Update");
                 foreach (Source s in Sources)
@@ -335,12 +337,15 @@ namespace Droplets
                     {
                         foreach (SubmitZone zone in SubmitZones)
                         {
-                            bool testZone = zone.isCollision(s);
-                            zone.Filled = testZone;
-                            if (testZone)
+                            if (!zone.Filled)
                             {
-                                AllFilled++;
-                                s.retractThisUpdate = false;
+                                bool testZone = zone.isCollision(s);
+                                zone.Filled = testZone;
+                                if (testZone)
+                                {
+                                    AllFilled++;
+                                    s.retractThisUpdate = false;
+                                }
                             }
                         }
 
