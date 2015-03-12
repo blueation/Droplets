@@ -80,7 +80,7 @@ namespace Droplets
     {
         public override Color screenColor
         {
-            get { return Color.Brown; }
+            get { return Color.FromArgb(255, 102, 51, 0); }
         }
 
         public override Color secondColor
