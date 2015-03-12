@@ -30,15 +30,17 @@ namespace Droplets
         public static DropletButton QuitButton;
 
         //SelectState
+        public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
+        public static List<Chapter> chapters = new List<Chapter>();
         public static Label ChapterNrName;
         public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
-        public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static DropletButton PreviousButton;
         public static Image prevposs = new Bitmap("assets/Back.png");
         public static Image previmpo = new Bitmap("assets/BackImpossible.png");
         public static DropletButton NextButton;
         public static Image nextposs = new Bitmap("assets/Next.png");
         public static Image nextimpo = new Bitmap("assets/NextImpossible.png");
+        public static int selectedChapter;
         public static int selectionIndex;
 
         //LevelGUIState
@@ -255,7 +257,7 @@ namespace Droplets
 
         public void LevelArrayHandler(object o, EventArgs ea, int i)
         {
-            Level temp = LevelDictionary.ToArray()[i + selectionIndex * 12].Value;
+            Level temp = chapters[selectedChapter].levels[i + selectionIndex * 12];
             SetupLevel(temp);
         }
 
@@ -271,20 +273,26 @@ namespace Droplets
 
         public void NextHandler(object o, EventArgs ea)
         {
-            selectionIndex--;
-            if (selectionIndex < 0)
+            if (selectionIndex < (chapters[selectedChapter].levels.Count - 1) / 12)
+                selectionIndex++;
+            else if (selectedChapter < chapters.Count - 1)
+            {
+                selectedChapter++;
                 selectionIndex = 0;
-            else
-                RefreshLevelSet();
+            }
+            RefreshLevelSet();
         }
 
         public void PreviousHandler(object o, EventArgs ea)
         {
-            selectionIndex++;
-            if (selectionIndex * 12 > LevelDictionary.Count)
+            if (selectionIndex > 0)
                 selectionIndex--;
-            else
-                RefreshLevelSet();
+            else if (selectedChapter > 0)
+            {
+                selectedChapter--;
+                selectionIndex = (chapters[selectedChapter].levels.Count - 1) / 12;
+            }
+            RefreshLevelSet();
         }
 
         public void BackHandler(object o, EventArgs ea)
@@ -505,9 +513,38 @@ namespace Droplets
         public void RetrieveLevels()
         {
             string[] levelpaths = LevelLoader.AllPathsOfDirectory("Levels/");
-            
-            foreach(string filepath in levelpaths)
-                LevelDictionary.Add(filepath, LevelLoader.LoadLevel(filepath));
+
+            List<List<Level>> onlysortedbychapter = new List<List<Level>>();
+            List<string> chapterpaths = new List<string>();
+
+            List<List<Level>> sorted = new List<List<Level>>();
+
+            foreach (string filepath in levelpaths)
+            {
+                Level tempstored = LevelLoader.LoadLevel(filepath);
+                LevelDictionary.Add(filepath, tempstored);
+
+                string chapterpath;
+                int lvlnameindex = filepath.LastIndexOf('/');
+                if (lvlnameindex > 0)
+                    chapterpath = filepath.Substring(0, lvlnameindex);
+                else chapterpath = "undefined";
+
+                if (!chapterpaths.Contains(chapterpath))
+                {
+                    chapterpaths.Add(chapterpath);
+                    onlysortedbychapter.Add(new List<Level>());
+                }
+
+                onlysortedbychapter[chapterpaths.IndexOf(chapterpath)].Add(tempstored);
+            }
+
+            for (int i = 0; i < chapterpaths.Count; i++)
+            {
+                Chapter newchapter = new Chapter(chapterpaths[i], i);
+                newchapter.levels = onlysortedbychapter[i].OrderBy(lvl => (lvl.nr + 1000).ToString()).ToList<Level>();
+                chapters.Add(newchapter);
+            }
         }
 
         public void SetupLevel(Level level)
@@ -568,19 +605,19 @@ namespace Droplets
                 c.Visible = false;
 
             int i = 0;
-            while (i < 12 && i + selectionIndex * 12 < LevelDictionary.Count)
+            while (i < 12 && i + selectionIndex * 12 < chapters[selectedChapter].levels.Count)
             {
                 LevelArray[i].Visible = true;
-                LevelArray[i].text.Text = LevelDictionary.ToArray()[i + selectionIndex * 12].Value.nr.ToString();
+                LevelArray[i].text.Text = chapters[selectedChapter].levels[i + selectionIndex * 12].nr.ToString();
                 i++;
             }
 
-            if (selectionIndex <= 0)
+            if (selectionIndex <= 0 && selectedChapter <= 0)
                 PreviousButton.BackgroundImage = previmpo;
             else
                 PreviousButton.BackgroundImage = prevposs;
 
-            if (i + selectionIndex * 12 >= LevelDictionary.Count)
+            if (i + selectionIndex * 12 >= chapters[selectedChapter].levels.Count && selectedChapter >= chapters.Count - 1)
                 NextButton.BackgroundImage = nextimpo;
             else
                 NextButton.BackgroundImage = nextposs;
