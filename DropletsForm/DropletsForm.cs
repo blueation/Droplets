@@ -13,6 +13,10 @@ namespace Droplets
 {
     class DropletsGame : Form
     {
+        //Options
+        public static bool noRestartButton = true;
+        public static bool OnlyForcedUpdate = false;
+
         //GameState
         public static bool inMenu = true;
         public static bool inLevelSelect = false;
@@ -65,7 +69,6 @@ namespace Droplets
         public static Source LastDragged = null;
         public static bool Dragging = false;
         public static TTASLock DragLock = new TTASLock();
-        public static bool OnlyForcedUpdate = false;
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
@@ -120,10 +123,18 @@ namespace Droplets
 
             BackButton.Location = new System.Drawing.Point(10, 10);
             this.Controls.Add(BackButton);
-            UndoButton.Location = new System.Drawing.Point(this.ClientSize.Width - 140, this.ClientSize.Height - 70);
+            if (noRestartButton)
+            {
+                UndoButton.BackgroundImage = new Bitmap("assets/Reset.png");
+                UndoButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
+            }
+            else
+            {
+                UndoButton.Location = new System.Drawing.Point(this.ClientSize.Width - 140, this.ClientSize.Height - 70);
+                ResetButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
+                this.Controls.Add(ResetButton);
+            }
             this.Controls.Add(UndoButton);
-            ResetButton.Location = new System.Drawing.Point(this.ClientSize.Width - 70, this.ClientSize.Height - 70);
-            this.Controls.Add(ResetButton);
 
             PlayButton.Click += this.PlayHandler; PlayButton.text.Click += this.PlayHandler;
             BackButton.Click += this.BackHandler; BackButton.text.Click += this.BackHandler;
