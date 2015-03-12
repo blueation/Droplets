@@ -78,7 +78,7 @@ namespace Droplets
 
         public override float getRetractionPerUpdate
         {
-            get { return 2; }
+            get { return 1.75f; }
         }
 
         public override float getArbitraryEccentricityValue
@@ -106,7 +106,7 @@ namespace Droplets
 
         public override float getRetractionPerUpdate
         {
-            get { return 2; }
+            get { return 1.75f; }
         }
 
         public override float getArbitraryEccentricityValue
@@ -134,7 +134,7 @@ namespace Droplets
 
         public override float getRetractionPerUpdate
         {
-            get { return 2; }
+            get { return 1.75f; }
         }
 
         public override float getArbitraryEccentricityValue
