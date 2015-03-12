@@ -1,11 +1,10 @@
 DropletsGame
 6 Level6
 SubmitZones 2
-Orange 1
-Rectangle 0 0 800 150
-Orange 1
-Rectangle 0 330 800 150
-Sources 3
-Orange 2 400 260
-Red 2 490 220
-Yellow 2 310 220
+Blue 1
+Rectangle 50 50 150 300
+Red 1
+Rectangle 300 50 150 300
+Sources 2
+Blue 2 300 196
+Red 2 201 195

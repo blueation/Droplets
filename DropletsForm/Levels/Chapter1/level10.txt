@@ -1,0 +1,11 @@
+DropletsGame
+10 Level10
+SubmitZones 2
+Red 1
+Circle 120 30 300
+Orange 1
+Circle 450 100 450
+Sources 3
+Red 2 375 338
+Yellow 2 460 120
+Red 2 59 355

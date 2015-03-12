@@ -5,4 +5,4 @@ Orange 1
 Rectangle 0 0 800 480
 Sources 2
 Red 2 275 240
-Yellow 2 525 240
+Yellow 2 417 238
