@@ -96,6 +96,7 @@ namespace Droplets
             bgplayer.PlayStateChange += bgplayer_PlayStateChange;
 
             this.Text = "Droplets";
+            this.Icon = new Icon("assets/droplets.ico");
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.CenterToScreen();

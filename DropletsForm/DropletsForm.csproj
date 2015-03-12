@@ -110,6 +110,9 @@
     <Content Include="Assets\BackImpossible.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\droplets.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Generic.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
