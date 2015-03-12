@@ -53,7 +53,7 @@ namespace Droplets
         }
     }
 
-    public class WhiteColour : BlobColour
+       public class WhiteColour : BlobColour
     {
         public override Color screenColor
         {
@@ -62,7 +62,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.Cornsilk; }
+            get { return Color.FromArgb(255, 204, 204, 204); }
         }
 
         public override string ToString()
@@ -85,7 +85,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.SandyBrown; }
+            get { return Color.FromArgb(255, 125, 81, 38); }
         }
 
         public override string ToString()
@@ -108,7 +108,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.FromArgb(255,60,60,60); }
+            get { return Color.FromArgb(255,51,51,51); }
         }
 
         public override string ToString()
@@ -131,7 +131,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.CadetBlue; }
+            get { return Color.FromArgb(255, 51, 51, 255); }
         }
 
         public override string ToString()
@@ -154,7 +154,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.Crimson; }
+            get { return Color.FromArgb(255, 255, 51, 51); }
         }
 
         public override string ToString()
@@ -177,7 +177,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.Beige; }
+            get { return Color.FromArgb(255, 255, 255, 51); }
         }
 
         public override string ToString()
@@ -200,7 +200,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.Violet; }
+            get { return Color.FromArgb(255, 142, 51, 141); }
         }
 
         public override string ToString()
@@ -223,7 +223,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.LightGoldenrodYellow; }
+            get { return Color.FromArgb(255, 255, 153, 51); }
         }
 
         public override string ToString()
@@ -246,7 +246,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.LawnGreen; }
+            get { return Color.FromArgb(255, 51, 255, 51);; }
         }
 
         public override string ToString()
