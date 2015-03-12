@@ -5,6 +5,7 @@ Blue 1
 Rectangle 400 0 400 1000
 Purple 1
 Rectangle 0 0 400 1000
-Sources 2
-Blue 3 303 184
-Red 2 297 317
+Sources 3
+Blue 3 305 64
+Red 2 305 193
+Blue 1 300 433

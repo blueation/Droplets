@@ -1,14 +1,10 @@
 DropletsGame
 8 Level8
-SubmitZones 3
-Green 1
-Rectangle 550 0 250 270
-Blue 1
-Rectangle 350 0 200 270
-Yellow 1
-Rectangle 0 270 800 210
-Sources 4
-Blue 2 470 320
-Yellow 2 410 130
-Blue 2 220 110
-Yellow 2 290 190
+SubmitZones 1
+Purple 2
+Rectangle 0 0 500 200
+Rectangle 300 200 200 280
+Sources 3
+Purple 2 130 350
+Blue 2 670 120
+Red 2 690 290
