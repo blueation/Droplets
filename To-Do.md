@@ -1,8 +1,8 @@
 # To do
-- [ ] Post to Hacker News
-- [ ] Share HN post on Twitter
-- [ ] Share HN post on Twitter
-- [ ] Share HN post on Twitter
+- [ ] Create winning screen
+- [ ] Create cheat sheet
+- [ ] Add Chapter + Number to level selection screen (i.e: Chapter 2)
+- [ ] Add Completed inlevervakken to right corner of screen to indicate the amount of inlevervakken the user has completed
 
 
 ## Next
