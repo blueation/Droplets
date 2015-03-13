@@ -1,0 +1,10 @@
+DropletsGame
+14 Level14
+SubmitZones 1
+Purple 1
+Rectangle 34 74 260 260
+Sources 4
+Blue 2 111 160
+Green 2 201 160
+Red 2 198 249
+Yellow 2 111 250
