@@ -152,6 +152,9 @@
     <Content Include="Assets\Quit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Reset 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Reset.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -56,6 +56,8 @@ namespace Droplets
         public static bool completed = false;
         public static DropletButton BackButton;
         public static DropletButton UndoButton;
+        public static Image UndoUndo = new Bitmap("assets/Reset.png");
+        public static Image UndoReset = new Bitmap("assets/Reset 2.png");
         public static DropletButton ResetButton;
         public static DropletButton ProgressButton;
         
@@ -201,8 +203,11 @@ namespace Droplets
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
             if (completed)
+            {
                 ProgressButton.Visible = true;
+                UndoButton.BackgroundImage = UndoReset;
                 //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
+            }
 
             if (levelnr >= 0)
             {
@@ -221,8 +226,11 @@ namespace Droplets
         public void MouseMoveHandler(object o, MouseEventArgs mea)
         {
             if (completed)
-                ProgressButton.Visible = true; 
+            {
+                ProgressButton.Visible = true;
+                UndoButton.BackgroundImage = UndoReset;
                 //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
+            }
             
             if (levelnr >= 0)
             {
@@ -327,9 +335,17 @@ namespace Droplets
 
         public void UndoHandler(object o, EventArgs ea)
         {
-            DrawLock.LockIt();
-                PopHistory();
-            DrawLock.UnlockIt();
+            if (!completed)
+            {
+                DrawLock.LockIt();
+                    PopHistory();
+                DrawLock.UnlockIt();
+            }
+            else
+            {
+                UndoButton.BackgroundImage = UndoUndo;
+                ResetHandler(o, ea);
+            }
             this.Invalidate();
         }
 
@@ -616,6 +632,7 @@ namespace Droplets
 
             BackButton.Visible = true;
             UndoButton.Visible = true;
+            UndoButton.BackgroundImage = UndoUndo;
             ResetButton.Visible = true;
             ProgressButton.Visible = false;
 
