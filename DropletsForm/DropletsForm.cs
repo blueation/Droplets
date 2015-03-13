@@ -36,7 +36,7 @@ namespace Droplets
         //SelectState
         public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static List<Chapter> chapters = new List<Chapter>();
-        public static Label ChapterNrName;
+        public static Label ChapterNrName = new Label();
         public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
         public static DropletButton PreviousButton;
         public static Image prevposs = new Bitmap("assets/Back.png");
@@ -54,6 +54,7 @@ namespace Droplets
         public static int zonesnumber;
         public static Label CompletePercentage;
         public static bool completed = false;
+        public static int completedtiming = 0;
         public static DropletButton BackButton;
         public static DropletButton UndoButton;
         public static Image UndoUndo = new Bitmap("assets/Reset.png");
@@ -125,6 +126,13 @@ namespace Droplets
             this.Controls.Add(PreviousButton);
             NextButton.Location = new System.Drawing.Point(this.ClientSize.Width / 7 * 6 - BackButton.Width / 2, this.ClientSize.Height / 2 - BackButton.Height / 2);
             this.Controls.Add(NextButton);
+            ChapterNrName.Location = new System.Drawing.Point(70, 0);
+            ChapterNrName.Size = new Size(ClientSize.Width - 140, (int)(ClientSize.Height / 5.4));
+            ChapterNrName.TextAlign = ContentAlignment.MiddleCenter;
+            ChapterNrName.Text = "Testing";
+            ChapterNrName.Font = new Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
+            ChapterNrName.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(ChapterNrName);
 
             BackButton.Location = new System.Drawing.Point(10, 10);
             this.Controls.Add(BackButton);
@@ -202,7 +210,7 @@ namespace Droplets
 
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
-            if (completed)
+            if (completedtiming >= 100)
             {
                 ProgressButton.Visible = true;
                 UndoButton.BackgroundImage = UndoReset;
@@ -225,7 +233,7 @@ namespace Droplets
 
         public void MouseMoveHandler(object o, MouseEventArgs mea)
         {
-            if (completed)
+            if (completedtiming >= 100)
             {
                 ProgressButton.Visible = true;
                 UndoButton.BackgroundImage = UndoReset;
@@ -391,6 +399,11 @@ namespace Droplets
 
         public void Update()
         {
+            if (completed && completedtiming < 100)
+            {
+                completedtiming++;
+            }
+
             if (levelnr >= 0 && !completed)
             {
                 int AllFilled = 0;
@@ -611,6 +624,7 @@ namespace Droplets
             inMenu = false;
             inLevelSelect = false;
             completed = false;
+            completedtiming = 0;
 
             loadedstring = level.refname;
             Sources.Clear();
@@ -628,7 +642,7 @@ namespace Droplets
             PreviousButton.Visible = false;
             foreach (Control c in LevelArray)
                 c.Visible = false;
-            selectionIndex = 0;
+            ChapterNrName.Visible = false;
 
             BackButton.Visible = true;
             UndoButton.Visible = true;
@@ -645,6 +659,7 @@ namespace Droplets
             inLevelSelect = true;
             levelnr = -1;
             completed = false;
+            completedtiming = 0;
 
             PlayButton.Visible = false;
             SoundButton.Visible = false;
@@ -652,7 +667,7 @@ namespace Droplets
 
             NextButton.Visible = true;
             PreviousButton.Visible = true;
-            selectionIndex = 0;
+            ChapterNrName.Visible = true;
 
             BackButton.Visible = false;
             UndoButton.Visible = false;
@@ -684,6 +699,8 @@ namespace Droplets
                 NextButton.BackgroundImage = nextimpo;
             else
                 NextButton.BackgroundImage = nextposs;
+
+            ChapterNrName.Text = "Chapter " + (selectedChapter + 1);
         }
 
         public void SetupMainMenu()
@@ -692,6 +709,7 @@ namespace Droplets
             inLevelSelect = false;
             levelnr = -1;
             completed = false;
+            completedtiming = 0;
 
             PlayButton.Visible = true;
             QuitButton.Visible = true;
@@ -704,6 +722,8 @@ namespace Droplets
             foreach (Control c in LevelArray)
                 c.Visible = false;
             selectionIndex = 0;
+            selectedChapter = 0;
+            ChapterNrName.Visible = false;
 
             BackButton.Visible = false;
             ProgressButton.Visible = false;
@@ -762,7 +782,7 @@ namespace Droplets
                         s.Draw(pea.Graphics);
                     }
 
-                    if (completed)
+                    if (completedtiming >= 100)
                         pea.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(128, 51, 51, 51)), this.ClientRectangle);
 
                     DrawLock.UnlockIt();
