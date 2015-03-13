@@ -32,6 +32,7 @@ namespace Droplets
         public static Image muteimage = new Bitmap("assets/Mute.png");
         public static Image onlymusicimage = new Bitmap("assets/OnlyMusic.png");
         public static DropletButton QuitButton;
+        public static Font font = new System.Drawing.Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
 
         //SelectState
         public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
@@ -50,9 +51,8 @@ namespace Droplets
         //LevelGUIState
         public static string loadedstring;
         public static string levelname;
-        public static Label ChapterLevel;
         public static int zonesnumber;
-        public static Label CompletePercentage;
+        public static int zonesfilled;
         public static bool completed = false;
         public static int completedtiming = 0;
         public static DropletButton BackButton;
@@ -404,9 +404,11 @@ namespace Droplets
                 completedtiming++;
             }
 
+            int AllFilled;
+
             if (levelnr >= 0 && !completed)
             {
-                int AllFilled = 0;
+                AllFilled = 0;
                 foreach (SubmitZone zone in SubmitZones)
                     zone.Filled = false;
                 DrawLock.LockIt();
@@ -784,6 +786,11 @@ namespace Droplets
 
                     if (completedtiming >= 100)
                         pea.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(128, 51, 51, 51)), this.ClientRectangle);
+
+                    string text = zonesfilled + "/" + zonesnumber;
+                    SizeF textsize = pea.Graphics.MeasureString(text, font);
+                    pea.Graphics.DrawString(text, font, new SolidBrush(System.Drawing.Color.Black)
+                                           , this.ClientSize.Width - 35 - (textsize.Width / 2), textsize.Height / 2);
 
                     DrawLock.UnlockIt();
                     //Console.WriteLine("Unlock of Draw: Draw");
