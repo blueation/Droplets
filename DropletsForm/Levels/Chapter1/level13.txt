@@ -1,9 +1,14 @@
 DropletsGame
 13 Level13
-SubmitZones 1
-Purple 1
-Rectangle 430 0 370 480
-Sources 3
-Red 1 228 311
-Purple 2 171 121
-Blue 1 324 311
+SubmitZones 3
+Blue 1
+Rectangle 500 0 300 240
+Green 1
+Circle 4 210 300
+Yellow 1
+Rectangle 350 240 450 240
+Sources 4
+Yellow 2 404 150
+Yellow 2 374 252
+Blue 2 401 45
+Blue 2 459 264
