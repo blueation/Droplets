@@ -2,9 +2,9 @@ DropletsGame
 14 Level14
 SubmitZones 3
 Brown 3
-Rectangle 52 -2 400 150
-Rectangle 57 181 393 128
-Rectangle 61 336 389 107
+Rectangle 50 0 400 150
+Rectangle 50 181 400 128
+Rectangle 50 336 400 107
 Sources 6
 Green 2 139 72
 Yellow 2 397 74
