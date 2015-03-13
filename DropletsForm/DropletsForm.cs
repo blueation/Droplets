@@ -404,11 +404,9 @@ namespace Droplets
                 completedtiming++;
             }
 
-            int AllFilled;
-
             if (levelnr >= 0 && !completed)
             {
-                AllFilled = 0;
+                int AllFilled = 0;
                 foreach (SubmitZone zone in SubmitZones)
                     zone.Filled = false;
                 DrawLock.LockIt();
@@ -543,6 +541,8 @@ namespace Droplets
                     Sources.Add(s);
                 NewSources.Clear();
 
+                zonesfilled = AllFilled;
+
                 if (SubmitZones.Count == AllFilled)
                 {
                     completed = true;
@@ -652,6 +652,7 @@ namespace Droplets
             ResetButton.Visible = true;
             ProgressButton.Visible = false;
 
+            zonesnumber = SubmitZones.Count;
             GameHistory = new History(5, Sources);
         }
 
