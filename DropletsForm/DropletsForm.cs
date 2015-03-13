@@ -744,7 +744,10 @@ namespace Droplets
                     {
                         s.Draw(pea.Graphics);
                     }
-                    
+
+                    if (completed)
+                        pea.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(128, 51, 51, 51)), this.ClientRectangle);
+
                     DrawLock.UnlockIt();
                     //Console.WriteLine("Unlock of Draw: Draw");
                 }

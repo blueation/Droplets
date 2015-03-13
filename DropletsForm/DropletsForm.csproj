@@ -206,7 +206,7 @@
     <Content Include="Levels\Chapter1\Level9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Levels\Chapter2\Level34.txt">
+    <Content Include="Levels\Chapter2\level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
