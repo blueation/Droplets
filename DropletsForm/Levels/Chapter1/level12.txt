@@ -1,9 +1,13 @@
 DropletsGame
 12 Level12
-SubmitZones 1
-Purple 1
-Rectangle 430 0 370 480
+SubmitZones 3
+Blue 1
+Rectangle 200 0 300 480
+Green 1
+Rectangle 500 0 200 480
+Orange 1
+Rectangle 0 0 200 480
 Sources 3
-Red 1 228 311
-Purple 2 171 121
-Blue 1 324 311
+Yellow 3 400 120
+Red 2 227 288
+Blue 2 403 301
