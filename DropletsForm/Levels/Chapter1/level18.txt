@@ -1,10 +1,9 @@
 DropletsGame
 18 Level18
-SubmitZones 2
-Blue 1
-Rectangle 242 137 239 84
-Green 1
-Rectangle 223 48 245 89
-Sources 2
-Green 3 104 240
-Blue 3 172 294
+SubmitZones 1
+Yellow 1
+Rectangle 0 0 1920 1080
+Sources 3
+Orange 2 247 253
+Red 2 165 141
+Purple 2 304 128
