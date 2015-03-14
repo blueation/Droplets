@@ -9,6 +9,7 @@
 - [X] Add Chapter + Number to level selection screen (e.g.: Chapter 2)
 - [X] Add Completed inlevervakken to right corner of screen to indicate the amount of inlevervakken the user has completed
 - [ ] Add titlescreen
+- [ ] Fix bug: Hitbox big Droplet is faulty: Try level18
 - [X] Disable Undo when finishing a level
 - [X] Add one second delay before overlay starts when winning. We want this to let the player see the result at the first levels
 
