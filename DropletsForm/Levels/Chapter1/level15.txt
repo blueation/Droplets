@@ -1,16 +1,14 @@
 DropletsGame
 15 Level15
 SubmitZones 3
-Brown 1
-Rectangle 50 0 400 150
-Brown 1
-Rectangle 50 181 400 128
-Brown 1
-Rectangle 50 336 400 107
-Sources 6
-Green 2 140 72
-Yellow 2 400 74
-Yellow 2 400 245
-Orange 2 140 242
-Purple 2 140 397
-Red 2 400 402
+Blue 1
+Rectangle 500 0 300 240
+Green 1
+Circle 4 210 300
+Yellow 1
+Rectangle 350 240 450 240
+Sources 4
+Yellow 2 404 150
+Yellow 2 374 252
+Blue 2 401 45
+Blue 2 459 264

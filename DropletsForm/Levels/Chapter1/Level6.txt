@@ -1,10 +1,9 @@
 DropletsGame
 6 Level6
-SubmitZones 2
-Blue 1
-Rectangle 50 50 150 300
-Red 1
-Rectangle 300 50 150 300
-Sources 2
-Blue 2 300 196
-Red 2 201 195
+SubmitZones 1
+Purple 1
+Rectangle 0 0 1920 1080
+Sources 3
+Blue 2 255 294
+Red 2 91 90
+Red 2 444 90

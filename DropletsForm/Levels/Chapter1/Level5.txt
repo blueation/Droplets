@@ -1,9 +1,10 @@
 DropletsGame
 5 Level5
 SubmitZones 1
-Purple 1
-Rectangle 0 0 1920 1080
+Purple 2
+Rectangle 0 0 500 200
+Rectangle 300 200 200 280
 Sources 3
-Blue 2 255 294
-Red 2 91 90
-Red 2 444 90
+Purple 2 159 340
+Blue 2 670 120
+Red 2 690 290
