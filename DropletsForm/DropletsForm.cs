@@ -76,9 +76,9 @@ namespace Droplets
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
+        WMPLib.IWMPPlaylist bgplaylist;
         static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
         static WMPLib.WindowsMediaPlayer soundplayer = new WMPLib.WindowsMediaPlayer();
-        public WMPLib.IWMPMedia bgsong;
         public WMPLib.IWMPMedia positive1;
 
         private static System.Timers.Timer update;
@@ -96,9 +96,15 @@ namespace Droplets
             PreviousButton = new DropletButton("Back", this);
             ProgressButton = new DropletButton("Progress", this);
 
-            bgplayer.URL = "assets/whistle.wav";
-            bgsong = bgplayer.controls.currentItem;
-            bgplayer.PlayStateChange += bgplayer_PlayStateChange;
+            bgplaylist = bgplayer.playlistCollection.newPlaylist("Music/playlist");
+            bgplaylist.appendItem(bgplayer.newMedia("music/05 Unbound.mp3"));
+            bgplaylist.appendItem(bgplayer.newMedia("music/11 The White River.mp3"));
+            bgplaylist.appendItem(bgplayer.newMedia("music/12 Silence Unbroken.mp3"));
+            bgplaylist.appendItem(bgplayer.newMedia("music/16 Journey's End.mp3"));
+            bgplayer.currentPlaylist = bgplaylist;
+            bgplayer.controls.play();
+            bgplayer.settings.setMode("loop", true);
+            //bgplayer.PlayStateChange += bgplayer_PlayStateChange;
 
             this.Text = "Droplets";
             this.Icon = new Icon("assets/droplets.ico");
@@ -287,7 +293,7 @@ namespace Droplets
                 playMusic = true;
                 SoundButton.BackgroundImage = onlymusicimage;
 
-                bgplayer.controls.playItem(bgsong);
+                bgplayer.controls.play();
             }
             else
             {
@@ -735,8 +741,7 @@ namespace Droplets
 #region Output Logic
         public void bgplayer_PlayStateChange(int state)
         {
-            if (state == 9)
-                bgplayer.controls.playItem(bgsong);
+            //Console.WriteLine(state);
         }
 
         public void PlayPositive()
