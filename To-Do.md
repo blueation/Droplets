@@ -3,7 +3,8 @@
     - [ ] Add feedback: "You have completed level X!"
     - [X] Add restart option
     - [X] Add next level option
-- [ ] Reduce delay on finish screen to 0.5 seconds
+- [ ] Reduce delay on finish screen to 0.75 seconds
+- [ ] Add pixel to brown blobs: (153,204,255)
 - [ ] Fix bug: Droplet doesn't stick in submitzone
 - [ ] Reduce Button flashes in Titlescreen and Chaptermenu (probably unfixable in-game)
 
