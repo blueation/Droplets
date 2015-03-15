@@ -107,5 +107,10 @@ namespace Droplets
             return angleCalculate(v1.X, v1.Y, v2.X, v2.Y);
         }
         #endregion
+
+        public static Vector2 toVector(Tuple<float,float> tup)
+        {
+            return new Vector2(tup.Item1, tup.Item2);
+        }
     }
 }

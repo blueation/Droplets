@@ -82,6 +82,9 @@ namespace Droplets
             float angle = 0;
             if (c > 0)
                 angle = MathHelper.angleCalculate(SourceAnchor, ExtensionAnchor);
+
+            //Console.WriteLine("c: {0}\na: {1}\nb: {2}\nx: {3}\nangle: {4}", c, a, b, mid.X, angle);
+
             d2D.Matrix m = new d2D.Matrix();
             m.RotateAt(angle, new PointF(mid.X, mid.Y));
             g.Transform = m;
@@ -100,8 +103,6 @@ namespace Droplets
 
             g.FillRectangle(complementBrush, (int)SourceAnchor.X - 3, (int)SourceAnchor.Y - 3, 6, 6);
             g.FillRectangle(complementBrush, (int)ExtensionAnchor.X - 3, (int)ExtensionAnchor.Y - 3, 6, 6);
-
-            //Console.WriteLine("c: {0}\na: {1}\nb: {2}\nx: {3}\nangle: {4}", c, a, b, mid.X, angle);
         }
 
         public void Retract()

@@ -452,7 +452,11 @@ namespace Droplets
                             {
                                 Tuple<float, float> newloc = s.returnCollision(s2);
 
-                                if (newloc != null && s.DefaultBehaviour && s2.DefaultBehaviour)
+                                if (newloc != null 
+                                    && MathHelper.toVector(newloc) != s.SourceAnchor 
+                                    && MathHelper.toVector(newloc) != s2.SourceAnchor 
+                                    && s.DefaultBehaviour 
+                                    && s2.DefaultBehaviour)
 #region DEFAULT BEHAVIOUR
                                 {
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
