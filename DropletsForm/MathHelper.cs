@@ -52,7 +52,7 @@ namespace Droplets
 #region distance overloads
         public static double distance(float x, float y, float u, float v)
         {
-            return Math.Sqrt(Math.Pow(x - u, 2) + Math.Pow(y - v, 2));
+            return Math.Sqrt((x-u)*(x-u) + (y-v)*(y-v));
         }
 
         public static double distance(Vector2 v1, float x, float y)
