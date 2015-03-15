@@ -199,7 +199,7 @@ namespace Droplets
 #region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
-            Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
+            //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
             if (levelnr >= 0)
             {
                 foreach (Source s in Sources)
@@ -807,7 +807,7 @@ namespace Droplets
 
         public void LevelCompleted()
         {
-            Console.WriteLine("Hurray! All zones filled!");
+           // Console.WriteLine("Hurray! All zones filled!");
             PlayPositive();
         }
 
@@ -838,8 +838,8 @@ namespace Droplets
                     DrawLock.UnlockIt();
                     //Console.WriteLine("Unlock of Draw: Draw");
                 }
-                else
-                    Console.WriteLine("draw failed");
+               // else
+                    //Console.WriteLine("draw failed");
             }
         }
     }
