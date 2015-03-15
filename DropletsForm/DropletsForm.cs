@@ -188,7 +188,7 @@ namespace Droplets
 
             RetrieveLevels();
             SetupMainMenu();
-            GameHistory = new History(5, Sources);
+            GameHistory = new History(12, Sources);
 
 //To be removed in final product
             OnlyForcedUpdateButton.Location = new System.Drawing.Point(0, 0);
@@ -715,7 +715,7 @@ namespace Droplets
             ProgressButton.Visible = false;
 
             zonesnumber = SubmitZones.Count;
-            GameHistory = new History(5, Sources);
+            GameHistory = new History(12, Sources);
             if (!level.onlyforced)
                 SetTimer(true);
         }
