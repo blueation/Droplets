@@ -28,6 +28,7 @@ namespace Droplets
         //MenuGUIState
         public static DropletButton PlayButton;
         public static DropletButton SoundButton;
+        public static Image mainmenuimage = new Bitmap("assets/TemporaryIntroScreen.png");
         public static Image musicimage = new Bitmap("assets/Music.png");
         public static Image soundimage = new Bitmap("assets/Sound.png");
         public static Image muteimage = new Bitmap("assets/Mute.png");
@@ -115,7 +116,7 @@ namespace Droplets
             this.KeyPreview = true;
             this.DoubleBuffered = true;
             this.BackColor = System.Drawing.Color.GhostWhite;
-            this.BackgroundImage = new Bitmap("assets/TemporaryIntroScreen.png");
+            this.BackgroundImage = mainmenuimage;
 
             PlayButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2, this.ClientSize.Height / 2 - PlayButton.Height / 2);
             this.Controls.Add(PlayButton);
@@ -179,12 +180,6 @@ namespace Droplets
             this.MouseDown += this.MouseDownHandler;
             this.MouseUp += this.MouseUpHandler;
             this.MouseMove += this.MouseMoveHandler;
-            if (!OnlyForcedUpdate)
-            {
-                update = new System.Timers.Timer(10);
-                update.Elapsed += new ElapsedEventHandler(Update);
-                update.Enabled = true;
-            }
             this.KeyDown += this.KeyDownHandler;
 
             this.Paint += this.Draw;
@@ -198,25 +193,9 @@ namespace Droplets
             OnlyForcedUpdateButton.Size = new Size(10, 10);
             OnlyForcedUpdateButton.TabStop = false;
             this.Controls.Add(OnlyForcedUpdateButton);
-            OnlyForcedUpdateButton.Click += OnlyForcedUpdateButtonHelper;
+            OnlyForcedUpdateButton.Click += (sender, e) => ToggleTimer();
         }
 
-#region DebugButtons
-        public void OnlyForcedUpdateButtonHelper(object o, EventArgs ea)
-        {
-            ChapterNrName.Focus(); //The simple way of losing focus
-
-            OnlyForcedUpdate = !OnlyForcedUpdate;
-            if (!OnlyForcedUpdate)
-            {
-                update = new System.Timers.Timer(10);
-                update.Elapsed += new ElapsedEventHandler(Update);
-                update.Enabled = true;
-            }
-            else
-                update.Dispose();
-        }
-#endregion
 #region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
@@ -420,6 +399,8 @@ namespace Droplets
         {
             if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
                 Update();
+            if (kea.KeyCode == Keys.Back)
+                UndoHandler(o, kea);
         }
 #endregion
 #region Game Logic
@@ -615,6 +596,28 @@ namespace Droplets
             foreach (Source s in retrieved)
                 Sources.Add(s.Copy());
         }
+
+        public bool ToggleTimer()
+        {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
+            SetTimer(OnlyForcedUpdate); //set timer
+
+            return OnlyForcedUpdate; //return new state
+        }
+
+        public void SetTimer(bool newstate)
+        {
+            OnlyForcedUpdate = !newstate;
+            if (newstate)
+            {
+                update = new System.Timers.Timer(10);
+                update.Elapsed += new ElapsedEventHandler(Update);
+                update.Enabled = true;
+            }
+            else if (update != null)
+                update.Dispose();
+        }
 #endregion
 #region Menu and Level Logic
         public void RetrieveLevels()
@@ -672,6 +675,7 @@ namespace Droplets
             PlayButton.Visible = false;
             SoundButton.Visible = false;
             QuitButton.Visible = false;
+            this.BackgroundImage = null;
 
             NextButton.Visible = false;
             PreviousButton.Visible = false;
@@ -687,10 +691,12 @@ namespace Droplets
 
             zonesnumber = SubmitZones.Count;
             GameHistory = new History(5, Sources);
+            SetTimer(true);
         }
 
         public void SetupLevelSelection()
         {
+            SetTimer(false);
             inMenu = false;
             inLevelSelect = true;
             levelnr = -1;
@@ -700,6 +706,7 @@ namespace Droplets
             PlayButton.Visible = false;
             SoundButton.Visible = false;
             QuitButton.Visible = true;
+            this.BackgroundImage = null;
 
             NextButton.Visible = true;
             PreviousButton.Visible = true;
@@ -741,6 +748,7 @@ namespace Droplets
 
         public void SetupMainMenu()
         {
+            SetTimer(false);
             inMenu = true;
             inLevelSelect = false;
             levelnr = -1;
@@ -752,6 +760,7 @@ namespace Droplets
             SoundButton.Visible = true;
             UndoButton.Visible = false;
             ResetButton.Visible = false;
+            this.BackgroundImage = mainmenuimage;
 
             NextButton.Visible = false;
             PreviousButton.Visible = false;
