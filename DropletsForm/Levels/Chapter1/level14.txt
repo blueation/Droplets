@@ -1,13 +1,16 @@
 DropletsGame
 14 Level14
-SubmitZones 3
+SubmitZones 4
 Blue 1
-Rectangle 200 0 300 480
+Rectangle 0 0 200 500
 Green 1
-Rectangle 500 0 200 480
+Rectangle 200 200 200 400
+Purple 1
+Rectangle 200 0 200 200
 Orange 1
-Rectangle 0 0 200 480
-Sources 3
-Yellow 3 400 120
-Red 2 227 288
-Blue 2 403 301
+Rectangle 400 0 300 500
+Sources 4
+Blue 3 282 190
+Yellow 2 202 408
+Red 3 204 301
+Yellow 1 306 269
