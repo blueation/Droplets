@@ -461,6 +461,9 @@ namespace Droplets
                                         PushHistory();
 
                                         int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
+                                        BlobSize bSize = new BlobSize().fromInt(newsize);
+                                        BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
+                                        Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
 
                                         s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
                                         if (s.SourceSize.toInt == 0)
@@ -478,10 +481,28 @@ namespace Droplets
                                         Dragging = false;
                                         this.Invalidate();
 
-                                        //Console.WriteLine("made new source! size:{0}", newsize);
-                                        BlobSize bSize = new BlobSize().fromInt(newsize);
-                                        BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                        Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                        //prevent the new source from being too close to the old ones
+                                        if (s.Active)
+                                        {
+                                            if (MathHelper.distance(s.SourceAnchor, bLoc) <= s.SourceSize.getRadius + bSize.getRadius)
+                                            {
+                                                Vector2 diff = bLoc - s.SourceAnchor;
+                                                diff.Normalize();
+                                                diff *= s.SourceSize.getRadius + bSize.getRadius + 5;
+                                                bLoc = s.SourceAnchor + diff;
+                                            }
+                                        }
+                                        else if (s2.Active)
+                                        {
+                                            if (MathHelper.distance(s2.SourceAnchor, bLoc) <= s2.SourceSize.getRadius + bSize.getRadius)
+                                            {
+                                                Vector2 diff = bLoc - s2.SourceAnchor;
+                                                diff.Normalize();
+                                                diff *= s2.SourceSize.getRadius + bSize.getRadius + 5;
+                                                bLoc = s2.SourceAnchor + diff;
+                                            }
+                                        }
+
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
 #endregion
