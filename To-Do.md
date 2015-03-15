@@ -7,6 +7,7 @@
 - [ ] Add pixel to brown blobs: (153,204,255)
 - [ ] Fix bug: Droplet doesn't stick in submitzone
 - [ ] Reduce Button flashes in Titlescreen and Chaptermenu (probably unfixable in-game)
+- [ ] Fix bug: When combining Droplets of different sizes, the newly created Droplets must be spaced far enough from eachother so they don't immediately merge after Undo
 
 # To do: Content
 - [ ] Add more levels
