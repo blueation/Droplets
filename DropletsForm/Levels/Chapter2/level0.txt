@@ -1,0 +1,6 @@
+DropletsGame
+0 Test0
+SubmitZones 0
+Sources 1
+Blue 3 400 240
+ForcedUpdate

@@ -11,31 +11,20 @@ namespace Droplets
     {
         public static void calculateAxis(Source s, out double c, out double a, out double b)
         {
-            float r = s.SourceSize.getArbitraryEccentricityValue;
-
             c = distance(s.SourceAnchor, s.ExtensionAnchor) / 2;
-                        
-            double e = 1 - (r / (c + r)); //eccentricity, e = 0 at c = 0; e = 1 at c = inf
-            double e2 = Math.Pow(e, 2);
-
+            
             if (c != 0)
             {
-                a = s.SourceSize.getRadius / Math.Pow(1 - e2, 0.25);
-                //b = Math.Pow(s.SourceSize.getRadius, 2) / a; //keep area constant
-                b = Math.Pow(a * a - c * c, 0.5);            //get correct hitbox
+                double r = s.SourceSize.getRadius;
+                double c2 = - c * c;
+                double c4 = c2 * c2;
+                double r4 = - r * r * r * r;
 
-                double areaCompensation = Math.Pow(s.SourceSize.getRadius * s.SourceSize.getRadius / (a * b), 0.5);
-                a *= areaCompensation;
-                b *= areaCompensation;
-
-                if (a < c) //prevent floaty droplets, instead this gives jumpy droplets
-                {
-                    double lengthCompensation = c / a;
-                    b *= lengthCompensation;
-
-                    a = Math.Pow(b * b + c * c, 0.5); //prevent incorrect hitboxes
-                }
-
+                double D = c4 - 4 * r4;
+                double B2D = -c2 + Math.Pow(D, 0.5);
+                double B2DA = B2D / 2;
+                a = Math.Pow(B2DA, 0.5);
+                b = Math.Pow(a*a - c*c, 0.5);
             }
             else
             {

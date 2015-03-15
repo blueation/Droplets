@@ -199,7 +199,7 @@ namespace Droplets
 #region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
-            //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
+            Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
             if (levelnr >= 0)
             {
                 foreach (Source s in Sources)
@@ -691,7 +691,8 @@ namespace Droplets
 
             zonesnumber = SubmitZones.Count;
             GameHistory = new History(5, Sources);
-            SetTimer(true);
+            if (!level.onlyforced)
+                SetTimer(true);
         }
 
         public void SetupLevelSelection()

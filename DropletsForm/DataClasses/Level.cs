@@ -12,6 +12,7 @@ namespace Droplets
         public int nr;
         public string refname;
         public string name;
+        public bool onlyforced;
         public List<SubmitZone> submitzones;
         public List<Source> sources;
 

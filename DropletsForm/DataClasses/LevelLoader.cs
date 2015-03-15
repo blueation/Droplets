@@ -67,6 +67,9 @@ namespace Droplets
                     Source newsource = new Source(new BlobColour().fromString(parts[0]), new BlobSize().fromInt(int.Parse(parts[1])), new Vector2(int.Parse(parts[2]), int.Parse(parts[3])));
                     result.sources.Add(newsource);
                 }
+
+                if (sr.ReadLine() == "ForcedUpdate")
+                    result.onlyforced = true;
             }
             return result;
         }

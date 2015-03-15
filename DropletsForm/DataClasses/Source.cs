@@ -43,8 +43,8 @@ namespace Droplets
         //checks whether or not a point is on/in a droplet
         public bool isIn(float x, float y)
         {
-            //Console.WriteLine(MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y));
-            //Console.WriteLine(MathHelper.calculateEllipseCollisionRadius2(this));
+            Console.WriteLine("totaldistance = {0}", MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y));
+            Console.WriteLine("a2 = {0}", MathHelper.calculateEllipseCollisionRadius2(this));
             return MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y) <= MathHelper.calculateEllipseCollisionRadius2(this);
         }
         public bool isIn(Vector2 v)
