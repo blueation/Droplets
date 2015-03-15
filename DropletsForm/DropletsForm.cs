@@ -787,7 +787,7 @@ namespace Droplets
             {
                 if (positive1 == null)
                 {
-                    soundplayer.URL = "assets/Positive.wav";
+                    soundplayer.URL = "assets/Positive2.wav";
                     positive1 = soundplayer.controls.currentItem;
                 }
                 else

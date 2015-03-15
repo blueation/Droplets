@@ -146,6 +146,9 @@
     <Content Include="Assets\Positive.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Positive2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Progress.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
