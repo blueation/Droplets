@@ -222,7 +222,7 @@ namespace Droplets
 
         public void MouseUpHandler(object o, MouseEventArgs mea)
         {
-            if (completedtiming >= 100)
+            if (completedtiming >= 75)
             {
                 ProgressButton.Visible = true;
                 UndoButton.BackgroundImage = UndoReset;
@@ -245,7 +245,7 @@ namespace Droplets
 
         public void MouseMoveHandler(object o, MouseEventArgs mea)
         {
-            if (completedtiming >= 100)
+            if (completedtiming >= 75)
             {
                 ProgressButton.Visible = true;
                 UndoButton.BackgroundImage = UndoReset;
@@ -415,7 +415,7 @@ namespace Droplets
 
         public void Update()
         {
-            if (completed && completedtiming < 100)
+            if (completed && completedtiming < 75)
             {
                 completedtiming++;
             }
@@ -842,7 +842,7 @@ namespace Droplets
                         s.Draw(pea.Graphics);
                     }
 
-                    if (completedtiming >= 100)
+                    if (completedtiming >=  75)
                         pea.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(128, 51, 51, 51)), this.ClientRectangle);
 
                     string text = zonesfilled + "/" + zonesnumber;
