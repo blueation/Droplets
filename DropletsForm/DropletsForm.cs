@@ -394,6 +394,8 @@ namespace Droplets
                 selectionIndex = 0;
                 SetupLevel(chapters[selectedChapter].levels[selectionIndex]);
             }
+            else
+                SetupMainMenu();
         }
 #endregion
 #region KeyEvents
@@ -610,15 +612,15 @@ namespace Droplets
 
         public void SetTimer(bool newstate)
         {
-            OnlyForcedUpdate = !newstate;
-            if (newstate)
+            if (newstate && ((update != null && !update.Enabled) || update == null))
             {
                 update = new System.Timers.Timer(10);
                 update.Elapsed += new ElapsedEventHandler(Update);
                 update.Enabled = true;
             }
-            else if (update != null)
+            else if (!newstate && update != null)
                 update.Dispose();
+            OnlyForcedUpdate = !newstate;
         }
 #endregion
 #region Menu and Level Logic
