@@ -99,10 +99,12 @@ namespace Droplets
             ProgressButton = new DropletButton("Progress", this);
 
             bgplaylist = bgplayer.playlistCollection.newPlaylist("Music/playlist");
-            bgplaylist.appendItem(bgplayer.newMedia("music/05 Unbound.mp3"));
-            bgplaylist.appendItem(bgplayer.newMedia("music/11 The White River.mp3"));
-            bgplaylist.appendItem(bgplayer.newMedia("music/12 Silence Unbroken.mp3"));
-            bgplaylist.appendItem(bgplayer.newMedia("music/16 Journey's End.mp3"));
+            //bgplaylist.appendItem(bgplayer.newMedia("music/05 Unbound.mp3"));
+           // bgplaylist.appendItem(bgplayer.newMedia("music/11 The White River.mp3"));
+          //  bgplaylist.appendItem(bgplayer.newMedia("music/12 Silence Unbroken.mp3"));
+         //   bgplaylist.appendItem(bgplayer.newMedia("music/16 Journey's End.mp3"));
+            bgplaylist.appendItem(bgplayer.newMedia("music/BackgroundMusic.mp3"));
+            bgplayer.settings.volume = 8;
             bgplayer.currentPlaylist = bgplaylist;
             bgplayer.controls.play();
             bgplayer.settings.setMode("loop", true);
