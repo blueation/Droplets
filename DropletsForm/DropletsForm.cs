@@ -13,9 +13,10 @@ namespace Droplets
 {
     class DropletsGame : Form
     {
-        //Options
+        //Options and DebugHelpers
         public static bool noRestartButton = true;
         public static bool OnlyForcedUpdate = false;
+        public static Button OnlyForcedUpdateButton = new Button();
 
         //GameState
         public static bool inMenu = true;
@@ -190,8 +191,31 @@ namespace Droplets
             RetrieveLevels();
             SetupMainMenu();
             GameHistory = new History(5, Sources);
+
+//To be removed in final product
+            OnlyForcedUpdateButton.Location = new System.Drawing.Point(0, 0);
+            OnlyForcedUpdateButton.Size = new Size(10, 10);
+            OnlyForcedUpdateButton.TabStop = false;
+            this.Controls.Add(OnlyForcedUpdateButton);
+            OnlyForcedUpdateButton.Click += OnlyForcedUpdateButtonHelper;
         }
 
+#region DebugButtons
+        public void OnlyForcedUpdateButtonHelper(object o, EventArgs ea)
+        {
+            this.Focus();
+
+            OnlyForcedUpdate = !OnlyForcedUpdate;
+            if (!OnlyForcedUpdate)
+            {
+                update = new System.Timers.Timer(10);
+                update.Elapsed += new ElapsedEventHandler(Update);
+                update.Enabled = true;
+            }
+            else
+                update.Dispose();
+        }
+#endregion
 #region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
@@ -435,6 +459,7 @@ namespace Droplets
                             }
                         }
 
+                        DragLock.LockIt();
                         foreach (Source s2 in Sources)
                         {
                             if (s != s2 && s2.Active)
@@ -540,6 +565,7 @@ namespace Droplets
 #endregion
                             }
                         }
+                        DragLock.UnlockIt();
                     }
                 }
 
