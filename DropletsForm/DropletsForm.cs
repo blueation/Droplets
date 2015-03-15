@@ -115,6 +115,7 @@ namespace Droplets
             this.KeyPreview = true;
             this.DoubleBuffered = true;
             this.BackColor = System.Drawing.Color.GhostWhite;
+            this.BackgroundImage = new Bitmap("assets/TemporaryIntroScreen.png");
 
             PlayButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2, this.ClientSize.Height / 2 - PlayButton.Height / 2);
             this.Controls.Add(PlayButton);
@@ -203,7 +204,7 @@ namespace Droplets
 #region DebugButtons
         public void OnlyForcedUpdateButtonHelper(object o, EventArgs ea)
         {
-            this.Focus();
+            ChapterNrName.Focus(); //The simple way of losing focus
 
             OnlyForcedUpdate = !OnlyForcedUpdate;
             if (!OnlyForcedUpdate)

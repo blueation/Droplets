@@ -161,6 +161,9 @@
     <Content Include="Assets\Sound.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\TemporaryIntroScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Undo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
