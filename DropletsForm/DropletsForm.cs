@@ -492,7 +492,7 @@ namespace Droplets
                                             {
                                                 Vector2 diff = bLoc - s.SourceAnchor;
                                                 diff.Normalize();
-                                                diff *= s.SourceSize.getRadius + bSize.getRadius + 5;
+                                                diff *= s.SourceSize.getRadius + bSize.getRadius + 7;
                                                 bLoc = s.SourceAnchor + diff;
                                             }
                                         }
@@ -502,7 +502,7 @@ namespace Droplets
                                             {
                                                 Vector2 diff = bLoc - s2.SourceAnchor;
                                                 diff.Normalize();
-                                                diff *= s2.SourceSize.getRadius + bSize.getRadius + 5;
+                                                diff *= s2.SourceSize.getRadius + bSize.getRadius + 7;
                                                 bLoc = s2.SourceAnchor + diff;
                                             }
                                         }
