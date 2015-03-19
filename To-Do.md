@@ -1,11 +1,11 @@
 # To do: Programming
 
-- [ ] Fix bug: When combining Droplets of different sizes, the newly created Droplets must be spaced far enough from eachother so they don't immediately merge after Undo --> Increase space between new formed Droplets (probably distance = radius)
+- [X] Fix bug: When combining Droplets of different sizes, the newly created Droplets must be spaced far enough from eachother so they don't immediately merge after Undo --> Increase space between new formed Droplets (probably distance = radius)
 - [ ] Create winning screen
     - [ ] Add feedback: "You have completed level X!"
     - [X] Add restart option
     - [X] Add next level option
-- [ ] Reduce Button flashes in Titlescreen and Chaptermenu (probably unfixable in-game) (http://www.angryhacker.com/blog/archive/2010/07/21/how-to-get-rid-of-flicker-on-windows-forms-applications.aspx)
+- [X] Reduce Button flashes in Titlescreen and Chaptermenu (probably unfixable in-game) (http://www.angryhacker.com/blog/archive/2010/07/21/how-to-get-rid-of-flicker-on-windows-forms-applications.aspx)
 - [ ] Change Submitzones completion font color to the same color as the buttons
 
 # To do: Content
