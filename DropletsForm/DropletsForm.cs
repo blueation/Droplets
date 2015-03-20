@@ -564,6 +564,12 @@ namespace Droplets
 
                                     s2.FullRetract();
 
+                                    if (DragSource != null)
+                                        DragSource.dragged = false;
+                                    DragSource = null;
+                                    Dragging = false;
+                                    this.Invalidate();
+
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
                                     Vector2 bLoc = s.SourceAnchor;
                                     NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
@@ -578,6 +584,12 @@ namespace Droplets
 
                                     s2.Deactivate();
                                     s2.FullRetract();
+
+                                    if (DragSource != null)
+                                        DragSource.dragged = false;
+                                    DragSource = null;
+                                    Dragging = false;
+                                    this.Invalidate();
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
                                     Vector2 bLoc = s2.SourceAnchor;
