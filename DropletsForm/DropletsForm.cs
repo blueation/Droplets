@@ -115,6 +115,7 @@ namespace Droplets
             this.Icon = new Icon("assets/droplets.ico");
             this.ClientSize = new Size(800, 480);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.CenterToScreen();
             this.KeyPreview = true;
             this.DoubleBuffered = true;
@@ -438,6 +439,8 @@ namespace Droplets
                             if (!zone.Filled)
                             {
                                 bool testZone = zone.isCollision(s);
+                                if (testZone && !zone.Filled)
+                                    PlayPositive();
                                 zone.Filled = testZone;
                                 if (testZone)
                                 {
@@ -557,7 +560,7 @@ namespace Droplets
                                     s2.FullRetract();
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                    Vector2 bLoc = s.SourceAnchor;
                                     NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
                                 }
 #endregion
