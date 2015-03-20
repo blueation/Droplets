@@ -6,8 +6,8 @@
     - [X] Add restart option
     - [X] Add next level option
 - [X] Reduce Button flashes in Titlescreen and Chaptermenu (probably unfixable in-game) (http://www.angryhacker.com/blog/archive/2010/07/21/how-to-get-rid-of-flicker-on-windows-forms-applications.aspx)
-- [ ] Change Submitzones completion font color to the same color as the buttons
-- [ ] Fix bug where White + Color has wrong placement of Droplets (they are too close to eachother)
+- [X] Change Submitzones completion font color to the same color as the buttons
+- [X] Fix bug where White + Color has wrong placement of Droplets (they are too close to eachother)
 
 # To do: Content
 - [ ] Add more levels
