@@ -39,6 +39,21 @@ namespace Droplets
 
         public void Add(List<Source> entry)
         {
+            bool different = entry.Count != sourceHistory[head].Count;
+            for (int i = 0; !different && i < entry.Count; i++)
+            {
+                if (entry[i].Active != sourceHistory[head][i].Active
+                    || entry[i].SourceAnchor.X != sourceHistory[head][i].SourceAnchor.X
+                    || entry[i].SourceAnchor.Y != sourceHistory[head][i].SourceAnchor.Y
+                    || entry[i].SourceColour.ToString() != sourceHistory[head][i].SourceColour.ToString()
+                    || entry[i].SourceSize.toInt != sourceHistory[head][i].SourceSize.toInt
+                    )
+                    different = true;
+            }
+
+            if (!different)
+                return;
+
             List<Source> result = new List<Source>();
             foreach (Source s in entry)
                 result.Add(s.Copy());

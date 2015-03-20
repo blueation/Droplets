@@ -282,11 +282,15 @@ namespace Droplets
 #region ButtonEvents
         public void PlayHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+
             SetupLevelSelection();
         }
 
         public void SoundButtonHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+
             if (playMusic && playSound)
             {
                 playMusic = false;
@@ -315,12 +319,16 @@ namespace Droplets
 
         public void LevelArrayHandler(object o, EventArgs ea, int i)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             Level temp = chapters[selectedChapter].levels[i + selectionIndex * 12];
             SetupLevel(temp);
         }
 
         public void QuitHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             if (inMenu)
                 this.Close();
             else if (inLevelSelect)
@@ -331,6 +339,8 @@ namespace Droplets
 
         public void NextHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             if (selectionIndex < (chapters[selectedChapter].levels.Count - 1) / 12)
                 selectionIndex++;
             else if (selectedChapter < chapters.Count - 1)
@@ -343,6 +353,8 @@ namespace Droplets
 
         public void PreviousHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             if (selectionIndex > 0)
                 selectionIndex--;
             else if (selectedChapter > 0)
@@ -355,11 +367,15 @@ namespace Droplets
 
         public void BackHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             SetupLevelSelection();
         }
 
         public void UndoHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             if (!completed)
             {
                 DrawLock.LockIt();
@@ -376,6 +392,8 @@ namespace Droplets
 
         public void ResetHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             DrawLock.LockIt();
                 GameHistory.Clear();
                 SetupLevel(LevelDictionary[loadedstring]);
@@ -385,6 +403,8 @@ namespace Droplets
 
         public void ProgressButtonHandler(object o, EventArgs ea)
         {
+            ChapterNrName.Focus(); //The simple way of losing focus
+            
             int current = chapters[selectedChapter].levels.IndexOf(LevelDictionary[loadedstring]);
 
             if (current < chapters[selectedChapter].levels.Count - 1)
