@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using Microsoft.Xna.Framework;
 using System.Timers;
+using System.Media;
 
 namespace Droplets
 {
@@ -81,8 +82,9 @@ namespace Droplets
         public static TTASLock DrawLock = new TTASLock();
         WMPLib.IWMPPlaylist bgplaylist;
         static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
-        static WMPLib.WindowsMediaPlayer soundplayer = new WMPLib.WindowsMediaPlayer();
-        public WMPLib.IWMPMedia positive1;
+        //static WMPLib.WindowsMediaPlayer soundplayer = new WMPLib.WindowsMediaPlayer();
+        static SoundPlayer soundplayer = new SoundPlayer("assets/Positive2.wav");
+        //public WMPLib.IWMPMedia positive1;
 
         private static System.Timers.Timer update;
 
@@ -427,7 +429,10 @@ namespace Droplets
             {
                 int AllFilled = 0;
                 foreach (SubmitZone zone in SubmitZones)
+                {
+                    zone.PrevFill = zone.Filled;
                     zone.Filled = false;
+                }
                 DrawLock.LockIt();
                 //Console.WriteLine("Lock of Draw: Update");
                 foreach (Source s in Sources)
@@ -439,7 +444,7 @@ namespace Droplets
                             if (!zone.Filled)
                             {
                                 bool testZone = zone.isCollision(s);
-                                if (testZone && !zone.Filled)
+                                if (testZone && !zone.PrevFill)
                                     PlayPositive();
                                 zone.Filled = testZone;
                                 if (testZone)
@@ -460,8 +465,8 @@ namespace Droplets
                                 if (newloc != null 
                                     && MathHelper.toVector(newloc) != s.SourceAnchor 
                                     && MathHelper.toVector(newloc) != s2.SourceAnchor 
-                                    && s.DefaultBehaviour 
-                                    && s2.DefaultBehaviour)
+                                    && ((s.DefaultBehaviour && s2.DefaultBehaviour)
+                                    || (s.SourceColour.ToString() == "Brown") || (s.SourceColour.ToString() == "Brown")))
 #region DEFAULT BEHAVIOUR
                                 {
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
@@ -830,13 +835,15 @@ namespace Droplets
         {
             if (playSound)
             {
-                if (positive1 == null)
-                {
-                    soundplayer.URL = "assets/Positive2.wav";
-                    positive1 = soundplayer.controls.currentItem;
-                }
-                else
-                    soundplayer.controls.playItem(positive1);
+                soundplayer.Play();
+
+                //if (positive1 == null)
+                //{
+                //    soundplayer.URL = "assets/Positive2.wav";
+                //    positive1 = soundplayer.controls.currentItem;
+                //}
+                //else
+                //    soundplayer.controls.playItem(positive1);
             }
         }
 #endregion

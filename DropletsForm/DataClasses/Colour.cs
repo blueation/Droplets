@@ -271,8 +271,8 @@ namespace Droplets
                     //Whites
                 case 2:         //White  + White  = White
                     return new WhiteColour();
-                case 11:        //White  + Brown  = Brown
-                    return new BrownColour();
+                case 11:        //White  + Brown  = Black
+                    return new BlackColour();
                 case 101:       //White  + Black  = Black
                     return new BlackColour();
                 case 1001:      //White  + Blue   = Blue
@@ -291,8 +291,8 @@ namespace Droplets
                     //Browns
                 case 20:        //Brown  + Brown  = Brown
                     return new BrownColour();
-                case 110:       //Brown  + Black  = Black
-                    return new BlackColour();
+                case 110:       //Brown  + Black  = White
+                    return new WhiteColour();
                 case 1010:      //Brown  + Blue   = Orange
                     return new OrangeColour();
                 case 10010:     //Brown  + Red    = Green
