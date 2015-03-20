@@ -29,6 +29,7 @@ namespace Droplets
         public static DropletButton PlayButton;
         public static DropletButton SoundButton;
         public static Image mainmenuimage = new Bitmap("assets/TemporaryIntroScreen.png");
+        public static Image backgroundimage = new Bitmap("assets/background.png");
         public static Image musicimage = new Bitmap("assets/Music.png");
         public static Image soundimage = new Bitmap("assets/Sound.png");
         public static Image muteimage = new Bitmap("assets/Mute.png");
@@ -142,6 +143,7 @@ namespace Droplets
             ChapterNrName.TextAlign = ContentAlignment.MiddleCenter;
             ChapterNrName.Text = "Testing";
             ChapterNrName.Font = new Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
+            ChapterNrName.ForeColor = System.Drawing.Color.FromArgb(255, 108, 183, 183); //255, 96, 214, 214
             ChapterNrName.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(ChapterNrName);
 
@@ -191,11 +193,11 @@ namespace Droplets
             GameHistory = new History(12, Sources);
 
 //To be removed in final product
-            OnlyForcedUpdateButton.Location = new System.Drawing.Point(0, 0);
-            OnlyForcedUpdateButton.Size = new Size(10, 10);
-            OnlyForcedUpdateButton.TabStop = false;
-            this.Controls.Add(OnlyForcedUpdateButton);
-            OnlyForcedUpdateButton.Click += (sender, e) => ToggleTimer();
+            //OnlyForcedUpdateButton.Location = new System.Drawing.Point(0, 0);
+            //OnlyForcedUpdateButton.Size = new Size(10, 10);
+            //OnlyForcedUpdateButton.TabStop = false;
+            //this.Controls.Add(OnlyForcedUpdateButton);
+            //OnlyForcedUpdateButton.Click += (sender, e) => ToggleTimer();
         }
 
 #region MouseEvents
@@ -736,7 +738,7 @@ namespace Droplets
             PlayButton.Visible = false;
             SoundButton.Visible = false;
             QuitButton.Visible = true;
-            this.BackgroundImage = null;
+            this.BackgroundImage = backgroundimage;
 
             NextButton.Visible = true;
             PreviousButton.Visible = true;
@@ -872,7 +874,7 @@ namespace Droplets
 
                     string text = zonesfilled + "/" + zonesnumber;
                     SizeF textsize = pea.Graphics.MeasureString(text, font);
-                    pea.Graphics.DrawString(text, font, new SolidBrush(System.Drawing.Color.Black)
+                    pea.Graphics.DrawString(text, font, new SolidBrush(System.Drawing.Color.FromArgb(255, 108, 183, 183)) //255, 96, 214, 214
                                            , this.ClientSize.Width - 35 - (textsize.Width / 2), textsize.Height / 2);
 
                     DrawLock.UnlockIt();
