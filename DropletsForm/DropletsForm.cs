@@ -580,7 +580,7 @@ namespace Droplets
                                     s2.FullRetract();
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+                                    Vector2 bLoc = s2.SourceAnchor;
                                     NewSources.Add(new Source(bColour, s2.SourceSize, bLoc));
                                 }
 #endregion
