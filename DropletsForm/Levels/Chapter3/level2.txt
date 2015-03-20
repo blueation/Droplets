@@ -2,15 +2,15 @@ DropletsGame
 2 Level2
 SubmitZones 3
 Brown 1
-Rectangle 0 0 1000 150
+Rectangle 0 0 800 140
 Brown 1
-Rectangle 0 181 1000 128
+Rectangle 0 170 800 140
 Brown 1
-Rectangle 0 336 1000 107
+Rectangle 0 340 800 140
 Sources 6
-Green 2 285 72
-Yellow 2 485 72
-Yellow 2 485 242
-Orange 2 285 242
-Purple 2 285 397
-Red 2 485 397
+Green 2 300 70
+Yellow 2 500 70
+Yellow 2 500 240
+Orange 2 300 240
+Purple 2 300 410
+Red 2 500 410
