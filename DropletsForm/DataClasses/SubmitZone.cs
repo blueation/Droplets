@@ -14,6 +14,7 @@ namespace Droplets
     {
         private List<SubSubmitZone> subzones = new List<SubSubmitZone>();
         public bool Filled = false;
+        public bool PrevFill = false;
         public BlobColour colour;
 
         public void AddZone(SubSubmitZone z)
