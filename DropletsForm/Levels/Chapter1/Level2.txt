@@ -4,5 +4,5 @@ SubmitZones 1
 Green 1
 Rectangle 0 0 800 480
 Sources 2
-Blue 2 300 320
-Yellow 2 500 160
+Blue 2 258 276
+Yellow 2 480 189

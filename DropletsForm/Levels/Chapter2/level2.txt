@@ -1,5 +1,5 @@
 DropletsGame
-16 Level16
+2 Level2
 SubmitZones 3
 Blue 1
 Rectangle 500 0 300 240
