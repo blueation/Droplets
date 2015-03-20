@@ -11,7 +11,7 @@
 
 # To do: Content
 - [ ] Add more levels
-- [ ] Add proper audio
+- [ ] Audio per level?
 
 # Done
 - [X] Reduce delay on finish screen to 0.25 seconds
