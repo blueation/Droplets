@@ -1,0 +1,10 @@
+DropletsGame
+6 Level6
+SubmitZones 2
+Blue 1
+Rectangle 0 0 267 480
+Blue 1
+Rectangle 533 0 267 480
+Sources 2
+Blue 3 400 240
+White 1 400 140

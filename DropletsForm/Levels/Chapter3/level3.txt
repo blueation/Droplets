@@ -7,10 +7,9 @@ Brown 1
 Rectangle 275 0 225 480
 Brown 1
 Rectangle 575 0 225 480
-Sources 6
+Sources 5
 Red 2 113 170
 Orange 2 113 310
-Blue 2 388 310
-Blue 2 688 310
 Green 2 388 170
 Purple 2 688 170
+Blue 3 538 170

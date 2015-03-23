@@ -1,0 +1,9 @@
+DropletsGame
+5 Level5
+SubmitZones 1
+Brown 1
+Rectangle 400 0 400 480
+Sources 3
+Orange 2 115 390
+Green 2 117 185
+Yellow 3 274 295

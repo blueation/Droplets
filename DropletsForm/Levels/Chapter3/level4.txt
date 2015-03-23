@@ -1,0 +1,9 @@
+DropletsGame
+4 Level4
+SubmitZones 1
+Brown 1
+Rectangle 0 0 400 480
+Sources 3
+Purple 2 655 343
+Red 2 653 225
+Brown 2 544 279
