@@ -29,7 +29,7 @@ namespace Droplets
         //MenuGUIState
         public static DropletButton PlayButton;
         public static DropletButton SoundButton;
-        public static Image mainmenuimage = new Bitmap("assets/TemporaryIntroScreen.png");
+        public static Image mainmenuimage = new Bitmap("assets/IntroScreen.png");
         public static Image backgroundimage = new Bitmap("assets/background.png");
         public static Image musicimage = new Bitmap("assets/Music.png");
         public static Image soundimage = new Bitmap("assets/Sound.png");
