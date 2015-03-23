@@ -63,6 +63,7 @@ namespace Droplets
         public static DropletButton UndoButton;
         public static Image UndoUndo = new Bitmap("assets/Reset.png");
         public static Image UndoReset = new Bitmap("assets/Reset 2.png");
+        public static Image levelcompletedimage = new Bitmap("assets/LevelCompleted.png");
         public static DropletButton ResetButton;
         public static DropletButton ProgressButton;
         
@@ -164,7 +165,7 @@ namespace Droplets
                 this.Controls.Add(ResetButton);
             }
             this.Controls.Add(UndoButton);
-            ProgressButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2, this.ClientSize.Height / 2 - PlayButton.Height / 2);
+            ProgressButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2 + 10, this.ClientSize.Height * 2 / 3  - PlayButton.Height / 2);
             this.Controls.Add(ProgressButton);
 
             PlayButton.Click += this.PlayHandler; PlayButton.text.Click += this.PlayHandler;
@@ -207,7 +208,7 @@ namespace Droplets
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
             //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
-            if (levelnr >= 0)
+            if (levelnr >= 0 && !completed)
             {
                 foreach (Source s in Sources)
                 {
@@ -256,8 +257,8 @@ namespace Droplets
                 UndoButton.BackgroundImage = UndoReset;
                 //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
             }
-            
-            if (levelnr >= 0)
+
+            if (levelnr >= 0 && !completed)
             {
                 DragLock.LockIt();
                     if (DragSource != null)
@@ -896,8 +897,11 @@ namespace Droplets
                         s.Draw(pea.Graphics);
                     }
 
-                    if (completedtiming >=  25)
+                    if (completedtiming >= 25)
+                    {
                         pea.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(128, 51, 51, 51)), this.ClientRectangle);
+                        pea.Graphics.DrawImage(levelcompletedimage, 0, 0, 800, 480);
+                    }
 
                     string text = zonesfilled + "/" + zonesnumber;
                     SizeF textsize = pea.Graphics.MeasureString(text, font);
