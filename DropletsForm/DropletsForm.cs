@@ -540,11 +540,20 @@ namespace Droplets
                                                 bLoc = s2.SourceAnchor + diff;
                                             }
                                         }
+
                                         if (s.SourceSize.toInt == s2.SourceSize.toInt && (s.SourceColour.ToString() == "White" || s2.SourceColour.ToString() == "White"))
                                         {
                                             NewSources.Add(new Source(new BlobColour().fromString(bColour.ToString()), 
                                                            new BlobSize().fromInt(bSize.toInt), 
                                                            bLoc2));
+
+                                            if (MathHelper.distance(bLoc2, bLoc) <= 2 * bSize.getRadius)
+                                            {
+                                                Vector2 diff = bLoc - bLoc2;
+                                                diff.Normalize();
+                                                diff *= 2 * bSize.getRadius + 7;
+                                                bLoc = bLoc2 + diff;
+                                            }
                                         }
 
                                         if (s.SourceColour.ToString() == "White")
