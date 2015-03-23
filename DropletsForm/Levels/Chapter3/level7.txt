@@ -6,4 +6,4 @@ Rectangle 0 0 800 480
 Sources 3
 White 2 260 226
 Yellow 1 500 218
-Red 1 263 342
+Red 1 313 339
