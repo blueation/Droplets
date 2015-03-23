@@ -484,10 +484,7 @@ namespace Droplets
 
                                 if (newloc != null 
                                     && MathHelper.toVector(newloc) != s.SourceAnchor 
-                                    && MathHelper.toVector(newloc) != s2.SourceAnchor 
-                                    && ((s.DefaultBehaviour && s2.DefaultBehaviour)
-                                    || (s.SourceColour.ToString() == "Brown") || (s.SourceColour.ToString() == "Brown")
-                                    || (s.SourceColour.ToString() == "White") || (s2.SourceColour.ToString() == "White")))
+                                    && MathHelper.toVector(newloc) != s2.SourceAnchor)
 #region DEFAULT BEHAVIOUR
                                 {
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
@@ -573,7 +570,7 @@ namespace Droplets
 
                                         //Console.WriteLine("made new source! size:{0}", newsize);
                                         BlobSize bSize = new BlobSize().fromInt(newsize);
-                                        BlobColour bColour = s.SourceColour;
+                                        BlobColour bColour = new BlobColour().fromString(s.SourceColour.ToString());
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }

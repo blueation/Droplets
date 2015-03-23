@@ -1,0 +1,9 @@
+DropletsGame
+0 Level0
+SubmitZones 1
+Yellow 1
+Rectangle 0 240 400 240
+Sources 2
+White 3 470 304
+Yellow 2 398 236
+ForcedUpdate
