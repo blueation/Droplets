@@ -1,0 +1,10 @@
+DropletsGame
+36 Level36
+SubmitZones 2
+Orange 1
+Rectangle 0 0 400 480
+Brown 1
+Circle 150 250 400
+Sources 2
+Brown 2 300 200
+Blue 1 460 215

@@ -1,0 +1,9 @@
+DropletsGame
+33 Level33
+SubmitZones 1
+Black 1
+Circle 7 60 300
+Sources 3
+White 2 210 200
+Brown 2 341 200
+Black 2 564 200

@@ -1,0 +1,8 @@
+DropletsGame
+35 Level35
+SubmitZones 1
+Purple 1
+Rectangle 0 0 400 480
+Sources 2
+Brown 2 340 200
+Yellow 2 580 200
