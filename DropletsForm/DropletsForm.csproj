@@ -284,9 +284,6 @@
     <Content Include="Levels\Chapter4\level7.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Levels\Chapter3\level0.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Music\05 Unbound.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
