@@ -497,6 +497,12 @@ namespace Droplets
                                         BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
 
+                                        Vector2 bLoc2;  //the location of the source that was not last dragged (may not always be correct though...)
+                                        if (LastDragged == s)
+                                            bLoc2 = s2.SourceAnchor;
+                                        else
+                                            bLoc2 = s.SourceAnchor;
+
                                         s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
                                         if (s.SourceSize.toInt == 0)
                                             s.Deactivate();
@@ -536,8 +542,9 @@ namespace Droplets
                                         }
                                         if (s.SourceSize.toInt == s2.SourceSize.toInt && (s.SourceColour.ToString() == "White" || s2.SourceColour.ToString() == "White"))
                                         {
-                                            Vector2 bLoc2 = new Vector2(newloc.Item1 + 50, newloc.Item2);
-                                            NewSources.Add(new Source(bColour, bSize, bLoc2));
+                                            NewSources.Add(new Source(new BlobColour().fromString(bColour.ToString()), 
+                                                           new BlobSize().fromInt(bSize.toInt), 
+                                                           bLoc2));
                                         }
 
                                         if (s.SourceColour.ToString() == "White")
