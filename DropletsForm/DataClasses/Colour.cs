@@ -108,7 +108,7 @@ namespace Droplets
 
         public override Color secondColor
         {
-            get { return Color.FromArgb(255,51,51,51); }
+            get { return Color.FromArgb(255,21,21,21); }
         }
 
         public override string ToString()
