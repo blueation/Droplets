@@ -9,6 +9,7 @@ using System.Drawing.Design;
 using Microsoft.Xna.Framework;
 using System.Timers;
 using System.Media;
+using System.Windows.Forms;
 
 namespace Droplets
 {
@@ -486,7 +487,8 @@ namespace Droplets
                                     && MathHelper.toVector(newloc) != s.SourceAnchor 
                                     && MathHelper.toVector(newloc) != s2.SourceAnchor 
                                     && ((s.DefaultBehaviour && s2.DefaultBehaviour)
-                                    || (s.SourceColour.ToString() == "Brown") || (s.SourceColour.ToString() == "Brown")))
+                                    || (s.SourceColour.ToString() == "Brown") || (s.SourceColour.ToString() == "Brown")
+                                    || (s.SourceColour.ToString() == "White") || (s2.SourceColour.ToString() == "White")))
 #region DEFAULT BEHAVIOUR
                                 {
                                     if (s.SourceColour.ToString() != s2.SourceColour.ToString())
@@ -524,6 +526,10 @@ namespace Droplets
                                                 diff.Normalize();
                                                 diff *= s.SourceSize.getRadius + bSize.getRadius + 7;
                                                 bLoc = s.SourceAnchor + diff;
+                                                if (s.SourceColour.ToString() == "White")  
+                                                    s.SourceColour = new BlobColour().fromString(s2.SourceColour.ToString());
+
+                                                
                                             }
                                         }
                                         else if (s2.Active)
@@ -534,6 +540,8 @@ namespace Droplets
                                                 diff.Normalize();
                                                 diff *= s2.SourceSize.getRadius + bSize.getRadius + 7;
                                                 bLoc = s2.SourceAnchor + diff;
+                                                if (s2.SourceColour.ToString() == "White")
+                                                    s2.SourceColour = new BlobColour().fromString(s.SourceColour.ToString());
                                             }
                                         }
 
@@ -574,7 +582,7 @@ namespace Droplets
 #endregion
                                 }
 #endregion
-                                else if (newloc != null && s.SourceColour.ToString() == "White")
+                                else if (newloc != null && s.SourceColour.ToString() == "Whifte")
 #region WHITEBEHAVIOUR 1
                                 {
                                     PushHistory();
@@ -592,10 +600,19 @@ namespace Droplets
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
                                     Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+
+                                    if (new Source(bColour, s2.SourceSize, bLoc).isCollision(s) == true)
+                                    {
+                                        Vector2 diff = bLoc - s2.SourceAnchor;
+                                        diff.Normalize();
+                                        diff *= s2.SourceSize.getRadius + s.SourceSize.getRadius + 7;
+                                        bLoc = s2.SourceAnchor + diff;
+                                    }
+
                                     NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
                                 }
 #endregion
-                                else if (newloc != null && s2.SourceColour.ToString() == "White")
+                                else if (newloc != null && s2.SourceColour.ToString() == "Whifte")
 #region WHITEBEHAVIOUR 2
                                 {
                                     PushHistory();
@@ -616,17 +633,11 @@ namespace Droplets
 
                                     if (new Source(bColour, s.SourceSize, bLoc).isCollision(s) == true)
                                     {
-                                        int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
-                                        BlobSize bSize = new BlobSize().fromInt(newsize);
-                                        if (MathHelper.distance(s.SourceAnchor, bLoc) <= s.SourceSize.getRadius + bSize.getRadius)
-                                        {
-                                            Vector2 diff = bLoc - s.SourceAnchor;
-                                            diff.Normalize();
-                                            diff *= s.SourceSize.getRadius + bSize.getRadius + 7;
-                                            bLoc = s.SourceAnchor + diff;
-                                        }
+                                        Vector2 diff = bLoc - s.SourceAnchor;
+                                        diff.Normalize();
+                                        diff *= s.SourceSize.getRadius + s2.SourceSize.getRadius + 7;
+                                        bLoc = s.SourceAnchor + diff;                
                                     }
-
                                     NewSources.Add(new Source(bColour, s2.SourceSize, bLoc));
                                 }
 #endregion
