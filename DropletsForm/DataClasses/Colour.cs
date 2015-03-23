@@ -16,12 +16,12 @@ namespace Droplets
         /// </summary>
         virtual public Color screenColor
         {
-            get { return Color.Transparent; }
+            get { return Color.Green; }
         }
 
         virtual public Color secondColor
         {
-            get { return Color.Transparent; }
+            get { return Color.Green; }
         }
 
         virtual public int mixerHelper
