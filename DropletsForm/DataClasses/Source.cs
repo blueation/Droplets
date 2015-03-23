@@ -17,7 +17,7 @@ namespace Droplets
 
         public bool Active = true;
         public bool dragged = false;
-        public bool DefaultBehaviour;
+        //public bool DefaultBehaviour;
         public bool retractThisUpdate = true;
 
         public Source(BlobColour c, BlobSize s, Vector2 loc)
@@ -26,10 +26,10 @@ namespace Droplets
             SourceSize = s;
             SourceAnchor = loc;
             ExtensionAnchor = loc;
-            DefaultBehaviour = (SourceColour.ToString() != "White");
+            //DefaultBehaviour = (SourceColour.ToString() != "White");
         }
 
-        public Source(BlobColour c, BlobSize s, Vector2 loc, bool active, bool dragged, bool DefaultBehaviour)
+        public Source(BlobColour c, BlobSize s, Vector2 loc, bool active, bool dragged)
         {
             SourceColour = c;
             SourceSize = s;
@@ -37,7 +37,7 @@ namespace Droplets
             ExtensionAnchor = loc;
             Active = active;
             this.dragged = dragged;
-            this.DefaultBehaviour = DefaultBehaviour;
+            //this.DefaultBehaviour = DefaultBehaviour;
         }
 
         //checks whether or not a point is on/in a droplet
@@ -135,8 +135,7 @@ namespace Droplets
                               new BlobSize().fromInt(SourceSize.toInt), 
                               new Vector2(SourceAnchor.X, SourceAnchor.Y),
                               Active,
-                              false,
-                              DefaultBehaviour);
+                              false);
         }
     }
 }

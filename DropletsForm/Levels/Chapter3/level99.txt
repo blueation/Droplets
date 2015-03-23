@@ -1,0 +1,12 @@
+DropletsGame
+99 Level99
+SubmitZones 1
+Blue 1
+Rectangle 36 11 139 93
+Sources 6
+Blue 1 128 187
+Blue 2 129 267
+Blue 3 149 362
+White 3 280 363
+White 2 245 257
+White 1 243 156
