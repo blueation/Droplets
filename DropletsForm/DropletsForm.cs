@@ -538,7 +538,7 @@ namespace Droplets
                                         if (s.SourceColour.ToString() == "White")
                                             s.SourceColour = new BlobColour().fromString(s2.SourceColour.ToString());
                                         if (s2.SourceColour.ToString() == "White")
-                                            bColour = new BlobColour().fromString(s.SourceColour.ToString());
+                                            s2.SourceColour = new BlobColour().fromString(s.SourceColour.ToString());
 
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
