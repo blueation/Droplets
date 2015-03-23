@@ -534,11 +534,17 @@ namespace Droplets
                                                 bLoc = s2.SourceAnchor + diff;
                                             }
                                         }
+                                        if (s.SourceSize.toInt == s2.SourceSize.toInt && (s.SourceColour.ToString() == "White" || s2.SourceColour.ToString() == "White"))
+                                        {
+                                            Vector2 bLoc2 = new Vector2(newloc.Item1 + 50, newloc.Item2);
+                                            NewSources.Add(new Source(bColour, bSize, bLoc2));
+                                        }
 
                                         if (s.SourceColour.ToString() == "White")
                                             s.SourceColour = new BlobColour().fromString(s2.SourceColour.ToString());
                                         if (s2.SourceColour.ToString() == "White")
                                             s2.SourceColour = new BlobColour().fromString(s.SourceColour.ToString());
+
 
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
@@ -566,6 +572,8 @@ namespace Droplets
 
                                         DragSource = null;
                                         Dragging = false;
+
+
                                         this.Invalidate();
 
                                         //Console.WriteLine("made new source! size:{0}", newsize);

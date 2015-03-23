@@ -257,6 +257,9 @@
     <Content Include="Levels\Chapter3\level9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Levels\Chapter3\level99.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Levels\Chapter4\level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
