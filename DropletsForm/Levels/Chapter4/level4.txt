@@ -1,5 +1,5 @@
 DropletsGame
-36 Level36
+4 Level4
 SubmitZones 2
 Orange 1
 Rectangle 0 0 400 480

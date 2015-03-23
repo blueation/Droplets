@@ -1,5 +1,5 @@
 DropletsGame
-35 Level35
+3 Level3
 SubmitZones 1
 Purple 1
 Rectangle 0 0 400 480

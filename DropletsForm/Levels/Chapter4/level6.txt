@@ -1,5 +1,5 @@
 DropletsGame
-4 Level4
+6 Level6
 SubmitZones 1
 Yellow 1
 Rectangle 0 0 1920 1080

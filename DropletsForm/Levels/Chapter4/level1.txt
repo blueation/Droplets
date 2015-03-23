@@ -1,5 +1,5 @@
 DropletsGame
-33 Level33
+1 Level1
 SubmitZones 1
 Black 1
 Circle 7 60 300
