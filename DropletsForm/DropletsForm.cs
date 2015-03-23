@@ -9,7 +9,6 @@ using System.Drawing.Design;
 using Microsoft.Xna.Framework;
 using System.Timers;
 using System.Media;
-using System.Windows.Forms;
 
 namespace Droplets
 {
@@ -525,11 +524,7 @@ namespace Droplets
                                                 Vector2 diff = bLoc - s.SourceAnchor;
                                                 diff.Normalize();
                                                 diff *= s.SourceSize.getRadius + bSize.getRadius + 7;
-                                                bLoc = s.SourceAnchor + diff;
-                                                if (s.SourceColour.ToString() == "White")  
-                                                    s.SourceColour = new BlobColour().fromString(s2.SourceColour.ToString());
-
-                                                
+                                                bLoc = s.SourceAnchor + diff;                                               
                                             }
                                         }
                                         else if (s2.Active)
@@ -540,10 +535,13 @@ namespace Droplets
                                                 diff.Normalize();
                                                 diff *= s2.SourceSize.getRadius + bSize.getRadius + 7;
                                                 bLoc = s2.SourceAnchor + diff;
-                                                if (s2.SourceColour.ToString() == "White")
-                                                    s2.SourceColour = new BlobColour().fromString(s.SourceColour.ToString());
                                             }
                                         }
+
+                                        if (s.SourceColour.ToString() == "White")
+                                            s.SourceColour = new BlobColour().fromString(s2.SourceColour.ToString());
+                                        if (s2.SourceColour.ToString() == "White")
+                                            bColour = new BlobColour().fromString(s.SourceColour.ToString());
 
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
@@ -580,65 +578,6 @@ namespace Droplets
                                         NewSources.Add(new Source(bColour, bSize, bLoc));
                                     }
 #endregion
-                                }
-#endregion
-                                else if (newloc != null && s.SourceColour.ToString() == "Whifte")
-#region WHITEBEHAVIOUR 1
-                                {
-                                    PushHistory();
-
-                                    s.Deactivate();
-                                    s.FullRetract();
-
-                                    s2.FullRetract();
-
-                                    if (DragSource != null)
-                                        DragSource.dragged = false;
-                                    DragSource = null;
-                                    Dragging = false;
-                                    this.Invalidate();
-
-                                    BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
-
-                                    if (new Source(bColour, s2.SourceSize, bLoc).isCollision(s) == true)
-                                    {
-                                        Vector2 diff = bLoc - s2.SourceAnchor;
-                                        diff.Normalize();
-                                        diff *= s2.SourceSize.getRadius + s.SourceSize.getRadius + 7;
-                                        bLoc = s2.SourceAnchor + diff;
-                                    }
-
-                                    NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
-                                }
-#endregion
-                                else if (newloc != null && s2.SourceColour.ToString() == "Whifte")
-#region WHITEBEHAVIOUR 2
-                                {
-                                    PushHistory();
-
-                                    s.FullRetract();
-
-                                    s2.Deactivate();
-                                    s2.FullRetract();
-
-                                    if (DragSource != null)
-                                        DragSource.dragged = false;
-                                    DragSource = null;
-                                    Dragging = false;
-                                    this.Invalidate();
-
-                                    BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
-
-                                    if (new Source(bColour, s.SourceSize, bLoc).isCollision(s) == true)
-                                    {
-                                        Vector2 diff = bLoc - s.SourceAnchor;
-                                        diff.Normalize();
-                                        diff *= s.SourceSize.getRadius + s2.SourceSize.getRadius + 7;
-                                        bLoc = s.SourceAnchor + diff;                
-                                    }
-                                    NewSources.Add(new Source(bColour, s2.SourceSize, bLoc));
                                 }
 #endregion
                             }
