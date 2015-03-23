@@ -12,5 +12,5 @@ Rectangle 0 0 400 240
 Sources 4
 White 3 470 304
 Blue 3 298 240
-Yellow 2 398 236
+Yellow 2 390 251
 Red 1 537 397
