@@ -591,7 +591,7 @@ namespace Droplets
                                     this.Invalidate();
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = s.SourceAnchor;
+                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
                                     NewSources.Add(new Source(bColour, s.SourceSize, bLoc));
                                 }
 #endregion
@@ -612,7 +612,21 @@ namespace Droplets
                                     this.Invalidate();
 
                                     BlobColour bColour = ColourMixer.mix(s.SourceColour, s2.SourceColour);
-                                    Vector2 bLoc = s2.SourceAnchor;
+                                    Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
+
+                                    if (new Source(bColour, s.SourceSize, bLoc).isCollision(s) == true)
+                                    {
+                                        int newsize = Math.Min(s.SourceSize.toInt, s2.SourceSize.toInt);
+                                        BlobSize bSize = new BlobSize().fromInt(newsize);
+                                        if (MathHelper.distance(s.SourceAnchor, bLoc) <= s.SourceSize.getRadius + bSize.getRadius)
+                                        {
+                                            Vector2 diff = bLoc - s.SourceAnchor;
+                                            diff.Normalize();
+                                            diff *= s.SourceSize.getRadius + bSize.getRadius + 7;
+                                            bLoc = s.SourceAnchor + diff;
+                                        }
+                                    }
+
                                     NewSources.Add(new Source(bColour, s2.SourceSize, bLoc));
                                 }
 #endregion
