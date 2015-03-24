@@ -1,0 +1,18 @@
+DropletsGame
+7 Level7
+SubmitZones 4
+Blue 1
+Rectangle 0 0 400 240
+Red 1
+Rectangle 400 0 400 240
+Red 1
+Rectangle 0 240 400 240
+Yellow 1
+Rectangle 400 240 400 240
+Sources 6
+Purple 2 260 240
+Orange 2 660 240
+Green 2 130 240
+Green 1 550 240
+Purple 1 600 175
+Orange 1 195 175

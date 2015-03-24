@@ -1,0 +1,20 @@
+DropletsGame
+8 Level8
+SubmitZones 5
+Blue 1
+Rectangle 0 0 290 480
+Blue 1
+Rectangle 510 0 290 480
+Red 1
+Rectangle 440 0 60 480
+Red 1
+Rectangle 300 0 60 480
+Yellow 1
+Rectangle 370 0 60 480
+Sources 6
+Green 2 509 194
+Orange 2 353 103
+Green 1 293 199
+Purple 1 467 98
+Orange 1 469 272
+Purple 3 363 259
