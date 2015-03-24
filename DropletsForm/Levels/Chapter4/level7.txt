@@ -1,11 +1,13 @@
 DropletsGame
 7 Level7
 SubmitZones 2
-Yellow 1
-Rectangle 400 0 400 480
-Brown 1
-Rectangle 0 0 400 480
-Sources 3
-Blue 3 400 240
-Green 2 200 240
-Red 2 600 240
+Blue 1
+Rectangle 450 240 350 240
+Red 1
+Rectangle 0 0 350 240
+Sources 5
+Black 2 290 150
+Brown 2 510 320
+Green 2 420 150
+Orange 2 280 330
+Brown 3 180 140

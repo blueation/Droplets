@@ -2,8 +2,8 @@ DropletsGame
 6 Level6
 SubmitZones 1
 Yellow 1
-Rectangle 0 0 1920 1080
+Circle 100 90 200
 Sources 3
-Orange 2 247 253
-Red 2 165 141
-Purple 2 304 128
+Brown 2 360 240
+Yellow 3 700 232
+Brown 2 500 173

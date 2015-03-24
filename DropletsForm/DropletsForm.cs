@@ -147,7 +147,7 @@ namespace Droplets
             ChapterNrName.TextAlign = ContentAlignment.MiddleCenter;
             ChapterNrName.Text = "Testing";
             ChapterNrName.Font = new Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
-            ChapterNrName.ForeColor = System.Drawing.Color.FromArgb(255, 108, 183, 183); //255, 96, 214, 214
+            ChapterNrName.ForeColor = System.Drawing.Color.FromArgb(255, 63, 143, 153); //255, 96, 214, 214
             ChapterNrName.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(ChapterNrName);
 
