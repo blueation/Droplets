@@ -1,9 +1,9 @@
 # To do: Programming
-- [ ] Create winning screen
-    - [ ] Add feedback: "You have completed level X!"
+- [X] Create winning screen
+    - [X] Add feedback: "You have completed level X!"
     - [X] Add restart option
     - [X] Add next level option
-- [ ] Fix bug: After completed levels, the Droplets are movable. This should not be allowed.
+- [X] Fix bug: After completed levels, the Droplets are movable. This should not be allowed.
 
 
 # To do: Content

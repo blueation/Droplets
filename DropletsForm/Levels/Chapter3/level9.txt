@@ -1,11 +1,16 @@
 DropletsGame
 9 Level9
-SubmitZones 1
+SubmitZones 4
 Blue 1
-Rectangle 0 0 800 480
-Sources 5
-Black 1 400 155
-Black 1 400 325
-Purple 1 305 240
-Green 1 493 240
-Orange 2 400 240
+Rectangle 400 0 400 240
+Green 1
+Rectangle 0 240 400 240
+Orange 1
+Rectangle 400 240 400 240
+White 1
+Rectangle 0 0 400 240
+Sources 4
+White 3 470 304
+Blue 3 298 240
+Yellow 2 390 251
+Red 1 537 397

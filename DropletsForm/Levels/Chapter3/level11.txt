@@ -1,19 +1,15 @@
 DropletsGame
 11 Level11
 SubmitZones 3
-Blue 3
-Circle -52 -88 224
-Circle 215 224 0
-Circle 215 224 0
+Blue 1
+Rectangle 400 0 400 240
 Green 1
-Circle 128 282 163
-Purple 1
-Circle 523 138 -161
-Sources 7
-Black 2 84 124
-Black 2 146 89
-Blue 3 170 199
-Blue 1 275 25
-Yellow 1 294 217
-White 1 453 256
-Red 1 473 71
+Rectangle 0 240 400 240
+Orange 1
+Rectangle 400 240 400 240
+Sources 5
+White 3 470 304
+Blue 3 298 240
+Yellow 2 398 236
+Red 1 537 397
+Black 1 563 304

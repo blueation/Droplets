@@ -1,15 +1,11 @@
 DropletsGame
 10 Level10
-SubmitZones 3
+SubmitZones 1
 Blue 1
-Rectangle 400 0 400 240
-Green 1
-Rectangle 0 240 400 240
-Orange 1
-Rectangle 400 240 400 240
+Rectangle 0 0 800 480
 Sources 5
-White 3 470 304
-Blue 3 298 240
-Yellow 2 398 236
-Red 1 537 397
-Black 1 563 304
+Black 1 400 155
+Black 1 400 325
+Purple 1 305 240
+Green 1 493 240
+Orange 2 400 240
