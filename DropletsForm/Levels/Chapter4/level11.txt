@@ -1,0 +1,15 @@
+DropletsGame
+11 Level11
+SubmitZones 1
+Black 1
+Circle 260 100 280
+Sources 9
+White 1 400 130
+Blue 1 520 79
+Red 2 210 187
+Red 1 280 82
+Yellow 2 220 318
+Brown 3 400 389
+Brown 1 580 280
+Blue 1 560 340
+Blue 1 570 180

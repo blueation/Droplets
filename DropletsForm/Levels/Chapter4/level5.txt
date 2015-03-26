@@ -5,8 +5,10 @@ Green 1
 Rectangle 400 0 400 480
 Orange 1
 Rectangle 0 0 400 480
-Sources 4
+Sources 6
 Red 2 258 134
 Brown 2 260 21
 Brown 3 593 376
 Blue 3 590 246
+Black 1 400 360
+Black 2 400 240

@@ -1,0 +1,33 @@
+DropletsGame
+12 Level12
+SubmitZones 6
+Green 1
+Rectangle 60 40 100 100
+Green 1
+Circle 180 40 100
+Orange 1
+Rectangle 340 40 100 100
+Orange 1
+Circle 450 40 100
+Purple 1
+Rectangle 620 40 100 100
+Purple 1
+Circle 620 160 100
+Sources 17
+Brown 3 265 223
+Red 1 134 170
+Brown 1 134 230
+Yellow 1 590 180
+Brown 1 530 180
+Blue 1 375 170
+Brown 1 375 230
+Brown 3 460 220
+Yellow 1 80 400
+Black 1 160 400
+Purple 1 240 400
+Black 1 320 400
+Green 1 400 400
+Blue 1 480 400
+Black 1 560 400
+Black 1 640 400
+Red 1 720 400

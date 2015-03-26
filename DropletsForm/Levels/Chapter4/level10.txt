@@ -1,0 +1,24 @@
+DropletsGame
+10 Level10
+SubmitZones 4
+Blue 1
+Rectangle 0 0 300 240
+Purple 1
+Rectangle 0 240 300 240
+Black 1
+Circle 550 80 150
+Black 1
+Circle 530 280 150
+Sources 12
+Brown 3 256 192
+Black 1 370 10
+Black 1 430 450
+Black 1 436 47
+Black 1 460 130
+Black 1 428 202
+Black 1 382 269
+Black 1 421 345
+Black 1 463 401
+Orange 3 520 50
+Yellow 3 527 319
+Red 2 530 200
