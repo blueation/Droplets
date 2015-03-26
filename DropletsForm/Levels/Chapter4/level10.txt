@@ -6,9 +6,9 @@ Rectangle 0 0 300 240
 Purple 1
 Rectangle 0 240 300 240
 Black 1
-Circle 550 80 150
+Circle 550 -20 250
 Black 1
-Circle 530 280 150
+Circle 530 280 250
 Sources 12
 Brown 3 256 192
 Black 1 370 10

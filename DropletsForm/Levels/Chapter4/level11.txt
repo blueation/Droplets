@@ -4,7 +4,7 @@ SubmitZones 1
 Black 1
 Circle 260 100 280
 Sources 9
-White 1 400 130
+White 1 400 70
 Blue 1 520 79
 Red 2 210 187
 Red 1 280 82
