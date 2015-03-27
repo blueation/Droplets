@@ -14,6 +14,7 @@ namespace Droplets
 {
     class DropletsGame : Form
     {
+#region global settings, objects and variables
         //Options and DebugHelpers
         public static bool noRestartButton = true;
         public static bool OnlyForcedUpdate = false;
@@ -25,28 +26,29 @@ namespace Droplets
         public static int levelnr = -1;
         public static bool playMusic = true;
         public static bool playSound = true;
+        private static System.Timers.Timer update;
 
         //MenuGUIState
         public static DropletButton PlayButton;
         public static DropletButton SoundButton;
+        public static DropletButton QuitButton;
         public static Image mainmenuimage = new Bitmap("assets/IntroScreen.png");
         public static Image backgroundimage = new Bitmap("assets/background.png");
         public static Image musicimage = new Bitmap("assets/Music.png");
         public static Image soundimage = new Bitmap("assets/Sound.png");
         public static Image muteimage = new Bitmap("assets/Mute.png");
         public static Image onlymusicimage = new Bitmap("assets/OnlyMusic.png");
-        public static DropletButton QuitButton;
         public static Font font = new System.Drawing.Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
 
         //SelectState
         public static Dictionary<string, Level> LevelDictionary = new Dictionary<string, Level>();
         public static List<Chapter> chapters = new List<Chapter>();
         public static Label ChapterNrName = new Label();
-        public static DropletButton[] LevelArray = new DropletButton[12];  //12 or so
+        public static DropletButton[] LevelArray = new DropletButton[12];
         public static DropletButton PreviousButton;
+        public static DropletButton NextButton;
         public static Image prevposs = new Bitmap("assets/Back.png");
         public static Image previmpo = new Bitmap("assets/BackImpossible.png");
-        public static DropletButton NextButton;
         public static Image nextposs = new Bitmap("assets/Next.png");
         public static Image nextimpo = new Bitmap("assets/NextImpossible.png");
         public static int selectedChapter;
@@ -57,15 +59,15 @@ namespace Droplets
         public static string levelname;
         public static int zonesnumber;
         public static int zonesfilled;
-        public static bool completed = false;
         public static int completedtiming = 0;
+        public static bool completed = false;
+        public static DropletButton ResetButton;
+        public static DropletButton ProgressButton;
         public static DropletButton BackButton;
         public static DropletButton UndoButton;
         public static Image UndoUndo = new Bitmap("assets/Reset.png");
         public static Image UndoReset = new Bitmap("assets/Reset 2.png");
         public static Image levelcompletedimage = new Bitmap("assets/LevelCompleted.png");
-        public static DropletButton ResetButton;
-        public static DropletButton ProgressButton;
         
         //LevelState
         public static List<Source> Sources = new List<Source>();
@@ -81,14 +83,14 @@ namespace Droplets
 
         //OutputState
         public static TTASLock DrawLock = new TTASLock();
-        WMPLib.IWMPPlaylist bgplaylist;
-        static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
-        static SoundPlayer soundplayer = new SoundPlayer("assets/Positive2.wav");
-
-        private static System.Timers.Timer update;
-
+        public static WMPLib.IWMPPlaylist bgplaylist;
+        public static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
+        public static SoundPlayer soundplayer = new SoundPlayer("assets/Positive2.wav");
+#endregion
         public DropletsGame()
         {
+#region set up all necessary data and objects
+            //set up the standard buttons
             PlayButton = new DropletButton("Play", this);
             SoundButton = new DropletButton("Music", this);
             QuitButton = new DropletButton("Quit", this);
@@ -100,6 +102,7 @@ namespace Droplets
             PreviousButton = new DropletButton("Back", this);
             ProgressButton = new DropletButton("Progress", this);
 
+            //set up the background music player
             bgplaylist = bgplayer.playlistCollection.newPlaylist("Music/playlist");
             bgplaylist.appendItem(bgplayer.newMedia("music/BackgroundMusic.mp3"));
             bgplayer.settings.volume = 8;
@@ -107,6 +110,7 @@ namespace Droplets
             bgplayer.controls.play();
             bgplayer.settings.setMode("loop", true);
 
+            //set up the form
             this.Text = "Droplets";
             this.Icon = new Icon("assets/droplets.ico");
             this.ClientSize = new Size(800, 480);
@@ -118,6 +122,7 @@ namespace Droplets
             this.BackColor = System.Drawing.Color.GhostWhite;
             this.BackgroundImage = mainmenuimage;
 
+            //control settings
             PlayButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2, this.ClientSize.Height / 2 - PlayButton.Height / 2);
             this.Controls.Add(PlayButton);
             SoundButton.Location = new System.Drawing.Point(10, this.ClientSize.Height - 70);
@@ -160,7 +165,9 @@ namespace Droplets
             this.Controls.Add(UndoButton);
             ProgressButton.Location = new System.Drawing.Point(this.ClientSize.Width / 2 - PlayButton.Width / 2 + 10, this.ClientSize.Height * 2 / 3  - PlayButton.Height / 2);
             this.Controls.Add(ProgressButton);
-
+#endregion
+#region eventhandlers
+            //set up eventhandlers
             PlayButton.Click += this.PlayHandler; PlayButton.text.Click += this.PlayHandler;
             BackButton.Click += this.BackHandler; BackButton.text.Click += this.BackHandler;
             UndoButton.Click += this.UndoHandler; UndoButton.text.Click += this.UndoHandler;
@@ -184,7 +191,8 @@ namespace Droplets
             this.KeyDown += this.KeyDownHandler;
 
             this.Paint += this.Draw;
-
+#endregion
+            //set up actual game
             RetrieveLevels();
             SetupMainMenu();
             GameHistory = new History(12, Sources);
@@ -240,7 +248,8 @@ namespace Droplets
                 UndoButton.BackgroundImage = UndoReset;
                 //the timer runs (on) its own thread, which means it may not update UI elements, the progressbutton must therefore be made visible by other means
             }
-
+            
+            //dragging a droplet
             if (levelnr >= 0 && !completed)
             {
                 DragLock.LockIt();
@@ -270,7 +279,8 @@ namespace Droplets
 
             SetupLevelSelection();
         }
-
+        
+        //the soundbutton has four possible states; it loops through these as it is being pressed upon
         public void SoundButtonHandler(object o, EventArgs ea)
         {
             ChapterNrName.Focus(); //The simple way of losing focus
@@ -309,6 +319,7 @@ namespace Droplets
             SetupLevel(temp);
         }
 
+        //Quit only closes the game if it is in the main menu; anywhere else it sends you back one menu
         public void QuitHandler(object o, EventArgs ea)
         {
             ChapterNrName.Focus(); //The simple way of losing focus
@@ -325,6 +336,7 @@ namespace Droplets
         {
             ChapterNrName.Focus(); //The simple way of losing focus
             
+            //display the next levels
             if (selectionIndex < (chapters[selectedChapter].levels.Count - 1) / 12)
                 selectionIndex++;
             else if (selectedChapter < chapters.Count - 1)
@@ -339,6 +351,7 @@ namespace Droplets
         {
             ChapterNrName.Focus(); //The simple way of losing focus
             
+            //display the previous levels
             if (selectionIndex > 0)
                 selectionIndex--;
             else if (selectedChapter > 0)
@@ -389,6 +402,7 @@ namespace Droplets
         {
             ChapterNrName.Focus(); //The simple way of losing focus
             
+            //get and goto the next level
             int current = chapters[selectedChapter].levels.IndexOf(LevelDictionary[loadedstring]);
 
             if (current < chapters[selectedChapter].levels.Count - 1)
@@ -412,6 +426,7 @@ namespace Droplets
         {
             if (OnlyForcedUpdate && kea.KeyCode == Keys.Enter)
                 Update();
+            //backspace also activates the undobutton
             if (kea.KeyCode == Keys.Back)
                 UndoHandler(o, kea);
         }
@@ -424,6 +439,7 @@ namespace Droplets
 
         public void Update()
         {
+            //increase the levelcompletion timer
             if (completed && completedtiming < 25)
             {
                 completedtiming++;
@@ -431,17 +447,20 @@ namespace Droplets
 
             if (levelnr >= 0 && !completed)
             {
+                //reset the submissionzone fillstates
                 int AllFilled = 0;
                 foreach (SubmitZone zone in SubmitZones)
                 {
                     zone.PrevFill = zone.Filled;
                     zone.Filled = false;
                 }
+
                 DrawLock.LockIt();
                 foreach (Source s in Sources)
                 {
                     if (s.Active)
                     {
+                        //fill the submissionzones
                         foreach (SubmitZone zone in SubmitZones)
                         {
                             if (!zone.Filled)
@@ -453,12 +472,14 @@ namespace Droplets
                                 if (testZone)
                                 {
                                     AllFilled++;
+                                    //only retract if it is not filling a submissionzone
                                     s.retractThisUpdate = false;
                                 }
                             }
                         }
 
                         DragLock.LockIt();
+                        //test for collisions between droplets
                         foreach (Source s2 in Sources)
                         {
                             if (s != s2 && s2.Active)
@@ -589,12 +610,14 @@ namespace Droplets
                     }
                 }
 
+                //we can only add new sources, when we have left the foreach looping over them
                 foreach (Source s in NewSources)
                     Sources.Add(s);
                 NewSources.Clear();
 
                 zonesfilled = AllFilled;
 
+                //level completed?
                 if (SubmitZones.Count == AllFilled)
                 {
                     completed = true;
@@ -603,6 +626,7 @@ namespace Droplets
 
                 bool invalidatedForm = false;
 
+                //update droplets
                 if (!Dragging)
                 {
                     foreach (Source s in Sources)
@@ -616,8 +640,9 @@ namespace Droplets
 
                 DrawLock.UnlockIt();
 
+                //time to draw
                 if (invalidatedForm)
-                    this.Invalidate(); ;
+                    this.Invalidate();
             }
         }
 
@@ -643,16 +668,17 @@ namespace Droplets
             return OnlyForcedUpdate; //return new state
         }
 
+        //activate or deactivate the timer
         public void SetTimer(bool newstate)
         {
             if (newstate && ((update != null && !update.Enabled) || update == null))
-            {
+            { //you need to set up a new timer, to be able to activate it
                 update = new System.Timers.Timer(10);
                 update.Elapsed += new ElapsedEventHandler(Update);
                 update.Enabled = true;
             }
             else if (!newstate && update != null)
-                update.Dispose();
+                update.Dispose(); //you need to dispose of the timer, to be able to deactivate it
             OnlyForcedUpdate = !newstate;
         }
 #endregion
@@ -694,6 +720,7 @@ namespace Droplets
             }
         }
 
+        //set up the game to display a level
         public void SetupLevel(Level level)
         {
             inMenu = false;
@@ -732,6 +759,7 @@ namespace Droplets
                 SetTimer(true);
         }
 
+        //set up the game to display the level selection screen
         public void SetupLevelSelection()
         {
             SetTimer(false);
@@ -758,6 +786,7 @@ namespace Droplets
             RefreshLevelSet();
         }
 
+        //loads the correct set of levels into the level selection array
         public void RefreshLevelSet()
         {
             foreach (Control c in LevelArray)
@@ -784,6 +813,7 @@ namespace Droplets
             ChapterNrName.Text = "Chapter " + (selectedChapter + 1);
         }
 
+        //set up the game to display the main menu screen
         public void SetupMainMenu()
         {
             SetTimer(false);
@@ -824,6 +854,7 @@ namespace Droplets
             }
         } 
 
+        //positive feedback :)
         public void PlayPositive()
         {
             if (playSound)
@@ -832,16 +863,6 @@ namespace Droplets
             }
         }
 #endregion
-        public void LoadBenchmarkLevel()
-        {
-            levelnr = 0;
-            Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(240, 240)));
-            Sources.Add(new Source(new GreenColour(), new LargeSize(), new Vector2(400, 240)));
-            Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(180, 180)));
-            Sources.Add(new Source(new BlueColour(), new SmallSize(), new Vector2(20, 180)));
-            Sources.Add(new Source(new WhiteColour(), new MediumSize(), new Vector2(500, 240)));
-        }
-
         public void LevelCompleted()
         {
             PlayPositive();
@@ -870,7 +891,7 @@ namespace Droplets
 
                     string text = zonesfilled + "/" + zonesnumber;
                     SizeF textsize = pea.Graphics.MeasureString(text, font);
-                    pea.Graphics.DrawString(text, font, new SolidBrush(System.Drawing.Color.FromArgb(255, 108, 183, 183)) //255, 96, 214, 214
+                    pea.Graphics.DrawString(text, font, new SolidBrush(System.Drawing.Color.FromArgb(255, 108, 183, 183))
                                            , this.ClientSize.Width - 35 - (textsize.Width / 2), textsize.Height / 2);
 
                     DrawLock.UnlockIt();
