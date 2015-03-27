@@ -7,28 +7,34 @@ using System.Drawing;
 namespace Droplets
 {
     /// <summary>
-    /// BlobColour is a class used to prevent directly reverencing colors, so the actual color names are hidden behind the simple ones.
+    /// BlobColour is a class used to prevent directly referencing colors, so the actual color names are hidden behind the simple ones.
     /// </summary>
     public class BlobColour
     {
         /// <summary>
-        /// Returns what color should be used to draw this BlobColour
+        /// Returns what color should be used to draw this when a Blob is drawn
         /// </summary>
         virtual public Color screenColor
         {
             get { return Color.Transparent; }
         }
-
+        /// <summary>
+        /// Returns what color should be used to draw this when a Submissionzone is drawn
+        /// </summary>
         virtual public Color secondColor
         {
             get { return Color.Transparent; }
         }
-
+        /// <summary>
+        /// Returns the value used in the colourmixer to easily mix colours symmetrically
+        /// </summary>
         virtual public int mixerHelper
         {
             get { return 0; }
         }
-
+        /// <summary>
+        /// Returns a new BlobColour that has the specified colour; there are only nine different accepted inputs
+        /// </summary>
         public BlobColour fromString(string name)
         {
             if (name == "White")
@@ -52,8 +58,8 @@ namespace Droplets
             return null;
         }
     }
-
-       public class WhiteColour : BlobColour
+#region BlobColours
+    public class WhiteColour : BlobColour
     {
         public override Color screenColor
         {
@@ -259,9 +265,15 @@ namespace Droplets
             get { return 100000000; }
         }
     }
-
+#endregion
+    /// <summary>
+    /// The colourmixer is used to (symmetrically) create new BlobColours from others; it uses the mixerhelper to do this.
+    /// </summary>
     public class ColourMixer
     {
+        /// <summary>
+        /// Returns a new BlobColour, which is the combination of the supplied two BlobColours
+        /// </summary>
         public static BlobColour mix(BlobColour c1, BlobColour c2)
         {
             int mixed = c1.mixerHelper + c2.mixerHelper;
@@ -370,7 +382,9 @@ namespace Droplets
             }
             return new BlobColour();
         }
-
+        /// <summary>
+        /// Returns a new BlobColour, which is the complementary colour of the supplied BlobColour
+        /// </summary>
         public static BlobColour complement(BlobColour c)
         {
             switch(c.mixerHelper)

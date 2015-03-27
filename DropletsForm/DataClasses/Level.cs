@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Droplets
 {
+    /// <summary>
+    /// An object which holds all the necessary data of a single level
+    /// </summary>
     class Level
     {
         public int nr;
