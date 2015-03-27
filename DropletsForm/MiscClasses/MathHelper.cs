@@ -9,6 +9,13 @@ namespace Droplets
 { 
     class MathHelper
     {
+        /// <summary>
+        /// Calculate how big the axis of the droplet have to be
+        /// </summary>
+        /// <param name="s">the droplet itself</param>
+        /// <param name="c">distance between the midpoint and one of the foci</param>
+        /// <param name="a">the semi-major axis</param>
+        /// <param name="b">the semi-minor axis</param>
         public static void calculateAxis(Source s, out double c, out double a, out double b)
         {
             c = distance(s.SourceAnchor, s.ExtensionAnchor) / 2;
@@ -37,7 +44,6 @@ namespace Droplets
         /// calculates the summed distance a point must not be greater than, to still be inside of the ellips
         /// Doesn't actually work as intended, a lot of space outside of the ellips seems to fall under this... (false positives)
         /// </summary>
-        /// <returns></returns>
         public static double calculateEllipseCollisionRadius2(Source s)
         {
             double a, b, c;

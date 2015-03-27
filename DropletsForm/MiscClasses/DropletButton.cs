@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Droplets
 {
+    /// <summary>
+    /// A specific button that has several defaults set correctly to what is needed.
+    /// </summary>
     partial class DropletButton : UserControl
     {
         public Label text = new Label();
