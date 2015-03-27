@@ -8,5 +8,5 @@ Rectangle 0 240 800 240
 Sources 4
 Blue 1 72 206
 Blue 1 71 271
-Red 1 197 208
+Red 1 272 208
 Yellow 1 153 273
