@@ -83,9 +83,7 @@ namespace Droplets
         public static TTASLock DrawLock = new TTASLock();
         WMPLib.IWMPPlaylist bgplaylist;
         static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
-        //static WMPLib.WindowsMediaPlayer soundplayer = new WMPLib.WindowsMediaPlayer();
         static SoundPlayer soundplayer = new SoundPlayer("assets/Positive2.wav");
-        //public WMPLib.IWMPMedia positive1;
 
         private static System.Timers.Timer update;
 
@@ -103,16 +101,11 @@ namespace Droplets
             ProgressButton = new DropletButton("Progress", this);
 
             bgplaylist = bgplayer.playlistCollection.newPlaylist("Music/playlist");
-            //bgplaylist.appendItem(bgplayer.newMedia("music/05 Unbound.mp3"));
-           // bgplaylist.appendItem(bgplayer.newMedia("music/11 The White River.mp3"));
-          //  bgplaylist.appendItem(bgplayer.newMedia("music/12 Silence Unbroken.mp3"));
-         //   bgplaylist.appendItem(bgplayer.newMedia("music/16 Journey's End.mp3"));
             bgplaylist.appendItem(bgplayer.newMedia("music/BackgroundMusic.mp3"));
             bgplayer.settings.volume = 8;
             bgplayer.currentPlaylist = bgplaylist;
             bgplayer.controls.play();
             bgplayer.settings.setMode("loop", true);
-            //bgplayer.PlayStateChange += bgplayer_PlayStateChange;
 
             this.Text = "Droplets";
             this.Icon = new Icon("assets/droplets.ico");
@@ -147,7 +140,7 @@ namespace Droplets
             ChapterNrName.TextAlign = ContentAlignment.MiddleCenter;
             ChapterNrName.Text = "Testing";
             ChapterNrName.Font = new Font("Helvetica", 32, FontStyle.Bold, GraphicsUnit.Pixel);
-            ChapterNrName.ForeColor = System.Drawing.Color.FromArgb(255, 63, 143, 153); //255, 96, 214, 214
+            ChapterNrName.ForeColor = System.Drawing.Color.FromArgb(255, 63, 143, 153);
             ChapterNrName.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(ChapterNrName);
 
@@ -195,19 +188,11 @@ namespace Droplets
             RetrieveLevels();
             SetupMainMenu();
             GameHistory = new History(12, Sources);
-
-//To be removed in final product
-            //OnlyForcedUpdateButton.Location = new System.Drawing.Point(0, 0);
-            //OnlyForcedUpdateButton.Size = new Size(10, 10);
-            //OnlyForcedUpdateButton.TabStop = false;
-            //this.Controls.Add(OnlyForcedUpdateButton);
-            //OnlyForcedUpdateButton.Click += (sender, e) => ToggleTimer();
         }
 
 #region MouseEvents
         public void MouseDownHandler(object o, MouseEventArgs mea)
         {
-            //Console.WriteLine("MouseDown" + mea.X + ", " + mea.Y);
             if (levelnr >= 0 && !completed)
             {
                 foreach (Source s in Sources)
@@ -238,10 +223,8 @@ namespace Droplets
             if (levelnr >= 0)
             {
                 DragLock.LockIt();
-                    //Console.WriteLine("MouseUp" + mea.X + ", " + mea.Y);
                     if (DragSource != null)
                         DragSource.dragged = false;
-                    //     Console.WriteLine("angle:{0}", MathHelper.angleCalculate(DragSource.SourceAnchor, DragSource.ExtensionAnchor));
                     DragSource = null;
                     Dragging = false;
                 DragLock.UnlockIt();
@@ -455,7 +438,6 @@ namespace Droplets
                     zone.Filled = false;
                 }
                 DrawLock.LockIt();
-                //Console.WriteLine("Lock of Draw: Update");
                 foreach (Source s in Sources)
                 {
                     if (s.Active)
@@ -593,7 +575,6 @@ namespace Droplets
 
                                         this.Invalidate();
 
-                                        //Console.WriteLine("made new source! size:{0}", newsize);
                                         BlobSize bSize = new BlobSize().fromInt(newsize);
                                         BlobColour bColour = new BlobColour().fromString(s.SourceColour.ToString());
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
@@ -634,7 +615,6 @@ namespace Droplets
                 }
 
                 DrawLock.UnlockIt();
-                //Console.WriteLine("Unlock of Draw: Update");
 
                 if (invalidatedForm)
                     this.Invalidate(); ;
@@ -844,24 +824,11 @@ namespace Droplets
             }
         } 
 
-        public void bgplayer_PlayStateChange(int state)
-        {
-            //Console.WriteLine(state);
-        }
-
         public void PlayPositive()
         {
             if (playSound)
             {
                 soundplayer.Play();
-
-                //if (positive1 == null)
-                //{
-                //    soundplayer.URL = "assets/Positive2.wav";
-                //    positive1 = soundplayer.controls.currentItem;
-                //}
-                //else
-                //    soundplayer.controls.playItem(positive1);
             }
         }
 #endregion
@@ -877,7 +844,6 @@ namespace Droplets
 
         public void LevelCompleted()
         {
-           // Console.WriteLine("Hurray! All zones filled!");
             PlayPositive();
         }
 
@@ -887,7 +853,6 @@ namespace Droplets
             {
                 if (DrawLock.TryLock())
                 {
-                    //Console.WriteLine("Lock of Draw: Draw");
                     foreach (SubmitZone s in SubmitZones)
                     {
                         s.Draw(pea.Graphics);
@@ -909,10 +874,7 @@ namespace Droplets
                                            , this.ClientSize.Width - 35 - (textsize.Width / 2), textsize.Height / 2);
 
                     DrawLock.UnlockIt();
-                    //Console.WriteLine("Unlock of Draw: Draw");
                 }
-               // else
-                    //Console.WriteLine("draw failed");
             }
         }
     }

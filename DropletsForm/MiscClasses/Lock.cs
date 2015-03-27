@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Droplets
 {
+    /// <summary>
+    /// A test-test-and-set lock that can both be spinned to get, but also be simply tried once.
+    /// </summary>
     public class TTASLock
     {
         int AtomState = 0;                                  //an indicator used to see wether or not someone allready has the lock. (0 for free, 1 for in use)
