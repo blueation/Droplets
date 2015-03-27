@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace Droplets
 {
+    /// <summary>
+    /// The main object of the game. Contains all necessary data to draw and copy these droplets.
+    /// </summary>
     public class Source
     {
         public BlobColour SourceColour;
@@ -40,28 +43,43 @@ namespace Droplets
             //this.DefaultBehaviour = DefaultBehaviour;
         }
 
-        //checks whether or not a point is on/in a droplet
+        /// <summary>
+        /// checks whether or not a point is on/in a droplet
+        /// </summary>
         public bool isIn(float x, float y)
         {
             //Console.WriteLine("totaldistance = {0}", MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y));
             //Console.WriteLine("a2 = {0}", MathHelper.calculateEllipseCollisionRadius2(this));
             return MathHelper.distance(SourceAnchor, x, y) + MathHelper.distance(ExtensionAnchor, x, y) <= MathHelper.calculateEllipseCollisionRadius2(this);
         }
+        /// <summary>
+        /// checks whether or not a vector ends on/in a droplet
+        /// </summary>
         public bool isIn(Vector2 v)
         {
             return isIn(v.X, v.Y);
         }
+        /// <summary>
+        /// returns a tuple equal to the supplied vector, if the vector ends on/in a droplet
+        /// </summary>
         public Tuple<float,float> returnIn(Vector2 v)
         {
             if (isIn(v.X, v.Y))
                 return new Tuple<float,float>(v.X, v.Y);
             return null;
         }
-
+        /// <summary>
+        /// returns whether or not a supplied Droplet collides with this Droplet
+        /// </summary>
+        /// <param name="Other"></param>
+        /// <returns></returns>
         public bool isCollision(Source Other)
         {
             return isIn(Other.SourceAnchor) || isIn(Other.ExtensionAnchor);
         }
+        /// <summary>
+        /// Returns a point of a supplied Droplet that is on/in a droplet; returns null if there is no collision
+        /// </summary>
         public Tuple<float,float> returnCollision(Source Other)
         {
             Tuple<float,float> point = returnIn(Other.SourceAnchor);
@@ -104,7 +122,9 @@ namespace Droplets
             g.FillRectangle(complementBrush, (int)SourceAnchor.X - 3, (int)SourceAnchor.Y - 3, 6, 6);
             g.FillRectangle(complementBrush, (int)ExtensionAnchor.X - 3, (int)ExtensionAnchor.Y - 3, 6, 6);
         }
-
+        /// <summary>
+        /// Shortens the distance between the two anchors of the droplet
+        /// </summary>
         public void Retract()
         {
             float stretch = Convert.ToSingle(MathHelper.distance(SourceAnchor, ExtensionAnchor));
@@ -118,17 +138,23 @@ namespace Droplets
                 ExtensionAnchor = SourceAnchor + stretch * ExtensionAnchor;
             }
         }
-
+        /// <summary>
+        /// Completely retracts the droplet
+        /// </summary>
         public void FullRetract()
         {
             ExtensionAnchor = SourceAnchor;
         }
-
+        /// <summary>
+        /// Deactivates both collision and drawing of this droplet
+        /// </summary>
         public void Deactivate()
         {
             Active = false;
         }
-
+        /// <summary>
+        /// Deep copies the droplet
+        /// </summary>
         public Source Copy()
         {
             return new Source(new BlobColour().fromString(SourceColour.ToString()), 

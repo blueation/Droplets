@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace Droplets
 {
     /// <summary>
-    /// SubmitZones are the "inleverzones", they consist of multiple subzones.
+    /// SubmitZones are the "inleverzones", they consist of multiple subzones
     /// </summary>
     class SubmitZone
     {
@@ -33,8 +33,6 @@ namespace Droplets
         /// <summary>
         /// Used to detect whether or not a Droplet touches the SubmitZone
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
         public bool isCollision(Source source)
         {
             bool result = false;
@@ -72,9 +70,6 @@ namespace Droplets
             //do we even need to check this collision (do the colours match)?
             if (source.SourceColour.ToString() == parent.colour.ToString())
             { 
-                //TODO: VERY SIMPLE implementation, it only checks whether or not the anchor points are inside of the regions.
-                //                                  We probably need a more interesting function to handle this.
-
                 //is the source anchored inside of the region
                 if ((source.SourceAnchor.X >= x)
                     && (source.SourceAnchor.Y >= y)

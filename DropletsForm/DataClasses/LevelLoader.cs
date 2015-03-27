@@ -8,8 +8,14 @@ using Microsoft.Xna.Framework;
 
 namespace Droplets
 {
+    /// <summary>
+    /// The levelloader parses levels.
+    /// </summary>
     class LevelLoader
     {
+        /// <summary>
+        /// Loads and parses the level located at the supplied location
+        /// </summary>
         public static Level LoadLevel(string filepath)
         {
             Level result = new Level(filepath);
@@ -73,7 +79,9 @@ namespace Droplets
             }
             return result;
         }
-
+        /// <summary>
+        /// Returns all filepaths in a directory
+        /// </summary>
         public static string[] AllPathsOfDirectory(string folderpath)
         {
             string[] result = Directory.GetFiles(folderpath, "*.txt" , SearchOption.AllDirectories);

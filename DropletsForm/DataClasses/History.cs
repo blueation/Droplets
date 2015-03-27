@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Droplets
 {
+    /// <summary>
+    /// An object that is used to keep track of a Droplets-game and enables the player to undo their actions
+    /// </summary>
     class History
     {
         private int head = 0;
@@ -25,7 +28,7 @@ namespace Droplets
                 result.Add(s.Copy());
             sourceHistory[head] = result;
         }
-
+        
         public void Clear()
         {
             head = 0;
@@ -36,7 +39,9 @@ namespace Droplets
                 result.Add(s.Copy());
             sourceHistory[head] = result;
         }
-
+        /// <summary>
+        /// Adds a new entry to the history and deletes the oldest entry if it holds too many items.
+        /// </summary>
         public void Add(List<Source> entry)
         {
             bool different = entry.Count != sourceHistory[head].Count;
@@ -66,7 +71,9 @@ namespace Droplets
                 tail %= entries;
             }
         }
-
+        /// <summary>
+        /// Returns and deletes the most recent entry, as long as their is an older entry. Otherwise it returns the only entry it has.
+        /// </summary>
         public List<Source> Retrieve()
         {
             int retrieveloc = head;

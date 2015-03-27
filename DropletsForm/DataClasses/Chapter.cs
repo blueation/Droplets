@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Droplets
 {
+    /// <summary>
+    /// An object to hold multiple levels
+    /// </summary>
     class Chapter
     {
         public List<Level> levels = new List<Level>();
