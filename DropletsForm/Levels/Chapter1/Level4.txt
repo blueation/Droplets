@@ -2,15 +2,15 @@ DropletsGame
 4 Level4
 SubmitZones 4
 Blue 1
-Rectangle 300 0 300 300
+Rectangle 400 0 400 240
 Green 1
-Rectangle 0 0 300 300
+Rectangle 0 240 400 240
 Red 1
-Rectangle 300 300 300 300
+Rectangle 0 0 400 240
 Orange 1
-Rectangle 0 300 300 300
+Rectangle 400 240 400 240
 Sources 4
-Orange 2 335 210
-Green 2 335 400
-Red 2 265 400
-Blue 2 265 210
+Orange 2 365 380
+Green 2 435 380
+Red 2 435 100
+Blue 2 365 100
