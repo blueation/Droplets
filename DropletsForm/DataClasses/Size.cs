@@ -18,6 +18,11 @@ namespace Droplets
             get { return 0; } //should never get this.
         }
 
+        public override string ToString()
+        {
+            return "null";
+        }
+
         /// <summary>
         /// returns the maximum allowed distance between anchors for certain sizes
         /// </summary>
@@ -66,6 +71,11 @@ namespace Droplets
             get { return 1; }
         }
 
+        public override string ToString()
+        {
+            return "small";
+        }
+
         public override float getMaxStretch
         {
             get { return 100; }
@@ -94,6 +104,11 @@ namespace Droplets
             get { return 2; }
         }
 
+        public override string ToString()
+        {
+            return "medium";
+        }
+
         public override float getMaxStretch
         {
             get { return 140; }
@@ -120,6 +135,11 @@ namespace Droplets
         public override int toInt
         {
             get { return 3; }
+        }
+
+        public override string ToString()
+        {
+            return "large";
         }
 
         public override float getMaxStretch

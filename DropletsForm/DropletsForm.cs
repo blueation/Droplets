@@ -197,10 +197,10 @@ namespace Droplets
             this.Paint += this.Draw;
 #endregion
             //set up actual game
+            log.AppendLine("Initialised game");
             RetrieveLevels();
             SetupMainMenu();
             GameHistory = new History(12, Sources);
-            log.AppendLine("Initialised Game");
         }
 
 #region MouseEvents
@@ -223,7 +223,7 @@ namespace Droplets
 
                 if (Dragging)
                 {
-                    log.AppendLine("MouseDown on " + LastDragged.ToString());
+                    log.AppendLine("MouseDown on {X:" + mea.X + " Y:" + mea.Y + "}, " + LastDragged.ToString() + ": " + DateTime.UtcNow);
                 }
             }
             this.Invalidate();
@@ -240,6 +240,9 @@ namespace Droplets
 
             if (levelnr >= 0)
             {
+                if (DragSource != null)
+                    log.AppendLine("MouseUp on   {X:" + mea.X + " Y:" + mea.Y + "}, " + LastDragged.ToString() + ": " + DateTime.UtcNow);
+
                 DragLock.LockIt();
                     if (DragSource != null)
                         DragSource.dragged = false;
@@ -382,7 +385,9 @@ namespace Droplets
         public void UndoHandler(object o, EventArgs ea)
         {
             ChapterNrName.Focus(); //The simple way of losing focus
-            
+
+            log.AppendLine("Undo pressed: " + DateTime.UtcNow);
+
             if (!completed)
             {
                 DrawLock.LockIt();
@@ -400,7 +405,9 @@ namespace Droplets
         public void ResetHandler(object o, EventArgs ea)
         {
             ChapterNrName.Focus(); //The simple way of losing focus
-            
+
+            log.AppendLine("Level has been reset: " + DateTime.UtcNow);
+
             DrawLock.LockIt();
                 GameHistory.Clear();
                 SetupLevel(LevelDictionary[loadedstring]);
@@ -477,7 +484,10 @@ namespace Droplets
                             {
                                 bool testZone = zone.isCollision(s);
                                 if (testZone && !zone.PrevFill)
+                                {
+                                    log.AppendLine("Zone filled " + zone.ToString() + ": " + DateTime.UtcNow);
                                     PlayPositive();
+                                }
                                 zone.Filled = testZone;
                                 if (testZone)
                                 {
@@ -519,12 +529,18 @@ namespace Droplets
 
                                         s.SourceSize = new BlobSize().fromInt(s.SourceSize.toInt - newsize);
                                         if (s.SourceSize.toInt == 0)
+                                        {
+                                            log.AppendLine("Deactivated source " + s.ToString() + ": " + DateTime.UtcNow);
                                             s.Deactivate();
+                                        }
                                         s.FullRetract();
 
                                         s2.SourceSize = new BlobSize().fromInt(s2.SourceSize.toInt - newsize);
                                         if (s2.SourceSize.toInt == 0)
+                                        {
+                                            log.AppendLine("Deactivated source " + s2.ToString() + ": " + DateTime.UtcNow);
                                             s2.Deactivate();
+                                        }
                                         s2.FullRetract();
 
                                         if (DragSource != null)
@@ -557,9 +573,10 @@ namespace Droplets
 
                                         if (s.SourceSize.toInt == s2.SourceSize.toInt && (s.SourceColour.ToString() == "White" || s2.SourceColour.ToString() == "White"))
                                         {
-                                            NewSources.Add(new Source(new BlobColour().fromString(bColour.ToString()), 
-                                                           new BlobSize().fromInt(bSize.toInt), 
-                                                           bLoc2));
+                                            Source newlymade2 = new Source(new BlobColour().fromString(bColour.ToString()),
+                                                           new BlobSize().fromInt(bSize.toInt),
+                                                           bLoc2);
+                                            NewSources.Add(newlymade2);
 
                                             if (MathHelper.distance(bLoc2, bLoc) <= 2 * bSize.getRadius)
                                             {
@@ -568,6 +585,8 @@ namespace Droplets
                                                 diff *= 2 * bSize.getRadius + 7;
                                                 bLoc = bLoc2 + diff;
                                             }
+
+                                            log.AppendLine("New source " + newlymade2.ToString() + ": " + DateTime.UtcNow);
                                         }
 
                                         if (s.SourceColour.ToString() == "White")
@@ -575,8 +594,10 @@ namespace Droplets
                                         if (s2.SourceColour.ToString() == "White")
                                             s2.SourceColour = new BlobColour().fromString(s.SourceColour.ToString());
 
+                                        Source newlymade = new Source(bColour, bSize, bLoc);
+                                        NewSources.Add(newlymade);
 
-                                        NewSources.Add(new Source(bColour, bSize, bLoc));
+                                        log.AppendLine("New source " + newlymade.ToString() + ": " + DateTime.UtcNow);
                                     }
 #endregion
                                     else
@@ -591,13 +612,19 @@ namespace Droplets
                                         s.SourceSize = new BlobSize().fromInt(0);
                                         s.ExtensionAnchor = s.SourceAnchor;
                                         if (s.SourceSize.toInt == 0)
+                                        {
+                                            log.AppendLine("Deactivated source " + s.ToString() + ": " + DateTime.UtcNow);
                                             s.Deactivate();
+                                        }
                                         s.FullRetract();
 
                                         s2.SourceSize = new BlobSize().fromInt(0);
                                         s2.ExtensionAnchor = s2.SourceAnchor;
                                         if (s2.SourceSize.toInt == 0)
+                                        {
+                                            log.AppendLine("Deactivated source " + s2.ToString() + ": " + DateTime.UtcNow);
                                             s2.Deactivate();
+                                        }
                                         s2.FullRetract();
 
                                         DragSource = null;
@@ -609,7 +636,11 @@ namespace Droplets
                                         BlobSize bSize = new BlobSize().fromInt(newsize);
                                         BlobColour bColour = new BlobColour().fromString(s.SourceColour.ToString());
                                         Vector2 bLoc = new Vector2(newloc.Item1, newloc.Item2);
-                                        NewSources.Add(new Source(bColour, bSize, bLoc));
+
+                                        Source newlymade = new Source(bColour, bSize, bLoc);
+                                        NewSources.Add(newlymade);
+
+                                        log.AppendLine("New source " + newlymade.ToString() + ": " + DateTime.UtcNow);
                                     }
 #endregion
                                 }
@@ -767,6 +798,8 @@ namespace Droplets
             GameHistory = new History(12, Sources);
             if (!level.onlyforced)
                 SetTimer(true);
+
+            log.AppendLine("Level loaded " + loadedstring + ": " + DateTime.UtcNow);
         }
 
         //set up the game to display the level selection screen
@@ -794,6 +827,8 @@ namespace Droplets
             ProgressButton.Visible = false;
 
             RefreshLevelSet();
+
+            log.AppendLine("Level selection: " + DateTime.UtcNow);
         }
 
         //loads the correct set of levels into the level selection array
@@ -850,6 +885,8 @@ namespace Droplets
 
             BackButton.Visible = false;
             ProgressButton.Visible = false;
+
+            log.AppendLine("MainMenu open: " + DateTime.UtcNow);
         }
 #endregion
 #region Output Logic
@@ -875,6 +912,7 @@ namespace Droplets
 #endregion
         public void LevelCompleted()
         {
+            log.AppendLine("Level completed: " + DateTime.UtcNow);
             PlayPositive();
         }
 
@@ -916,6 +954,7 @@ namespace Droplets
             using (FileStream fs = new FileStream(printingpath, FileMode.Create, FileAccess.Write))
             using (TextWriter tw = new StreamWriter(fs))
             {
+                log.AppendLine("Game terminated");
                 tw.Write(log.ToString());
             }
             base.OnFormClosing(fcea);

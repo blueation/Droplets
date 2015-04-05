@@ -42,6 +42,11 @@ namespace Droplets
             }
             return result;
         }
+
+        public override string ToString()
+        {
+            return colour.ToString();
+        }
     }
 
     abstract class SubSubmitZone

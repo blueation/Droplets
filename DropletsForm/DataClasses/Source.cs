@@ -163,5 +163,10 @@ namespace Droplets
                               Active,
                               false);
         }
+
+        public override string ToString()
+        {
+            return SourceAnchor.ToString() + ", " + SourceColour.ToString() + ", " + SourceSize.ToString();
+        }
     }
 }
