@@ -9,6 +9,7 @@ using System.Drawing.Design;
 using Microsoft.Xna.Framework;
 using System.Timers;
 using System.Media;
+using System.IO;
 
 namespace Droplets
 {
@@ -86,6 +87,9 @@ namespace Droplets
         public static WMPLib.IWMPPlaylist bgplaylist;
         public static WMPLib.WindowsMediaPlayer bgplayer = new WMPLib.WindowsMediaPlayer();
         public static SoundPlayer soundplayer = new SoundPlayer("assets/Positive2.wav");
+
+        //LoggingState
+        public static StringBuilder log = new StringBuilder();
 #endregion
         public DropletsGame()
         {
@@ -196,6 +200,7 @@ namespace Droplets
             RetrieveLevels();
             SetupMainMenu();
             GameHistory = new History(12, Sources);
+            log.AppendLine("Initialised Game");
         }
 
 #region MouseEvents
@@ -214,6 +219,11 @@ namespace Droplets
                         s.dragged = true;
                         DragLock.UnlockIt();
                     }
+                }
+
+                if (Dragging)
+                {
+                    log.AppendLine("MouseDown on " + LastDragged.ToString());
                 }
             }
             this.Invalidate();
@@ -897,6 +907,18 @@ namespace Droplets
                     DrawLock.UnlockIt();
                 }
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs fcea)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string printingpath = path + "\\DropletLog" + DateTime.UtcNow.Day + "_" + DateTime.UtcNow.Month + "_" + DateTime.UtcNow.Year + "__" + DateTime.UtcNow.Hour + "_" + DateTime.UtcNow.Minute + "_" + DateTime.UtcNow.Second + ".txt";
+            using (FileStream fs = new FileStream(printingpath, FileMode.Create, FileAccess.Write))
+            using (TextWriter tw = new StreamWriter(fs))
+            {
+                tw.Write(log.ToString());
+            }
+            base.OnFormClosing(fcea);
         }
     }
 }
